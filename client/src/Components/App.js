@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
-import '../App.css';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import * as actions from '../Actions';
+import { connect } from 'react-redux';
 
-class App extends Component {
+class App extends React.Component {
   render() {
-    return (
-      <div>Insert app here :)</div>
-    )
+    return <div>{this.props.children}</div>;
   }
 }
 
-export default App;
+export default withRouter(
+  connect(
+    null,
+    actions
+  )(App)
+);
