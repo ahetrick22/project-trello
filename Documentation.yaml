@@ -1,0 +1,356 @@
+openapi: 3.0.2
+info: 
+  title: Project Trello
+  description: Cohort project
+  version: 1.0.0
+servers:
+  - url: 'localhost:'
+  
+  
+paths:
+  /login:
+    post:
+      tags:
+        - Users
+      summary: Allow a user to access their organizations' boards
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '401':
+          description: Unauthorized user
+        
+        
+  /organization:
+    get:
+      tags:
+        - Organization
+      summary: Show all boards for this organization.
+      parameters:
+        -in: path
+        name: organization
+        schema:
+          type: string
+          required: true
+          description: name of the organization
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/organization'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      tags:
+        - Board(s)
+      summary: Add a board to your organization
+      requestBody:
+        required: true
+        content:
+          applications/json:
+            schema:
+              type:  object
+              properties:
+                boardName:
+                  type: string
+              required:
+                - name
+      responses:
+      '200':
+        description: OK
+        content:
+          text/plain:
+            schema:
+              type: string
+  
+  /board:
+    post:
+      tags:
+        - List(s)
+      summary: Add a list to a board
+      requestBody:
+        required: true
+        content:
+          applications/json:
+            schema:
+              $ref: '#/components/schemas/list'
+      responses:
+      '200':
+        description: OK
+        content:
+          text/plain:
+            schema:
+              type: string
+    put:
+      tags:
+        - List(s)
+      summary: Edit a list on a board
+      requestBody:
+        required: true
+        content:
+          applications/json:
+            schema:
+              $ref: '#/components/schemas/list'
+      responses:
+      '200':
+        description: OK
+        content:
+          text/plain:
+            schema:
+              type: string
+              
+  /board/{boardId}:
+    get:
+      tags:
+        - Board(s)
+      summary: Show all lists and their cards for a specific board by board id.
+      parameters: 
+        -in: path
+        name: boardId
+        required: true
+        description: the board id
+        schema:
+          type: string
+      responses:
+         '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref:'#/components/schemas/boards'
+          '404':
+            $ref: '#/components/responses/NotFound'
+          
+ 
+  /board/{boardId}/list:
+    post:
+      tags:
+        -Card(s)
+      summary: Add a new card to a specific list
+      requestBody:
+        required: true
+        content:
+          applications/json:
+            schema:
+              $ref: '#/components/schemas/card'
+      responses:
+      '200':
+        description: OK
+        content:
+          text/plain:
+            schema:
+              type: string
+      '400':
+        $ref: '#/components/responses/BadRequest'
+        
+  /card/{cardId}:
+    get:
+      tags:
+        - Card(s)
+      summary:  Get a specific card.
+      parameters:
+       -in: path
+        name: cardId
+        required: true
+        description: the card id
+        schema:
+          type: string
+      responses:
+         '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref:'#/components/schemas/card'
+          '404':
+            $ref: '#/components/responses/NotFound'  
+    put:
+      tags:
+        - Card(s)
+      summary:  Edit a specific card
+      requestBody:
+        required: true
+        content:
+          applications/json:
+            schema:
+              $ref: '#/components/schema/card'
+      responses:
+         '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref:'#/components/schemas/card'
+          '404':
+            $ref: '#/components/responses/NotFound' 
+    delete:
+      tags:
+        - Card(s)
+      summary: Delete a specific card
+      parameters:
+        -in: path
+        description: card Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref:'#/components/schemas/card'
+          '404':
+            $ref: '#/components/responses/NotFound' 
+    post:
+      tags:
+        - Card(s)
+      summary:  Add a comment to a specific card
+      requestBody:
+        required: true
+        content:
+          application/json
+            schema:
+              $ref: '#/components/schema/comment'
+      responses:
+        '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref:'#/components/schemas/card'
+          '404':
+            $ref: '#/components/responses/NotFound' 
+  
+        
+          
+                
+                
+                
+components:
+  responses:
+    NotFound:
+      description:  The specified resource was not found
+    BadRequest:
+      description: The request cannot be understood by the server.
+      
+  schemas:
+    organization:
+      properties:
+        _id:
+          type: string
+        name: 
+          type: string
+        boards:
+          type: array
+          items:
+            $ref: '#/components/schema/board'
+        users:
+          type: array
+          items:
+            $ref: '#/components/schema/user'
+    board:
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        lists:
+          type: array
+          items:
+            $ref: '#/components/schema/list'
+        organization:
+          type: object
+            $ref: '#/components/schema/oganization'
+    user:
+      properties:
+        _id:
+          type: string
+        email:
+          type: string
+        organization:
+          type: array
+          items:
+            $ref: '#/components/schema/organization'
+        hash:
+          type: string
+        salt:
+          type: string
+    list:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        cards:
+          type: array
+          items:
+            $ref: '#/components/schema/card'
+        board:
+          type: object
+          $ref: '#/components/schema/board'
+    card:
+      properties:
+        list: 
+          type: object
+          $ref: '#/components/schema/list'
+        id: 
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        label:
+          type: string
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schema/comment'
+        activity:
+          type: array
+          items:
+            type: string
+          
+    comment:
+      properties:
+        id:
+          type: string
+        user:
+          type: integer
+        text:
+          type: string
+        card: 
+          $ref: '#/components/schema/card'
+        
+        
+          
+        
+        
+    
+      
+    
+            
+      
+          
+    
