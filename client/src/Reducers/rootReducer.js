@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import boardReducer from './boardReducer';
-import cardReducer from './cardReducer';
-import orgReducer from './orgReducer';
-import listReducer from "./listReducer";
+import {boardReducer} from './boardReducer';
+import {cardReducer} from './cardReducer';
+import {orgReducer} from './orgReducer';
+import {listReducer} from "./listReducer";
 
 
 const rootReducer = combineReducers({

@@ -1,4 +1,4 @@
-import GET_LISTS from '../Actions/index';
+import {GET_LISTS} from '../Actions/index';
 
 /*=====================================================
 This reducer will handle the whole board object,

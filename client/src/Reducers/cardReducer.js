@@ -1,4 +1,4 @@
-import GET_CARD_INFO from '../Actions/index'
+import {GET_CARD_INFO} from '../Actions/index'
 /*=====================================================
 This reducer handles all the information for a given card,
 all comments, logs, etc. Will have to make a new call to the
