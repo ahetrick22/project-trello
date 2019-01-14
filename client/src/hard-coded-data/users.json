@@ -1,0 +1,10 @@
+[{"_id":{"$oid":"5c3d0a12c905af1b29c57f07"},"organizations":[{"$oid":"5c3d0a12c905af1b29c57f06"}],"email":"bob@gmail.com","hash":"","salt":"","__v":{"$numberInt":"0"}},
+{"_id":{"$oid":"5c3d0a12c905af1b29c57f08"},"organizations":[{"$oid":"5c3d0a12c905af1b29c57f06"}],"email":"joe@aol.com","hash":"","salt":"","__v":{"$numberInt":"0"}},
+{"_id":{"$oid":"5c3d0a12c905af1b29c57f09"},"organizations":[{"$oid":"5c3d0a12c905af1b29c57f06"}],"email":"sue@yahoo.com","hash":"","salt":"","__v":{"$numberInt":"0"}},
+{"_id":{"$oid":"5c3d0a12c905af1b29c57f0a"},"organizations":[{"$oid":"5c3d0a12c905af1b29c57f06"}],"email":"mary@hotmail.com","hash":"","salt":"","__v":{"$numberInt":"0"}},
+{"_id":{"$oid":"5c3d0a12c905af1b29c57f0b"},"organizations":[{"$oid":"5c3d0a12c905af1b29c57f06"}],"email":"marvin@gmail.com","hash":"","salt":"","__v":{"$numberInt":"0"}},
+{"_id":{"$oid":"5c3d0a12c905af1b29c57f0c"},"organizations":[{"$oid":"5c3d0a12c905af1b29c57f06"}],"email":"patty@mail.com","hash":"","salt":"","__v":{"$numberInt":"0"}},
+{"_id":{"$oid":"5c3d0a12c905af1b29c57f0d"},"organizations":[{"$oid":"5c3d0a12c905af1b29c57f06"}],"email":"john@msn.com","hash":"","salt":"","__v":{"$numberInt":"0"}},
+{"_id":{"$oid":"5c3d0a12c905af1b29c57f0e"},"organizations":[{"$oid":"5c3d0a12c905af1b29c57f06"}],"email":"tucker@gmail.com","hash":"","salt":"","__v":{"$numberInt":"0"}},
+{"_id":{"$oid":"5c3d0a12c905af1b29c57f0f"},"organizations":[{"$oid":"5c3d0a12c905af1b29c57f06"}],"email":"paul@hotmail.com","hash":"","salt":"","__v":{"$numberInt":"0"}},
+{"_id":{"$oid":"5c3d0a12c905af1b29c57f10"},"organizations":[{"$oid":"5c3d0a12c905af1b29c57f06"}],"email":"eve@gmail.com","hash":"","salt":"","__v":{"$numberInt":"0"}}]
