@@ -1,18 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const User = require('./user')
-const Board = require('./board')
+
 
 //define our model
-const OrganizationModel = new Schema({
+const OrganizationSchema = new Schema({
   name: String,
-  boards: [{ type: Board.BoardSchema }],
-  users: [{ type: User.UserSchema }]
+  boards: [{ type: Schema.Types.ObjectId, ref: 'board' }],
+  users: [{ type: Schema.Types.ObjectId, ref: 'user' }]
 })
 
-const OrganizationModel = mongoose.model('organization', OrganizationSchema);
+const Organization = mongoose.model('organization', OrganizationSchema);
 
-module.exports = {
-  OrganizationModel,
-  OrganizationSchema
-}
+module.exports = Organization;

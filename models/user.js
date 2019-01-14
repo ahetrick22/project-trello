@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Organization = require('./organization')
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 
@@ -9,7 +8,7 @@ const UserSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   hash: String,
   salt: String,
-  organizations: [{ type: Organization.OrganizationSchema }]
+  organizations: [{ type: Schema.Types.ObjectId, ref:'organization' }]
 });
 
 UserSchema.methods.setPassword = function(password){
@@ -36,7 +35,7 @@ UserSchema.methods.validPassword = function(password) {
 // };
 
 // Create the model class
-const ModelClass = mongoose.model('user', UserSchema);
+const User = mongoose.model('user', UserSchema);
 
 // Export the model
-module.exports = ModelClass;
+module.exports = User;
