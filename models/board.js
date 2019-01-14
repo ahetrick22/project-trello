@@ -1,9 +1,17 @@
-// const mongoose = require('mongoose');
-// const Schema = mongoose.Schema;
-// const List = require('./list');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const List = require('./list');
 
-// const BoardModel = new Schema({
-//   lists: [{ type: List.ListSchema }],
-//   organization: 
-// })
+const BoardSchema = new Schema({
+  lists: [{ type: List.ListSchema }],
+  organization: { type: Organization.OrganizationSchema }
+})
+
+const BoardModel = mongoose.model('board', BoardSchema);
+
+module.exports = {
+  BoardModel,
+  BoardSchema
+}
+
 

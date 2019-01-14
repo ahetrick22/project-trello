@@ -10,9 +10,9 @@ const OrganizationModel = new Schema({
   users: [{ type: User.UserSchema }]
 })
 
-const OrganizationModel = mongoose.model('organization', organizationModel);
+const OrganizationModel = mongoose.model('organization', OrganizationSchema);
 
 module.exports = {
   OrganizationModel,
-  OrganizationSchema: organizationModel
+  OrganizationSchema
 }
