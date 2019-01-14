@@ -1,4 +1,4 @@
-import GET_BOARDS from '../Actions/index'
+import {GET_BOARDS} from '../Actions/index'
 
 /*=====================================================
 this reducer will handle the order of boards on a given

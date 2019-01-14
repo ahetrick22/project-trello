@@ -1,4 +1,4 @@
-import GET_CARDS from '../Actions/index';
+import {GET_CARDS} from '../Actions/index';
 
 /*=====================================================
 this reducer will manage the order of cards on an individual
