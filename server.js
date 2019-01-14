@@ -15,8 +15,10 @@ app.use(bodyParser.urlencoded({
 app.use(cors());
 
 const mainRoutes = require('./routes/main')
+const hardCodedData = require('./routes/hard-coded-data');
 
 app.use(mainRoutes)
+app.use(hardCodedData);
 
 app.listen(7000, () => {
   console.log('Node.js listening on port ' + 7000)
