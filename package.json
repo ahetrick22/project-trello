@@ -8,5 +8,15 @@
     "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "crypto": "^1.0.1",
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.4",
+    "mongoose-unique-array": "^0.3.0",
+    "nodemon": "^1.18.9",
+    "passport": "^0.4.0"
+  }
 }
