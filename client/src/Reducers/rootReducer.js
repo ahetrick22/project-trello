@@ -9,7 +9,7 @@ const rootReducer = combineReducers({
   organization: orgReducer,
   boards: boardsReducer,
   board: boardReducer,
-  list: listReducer,
+  lists: listReducer,
   card: cardReducer
 });
 
