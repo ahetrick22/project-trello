@@ -11,7 +11,7 @@ class Organization extends Component {
 
   render() {
     const { organization, boards } = this.props;
-
+    
     return (
       <div className="org-home" style={{ textAlign: 'center' }}>
         <div
