@@ -22,8 +22,8 @@ const Header = styled.header`
   position: fixed;
   left: 0;
   right: 0;
-  height: 66px;
-  line-height: 66px;
+  height: 40px;
+  line-height: 40px;
   color: #fff;
   background-color:#3f51b5;
 `
@@ -57,7 +57,7 @@ const Menu = styled.div`
 }
 `
 
-
+//Still needs some work but is a functioning navBar
 
 export class NavBar extends Component {
 
@@ -72,12 +72,7 @@ export class NavBar extends Component {
             <a href="/"><FaFlipboard /> Boards</a>
           </Menu>
         </Header>
-        <Header>
-          <Logo><FaHome /></Logo>
-          <Menu>
-            <a href="/"><FaFlipboard /> Boards</a>
-          </Menu>
-        </Header>
+
 
       </NavDiv>
     )
