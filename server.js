@@ -21,12 +21,14 @@ const hardCodedData = require('./routes/hard-coded-data');
 const organizationRoutes = require('./routes/organizations');
 const boardRoutes = require('./routes/boards');
 const cardRoutes = require('./routes/cards');
+const updateCardRoute = require('./routes/update_card');
 
 app.use(mainRoutes)
 app.use(hardCodedData);
 app.use(organizationRoutes);
 app.use(boardRoutes);
 app.use(cardRoutes);
+app.use(updateCardRoute);
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets
