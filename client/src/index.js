@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { render } from 'react-dom';
-// import Nav from './components/Nav';
+import NavBar from './Containers/nav';
 import App from './Components/App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -23,8 +23,8 @@ const loggedIn = () => {
 
 render(
   <Provider store={store}>
+    <NavBar />
     <Router>
-      {/* <Nav /> */}
       <App>
         <Switch>
           {/* TODO: root path should either be login page or org page depending on if user is logged in or not */}
