@@ -38,8 +38,8 @@ class Board extends Component {
    }
 
    componentDidMount() {
-      // this.props.fetchBoards();
-      // this.props.fetchLists();  
+     const { boardID } = this.props.match.params;
+    this.props.fetchBoard(boardID);
    }
 
    onDragEnd = result => {
@@ -132,8 +132,8 @@ class Board extends Component {
    }
 
    render() {
-      const { board } = this.props.boards;
-
+    //  const { board } = this.props.boards;
+    console.log(this.props.board);
       return (
          <DragDropContext
             onDragEnd = {this.onDragEnd}
@@ -170,10 +170,11 @@ class Board extends Component {
    }   
 }
 
-function mapStateToProps({ boards, lists }) {
+function mapStateToProps({ boards, lists, board }) {
    return {
      boards,
-     lists
+     lists,
+     board
    };
  }
  
