@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import {fetchLogin }from '../../Actions/index'
 
 const LoginPageInputField = styled.div`
     text-align: center;
@@ -16,15 +18,29 @@ const Title = styled.div`
     padding-left: 555px
     font-size: 20px;`
 
-const Button = styled.button`
-    
+const LoginButton = styled.button`
+    background-color: #4CAF50
     ;`
     
+class login extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+        email:'',
+        password:''
+      }
+    this.onSubmit= this.onSubmit.bind(this)
+}
 
-export default class login extends Component {
-
-  
+    onSubmit = props => {
+     this.props.login(props, () => {
+     this.props.history.push('/');
+    });
+  };
+    
   render() {
+    const { handleSubmit } = this.props;
+
     return (
       <div>
         <div className='title'>
@@ -34,29 +50,32 @@ export default class login extends Component {
         </div>
         
         <div className='input-fields'>
-            <form>
+         <div>
            
             <LoginPageInputField>
         
             <br />
-        <input type='text' className='form-control' placeHolder='Username' onChange={event =>
-          this.setState({ username: event.target.value })
-        }/>
+            
+            <input type='text' className='form-control' value={this.state.email} placeholder='Email' onChange={event =>
+            this.setState({ email: event.target.value }) 
+            }/>
        
-        <br/>
-        <label></label>
-        <br />
+            <br/>
+       
+            <br/>
         
-        <input type='text' className='form-control'placeHolder='Password' onChange={event =>
-          this.setState({ password: event.target.value })}/>
+            <input type='text' className='form-control' value={this.state.password} placeholder='Password' onChange={event =>
+             this.setState({ password: event.target.value })}/>
         
-        <Button>
-        <button>Login</button>
-        </Button>
         
-        </LoginPageInputField>
+            <LoginButton onClick={()=>this.props.login(this.state.email,this.state.password)}>
+            Login
+            </LoginButton>
         
-        </form>
+
+           </LoginPageInputField>
+        
+        </div>
         
       </div>
       </div>
@@ -64,3 +83,13 @@ export default class login extends Component {
     )
   }
 }
+
+
+const mapDispatchToProps = {
+  login:fetchLogin
+}
+
+export default connect(null, mapDispatchToProps)(login) 
+
+
+
