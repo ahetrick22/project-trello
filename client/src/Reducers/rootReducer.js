@@ -5,6 +5,11 @@ import { orgReducer } from './orgReducer';
 import { loginReducer as userReducer } from './loginReducer'
 
 const rootReducer = combineReducers({
+  organization: orgReducer,
+  boards: boardsReducer,
+  board: boardReducer,
+  lists: listReducer,
+  card: cardReducer
   loggedInOrganization: orgReducer,
   selectedBoard: boardReducer,
   selectedCard: cardReducer,

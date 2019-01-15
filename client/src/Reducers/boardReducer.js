@@ -9,7 +9,8 @@ export const boardReducer = (state = {}, action) => {
 
   switch (type) {
     case FETCH_BOARD:
-    return {...state, ...payload}
+      //TODO: get data from server
+      return;
     default:
       return state;
   }
