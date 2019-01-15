@@ -34,10 +34,11 @@ render(
           <Route exact path="/orgs/:orgID" component={Organization} />
           <Route exact path="/boards/:boardID" component={Board} />
           <Route exact path="/cards/:cardID" component={Card} />
-          <Redirect from="/" to="/login" />
         </Switch>
       </App>
     </Router>
   </Provider>,
   document.getElementById("root")
 );
+
+//<Redirect from="/" to="/login" />
