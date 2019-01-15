@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import FlexContainer from 'react-styled-flexbox'
-import { FaHome, FaFlipboard } from "react-icons/fa";
+import { FaHome, FaFlipboard } from "react-icons/fa"
+import {Link} from 'react-router-dom'
+import { orgReducer } from '../Reducers/orgReducer';
 
 
 
@@ -63,29 +65,30 @@ export class NavBar extends Component {
 
 
   render() {
-    return (
-
-      <NavDiv>
+    console.log(this.props);
+    return <NavDiv>
         <Header>
-          <Logo><FaHome /></Logo>
+          <Logo>
+            <Link to="/">
+              <FaHome />
+            </Link>
+          </Logo>
           <Menu>
-            <a href="/"><FaFlipboard /> Boards</a>
+            <a href={this.props.organization.organization.id} >
+              <FaFlipboard /> Boards
+            </a>
           </Menu>
         </Header>
-
-
-      </NavDiv>
-    )
+      </NavDiv>;
   }
 }
 
-const mapStateToProps = (state) => ({
-
+const mapStateToProps = (organization) => ({
+  organization,
 })
 
 const mapDispatchToProps = {
 
 }
 
-// export default connect(mapStateToProps, null)(Nav)
-export default NavBar
+export default connect(mapStateToProps, null)(NavBar)
