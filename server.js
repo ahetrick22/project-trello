@@ -2,8 +2,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 var cors = require('cors');
+const keys = require('./config/keys');
 
-mongoose.connect('mongodb://localhost/ProjectTrello')
+
+mongoose.connect(keys.MONGODB_URI);
 
 const app = express()
 
@@ -26,6 +28,9 @@ app.use(organizationRoutes);
 app.use(boardRoutes);
 app.use(cardRoutes);
 
-app.listen(7000, () => {
-  console.log('Node.js listening on port ' + 7000)
+const port = process.env.PORT || 7000;
+
+
+app.listen(port, () => {
+  console.log('Node.js listening on port ' + port)
 })
