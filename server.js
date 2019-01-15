@@ -16,9 +16,15 @@ app.use(cors());
 
 const mainRoutes = require('./routes/main')
 const hardCodedData = require('./routes/hard-coded-data');
+const organizationRoutes = require('./routes/organizations');
+const boardRoutes = require('./routes/boards');
+const cardRoutes = require('./routes/cards');
 
 app.use(mainRoutes)
 app.use(hardCodedData);
+app.use(organizationRoutes);
+app.use(boardRoutes);
+app.use(cardRoutes);
 
 app.listen(7000, () => {
   console.log('Node.js listening on port ' + 7000)
