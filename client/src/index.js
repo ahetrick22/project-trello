@@ -25,8 +25,9 @@ const loggedIn = () => {
 
 render(
     <Provider store={store}>
-      <NavBar />
+    {/* <NavBar /> */}
       <Router>
+      
         <App>
           <Switch>
             {/* TODO: root path should either be login page or org page depending on if user is logged in or not */}
