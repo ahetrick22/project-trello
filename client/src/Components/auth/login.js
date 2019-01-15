@@ -25,11 +25,10 @@ const Button = styled.button`
     font-size:1.5em;
     font-weight:600;
     margin:10px;
-    padding:5px;
+    padding:5px;`
 
 const LoginButton = styled.button`
-    background-color: #4CAF50
-    ;`
+    background-color: #4CAF50;`
     
 class login extends Component {
   constructor(props){
