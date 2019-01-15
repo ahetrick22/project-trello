@@ -1,6 +1,7 @@
-import { FETCH_ORG, FETCH_BOARDS, FETCH_BOARD, LOGIN } from './types';
+import { FETCH_ORG, FETCH_BOARDS, FETCH_BOARD, FETCH_LISTS, LOGIN } from './types';
 import organizations from '../hard-coded-data/organizations.json';
 import boards from '../hard-coded-data/boards.json';
+import lists from '../hard-coded-data/lists.json';
 import users from '../hard-coded-data/users.json'
 
 export const fetchLogin = (email,password) => dispatch => {
@@ -26,6 +27,10 @@ export const fetchOrg = () => dispatch => {
 
 export const fetchBoards = () => dispatch => {
   dispatch({ type: FETCH_BOARDS, payload: boards });
+};
+
+export const fetchLists = () => dispatch => {
+  dispatch({ type: FETCH_LISTS, payload: lists });
 };
 
 export const fetchBoard = boardID => dispatch => {

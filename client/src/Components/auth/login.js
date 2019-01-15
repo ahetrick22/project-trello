@@ -5,6 +5,24 @@ import { connect } from "react-redux";
 import { fetchLogin } from "../../Actions/index";
 
 
+
+const Title = styled.div`
+    padding-top: 50px;
+    padding-left: 555px
+    font-size: 20px;`
+
+
+const Button = styled.button`
+    border:0;
+    border-radius:5px;
+    font-size:1.5em;
+    font-weight:600;
+    margin:10px;
+    padding:5px;`
+
+const LoginButton = styled.button`
+    background-color: #4CAF50;`
+    
 class login extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +43,7 @@ class login extends Component {
     const { handleSubmit } = this.props;
 
     return (
+
       <div className="limiter">
         <div className="container-login100">
           <div className="wrap-login100">
@@ -58,8 +77,8 @@ class login extends Component {
               </div>
             </div>
           </div>
-        </div>
       </div>
+  </div>
     );
   }
 }

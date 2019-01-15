@@ -24,7 +24,6 @@ const loggedIn = () => {
 };
 
 render(
-
     <Provider store={store}>
       <NavBar />
       <Router>
@@ -40,6 +39,7 @@ render(
         </App>
       </Router>
     </Provider>,
+
   document.getElementById("root")
 );
 
