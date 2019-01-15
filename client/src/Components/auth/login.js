@@ -18,6 +18,15 @@ const Title = styled.div`
     padding-left: 555px
     font-size: 20px;`
 
+
+const Button = styled.button`
+    border:0;
+    border-radius:5px;
+    font-size:1.5em;
+    font-weight:600;
+    margin:10px;
+    padding:5px;
+
 const LoginButton = styled.button`
     background-color: #4CAF50
     ;`
@@ -55,18 +64,23 @@ class login extends Component {
             <LoginPageInputField>
         
             <br />
+
+        <input type='text' className='form-control' placeholder='email' onChange={event =>
+          this.setState({ username: event.target.value })
+        }/>
             
             <input type='text' className='form-control' value={this.state.email} placeholder='Email' onChange={event =>
             this.setState({ email: event.target.value }) 
             }/>
        
             <br/>
+
        
             <br/>
         
             <input type='text' className='form-control' value={this.state.password} placeholder='Password' onChange={event =>
              this.setState({ password: event.target.value })}/>
-        
+       
         
             <LoginButton onClick={()=>this.props.login(this.state.email,this.state.password)}>
             Login

@@ -23,7 +23,9 @@ const loggedIn = () => {
 
 render(
   <Provider store={store}>
-    <NavBar />
+    <Router>
+      <NavBar />
+    </Router>
     <Router>
       <App>
         <Switch>
@@ -36,7 +38,7 @@ render(
       </App>
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 //<Redirect from="/" to="/login" />
