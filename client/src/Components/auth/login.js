@@ -17,8 +17,13 @@ const Title = styled.div`
     font-size: 20px;`
 
 const Button = styled.button`
-    
-    ;`
+    border:0;
+    border-radius:5px;
+    font-size:1.5em;
+    font-weight:600;
+    margin:10px;
+    padding:5px;
+    `
     
 
 export default class login extends Component {
@@ -39,7 +44,7 @@ export default class login extends Component {
             <LoginPageInputField>
         
             <br />
-        <input type='text' className='form-control' placeHolder='Username' onChange={event =>
+        <input type='text' className='form-control' placeholder='email' onChange={event =>
           this.setState({ username: event.target.value })
         }/>
        
@@ -51,7 +56,7 @@ export default class login extends Component {
           this.setState({ password: event.target.value })}/>
         
         <Button>
-        <button>Login</button>
+        Login
         </Button>
         
         </LoginPageInputField>
