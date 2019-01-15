@@ -4,7 +4,13 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "concurrently --kill-others-on-fail \"nodemon server\" \"cd client && npm start\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "engines": {
+    "node": "10.14.2",
+    "npm": "6.5.0"
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +25,8 @@
     "mongoose": "^5.4.4",
     "mongoose-unique-array": "^0.3.0",
     "nodemon": "^1.18.9",
-    "passport": "^0.4.0"
+    "passport": "^0.4.0",
+    "swagger-editor": "^3.6.20"
   },
   "devDependencies": {},
   "repository": {

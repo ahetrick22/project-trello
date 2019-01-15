@@ -2,8 +2,7 @@ import { combineReducers } from 'redux';
 import { boardReducer } from './boardReducer';
 import { cardReducer } from './cardReducer';
 import { orgReducer } from './orgReducer';
-import { listReducer } from './listReducer';
-import { boardsReducer } from './boardsReducer';
+import { loginReducer as userReducer } from './loginReducer'
 
 const rootReducer = combineReducers({
   organization: orgReducer,
@@ -11,6 +10,10 @@ const rootReducer = combineReducers({
   board: boardReducer,
   lists: listReducer,
   card: cardReducer
+  loggedInOrganization: orgReducer,
+  selectedBoard: boardReducer,
+  selectedCard: cardReducer,
+  user: userReducer
 });
 
 export default rootReducer;
