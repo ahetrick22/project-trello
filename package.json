@@ -22,10 +22,14 @@
     "express": "^4.16.4",
     "faker": "^4.1.0",
     "jsonwebtoken": "^8.4.0",
+    "jwt-simple": "^0.5.5",
     "mongoose": "^5.4.4",
     "mongoose-unique-array": "^0.3.0",
     "nodemon": "^1.18.9",
-    "passport": "^0.4.0"
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "swagger-editor": "^3.6.20"
   },
   "devDependencies": {},
   "repository": {

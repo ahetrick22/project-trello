@@ -1,16 +1,15 @@
-import { FETCH_LISTS } from '../Actions/types';
+import { FETCH_BOARD } from '../Actions/types';
 
 /*=====================================================
 This reducer will handle the whole board object,
 that is - the list of lists on the individual board
 =====================================================*/
-export const boardReducer = (state = [], action) => {
+export const boardReducer = (state = {}, action) => {
   let { payload, type } = action; //destructuring
 
   switch (type) {
-    case FETCH_LISTS:
-      //TODO: get data from server
-      return;
+    case FETCH_BOARD:
+      return {...state, ...payload};
     default:
       return state;
   }

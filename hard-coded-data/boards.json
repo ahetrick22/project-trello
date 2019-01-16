@@ -1,3 +1,52 @@
-[{"_id":{"$oid":"5c3d0a12c905af1b29c57f11"},"lists":[{"$oid":"5c3d0a12c905af1b29c57f14"},{"$oid":"5c3d0a12c905af1b29c57f15"}],"name":"Project Reddit","organization":{"$oid":"5c3d0a12c905af1b29c57f06"},"__v":{"$numberInt":"0"}},
-{"_id":{"$oid":"5c3d0a12c905af1b29c57f12"},"lists":[{"$oid":"5c3d0a12c905af1b29c57f16"},{"$oid":"5c3d0a12c905af1b29c57f17"}],"name":"To-do List","organization":{"$oid":"5c3d0a12c905af1b29c57f06"},"__v":{"$numberInt":"0"}},
-{"_id":{"$oid":"5c3d0a12c905af1b29c57f13"},"lists":[{"$oid":"5c3d0a12c905af1b29c57f18"},{"$oid":"5c3d0a12c905af1b29c57f19"}],"name":"Hello World","organization":{"$oid":"5c3d0a12c905af1b29c57f06"},"__v":{"$numberInt":"0"}}]
+[{
+      "_id": {
+         "$oid": "5c3d0a12c905af1b29c57f11"
+      },
+      "lists": [{
+         "$oid": "5c3d0a12c905af1b29c57f14"
+      }, {
+         "$oid": "5c3d0a12c905af1b29c57f15"
+      }],
+      "name": "Project Reddit",
+      "organization": {
+         "$oid": "5c3d0a12c905af1b29c57f06"
+      },
+      "__v": {
+         "$numberInt": "0"
+      }
+   },
+   {
+      "_id": {
+         "$oid": "5c3d0a12c905af1b29c57f12"
+      },
+      "lists": [{
+         "$oid": "5c3d0a12c905af1b29c57f16"
+      }, {
+         "$oid": "5c3d0a12c905af1b29c57f17"
+      }],
+      "name": "To-do List",
+      "organization": {
+         "$oid": "5c3d0a12c905af1b29c57f06"
+      },
+      "__v": {
+         "$numberInt": "0"
+      }
+   },
+   {
+      "_id": {
+         "$oid": "5c3d0a12c905af1b29c57f13"
+      },
+      "lists": [{
+         "$oid": "5c3d0a12c905af1b29c57f18"
+      }, {
+         "$oid": "5c3d0a12c905af1b29c57f19"
+      }],
+      "name": "Hello World",
+      "organization": {
+         "$oid": "5c3d0a12c905af1b29c57f06"
+      },
+      "__v": {
+         "$numberInt": "0"
+      }
+   }
+]
