@@ -75,28 +75,38 @@ router.post('/card/:id/comment', (req, res) => {
       if(err) throw err;
       //tells user if no card with that id
       if (!card) {
-        res.send(404, 'No card with that id');
-    } else {
+        res.send(404, 'No such card');
+      } else {
         //create your comment
-        const { text } = req.body
-        Comment.create({text}, (err, comment) => {
-            if (err) {
-                res.status(404, "You must enter a valid username or password");
-            }
-            card.comments.push(comment);
-            card.save();
-        })
-      
-        Card.findById(req.params.id).populate({
-            path: 'comments'
-        }).exec((err, fullcard) => {
-            if(err) throw err;
-            //fullcard.comments.push(comment);
-            res.send(JSON.stringify(fullcard));
+        let newComment = new Comment({
+            //user: {},
+            text: req.body.text
+            //card: req.body.id
+        });
+
+        newComment.save((err, savedComment) => {
+            if (err) throw err;
+            let commentId = savedComment._id;
+            Comment.findById(commentId, (err, newComment) =>{
+                if (err) throw err;
+                card.comments.push(newComment);
+                card.save(function (err, card) {
+                    if (err) throw err;
+                    Card.findById(req.params.id).populate({
+                            path: 'comments'
+                        }).exec((err, fullcard) => {
+                            if (err) throw err;
+                            res.send(JSON.stringify(fullcard));
+                      //  })
+                    })
+                })
+            })
         })
     }
 })
-   }
+   } else {
+       res.send(400, "Send a valid card Id as a parameter");
+   } 
 });
 
 module.exports = router;
