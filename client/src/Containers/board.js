@@ -4,8 +4,8 @@ import List from './list';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
-import _ from 'underscore';
 import {StyledButton} from '../Components/styledButton';
+import { COLORS, TYPEFACE } from '../css/StyleGuide';
 
 const Container = styled.div`
    display: flex;
@@ -18,9 +18,25 @@ class Board extends Component {
       this.state = {};
 
       this.handleNewListClickEvent = this.handleNewListClickEvent.bind(this);
+      this.handleSubmitEvent.bind(this);
    }
    handleNewListClickEvent() {
+      var newListAreaElement = document.getElementById('newListArea');
       console.log('New List Clicked');
+      if (newListAreaElement.style.visibility === 'hidden') {
+         newListAreaElement.style.visibility = 'visible';
+         document.getElementById('new-list-title').focus()
+      } else {
+         newListAreaElement.style.visibility = 'hidden';
+      }
+   }
+
+   handleSubmitEvent() {
+      var input = document.getElementById('new-list-title').value;
+      console.log(input);
+      if (input) {
+         //send to server via sockets
+      }
    }
 
    componentDidMount() {
@@ -194,30 +210,36 @@ class Board extends Component {
                     </Container>}
                 </Droppable>}
             </DragDropContext>
-            <NewListArea>
-               <form action="Submit">
-                  List Name: <input type="text" name="listName"/>
-               </form>
+            <NewListArea id='newListArea' style={{visibility:'hidden'}}>
+               <h3>New list name</h3><br/>
+               <input id="new-list-title" type="text" name="listName" onKeyPress={e => e.key === 'Enter' ? this.handleSubmitEvent() : null}/>              
             </NewListArea>
           </BoardArea>
         </Fragment>;   }   
 }
 
-const NewListArea = styled('div')``;
+
+const NewListArea = styled('div')`
+   margin: 8px;
+   padding: 8px;
+   border: 1px solid lightgrey;
+   background-color: white;
+   border-radius: 2px;
+   width: 220px;
+`
 
 const InfoBar = styled('div')`
-height:75px;
-border:1px solid black;
-display:flex;
-flex-direction:row;
-justify-content:space-between;
-align-items:center;
-
+   height:75px;
+   border:1px solid black;
+   display:flex;
+   flex-direction:row;
+   justify-content:space-between;
+   align-items:center;
 `
 
 const BoardArea = styled('div')`
-display:flex;
-flex-direction:row;
+   display:flex;
+   flex-direction:row;
 `
 
 function mapStateToProps({ board, organization }) {
