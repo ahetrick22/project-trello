@@ -5,7 +5,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import _ from 'underscore';
-import EmptyList from '../Components/emptyList'
+import {StyledButton} from '../Components/styledButton';
 
 const Container = styled.div`
    display: flex;
@@ -16,6 +16,11 @@ class Board extends Component {
    constructor(props) {
       super(props);
       this.state = {};
+
+      this.handleNewListClickEvent = this.handleNewListClickEvent.bind(this);
+   }
+   handleNewListClickEvent() {
+      console.log('New List Clicked');
    }
 
    componentDidMount() {
@@ -161,6 +166,7 @@ class Board extends Component {
 
    }
 
+
    render() {
     //  const { board } = this.props.boards;
     console.log(this.props);
@@ -168,7 +174,7 @@ class Board extends Component {
           <InfoBar>        
                 <h1>{this.props.board.name}</h1>
                 <h2>{this.props.organization.name}</h2>
-            <EmptyList />
+            <StyledButton onClick={this.handleNewListClickEvent}>+New List</StyledButton>
           </InfoBar>
           <BoardArea>
             <DragDropContext onDragEnd={this.onDragEnd}>
@@ -186,9 +192,16 @@ class Board extends Component {
                     </Container>}
                 </Droppable>}
             </DragDropContext>
+            <NewListArea>
+               <form action="Submit">
+                  List Name: <input type="text" name="listName"/>
+               </form>
+            </NewListArea>
           </BoardArea>
         </Fragment>;   }   
 }
+
+const NewListArea = styled('div')``;
 
 const InfoBar = styled('div')`
 height:75px;
