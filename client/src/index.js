@@ -14,6 +14,7 @@ import Login from './Components/auth/login';
 import Organization from './Containers/organization';
 import Board from './Containers/board';
 import Card from './Containers/card';
+import emptyList from './Components/emptyList';
 
 
 
@@ -24,6 +25,7 @@ const loggedIn = () => {
 };
 
 render(
+
     <Provider store={store}>
     {/* <NavBar /> */}
       <Router>
@@ -42,6 +44,7 @@ render(
     </Provider>,
 
   document.getElementById("root")
+
 );
 
 //<Redirect from="/" to="/login" />
