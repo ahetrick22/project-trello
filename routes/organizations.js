@@ -39,20 +39,21 @@ router.post('/organizations/:id', (req, res) => {
         let newBoard = new Board({
           name: req.body.name,
           lists: [],
-          organization: req.body.id
+          organization: req.params.id
         });
         
         newBoard.save();
         organization.boards.push(newBoard);
-        organization.save();
-
-        //populate the organization with its boards and send it
-        Organization.findById(req.params.id, (err, fullOrganization) =>
-          fullOrganization.populate('boards', () => {
-            if (err) throw err;
-            res.send(JSON.stringify(fullOrganization));
-          })
-        )
+        organization.save((err, savedOrg) => {
+          //populate the organization with its boards and send it
+          Organization.findById(savedOrg._id, (err, fullOrganization) =>
+            fullOrganization.populate('boards', () => {
+              if (err) throw err;
+              res.send(JSON.stringify(fullOrganization));
+            })
+          )
+        });
+  
       }
 
     })
