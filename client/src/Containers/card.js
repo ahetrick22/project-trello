@@ -24,7 +24,7 @@ export default class Card extends React.Component {
                   ref={provided.innerRef}
                   isDragging={snapshot.isDragging}
                >
-                  {this.props.card.content};
+                  {this.props.card.content}
                </Container>
             )}
          </Draggable>
