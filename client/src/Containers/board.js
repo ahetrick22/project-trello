@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import List from './list';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import _ from 'underscore';
+import EmptyList from '../Components/emptyList'
 
 const Container = styled.div`
    display: flex;
@@ -162,52 +163,52 @@ class Board extends Component {
 
    render() {
     //  const { board } = this.props.boards;
-    console.log(this.props.board);
-    console.log(this.state);
-      return (
+    console.log(this.props);
+      return <Fragment>
+          <InfoBar>        
+                <h1>{this.props.board.name}</h1>
+                <h2>{this.props.organization.name}</h2>
+            <EmptyList />
+          </InfoBar>
+          <BoardArea>
+            <DragDropContext onDragEnd={this.onDragEnd}>
+              {!this.state.listOrder ? <p>
+                  '...Loading'
+                </p> : <Droppable droppableId="all-lists" direction="horizontal" type="column">
+                  {provided => <Container {...provided.droppableProps} ref={provided.innerRef}>
+                      {this.state.listOrder.map((listId, index) => {
+                        const list = this.state.lists[listId];
+                        const cards = list.cardIds.map(taskId => this.state.cards[taskId]);
 
-         
-
-         <DragDropContext
-            onDragEnd = {this.onDragEnd}
-         >
-            {(!this.state.listOrder) ? (<p>'...Loading'</p>) : (
-               <Droppable 
-                  droppableId='all-lists' 
-                  direction='horizontal' 
-                  type='column'
-               >
-                  { (provided) => (
-                     <Container
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                     >
-                        {this.state.listOrder.map((listId, index) => {
-                           const list = this.state.lists[listId];
-                           const cards = list.cardIds.map(taskId => this.state.cards[taskId]);
-
-                           return (
-                              <List 
-                                 key={list.id} 
-                                 column={list} 
-                                 cards={cards} 
-                                 index={index}
-                              />
-                           );
-                        })}
-                        {provided.placeholder}
-                     </Container>
-                  )}
-               </Droppable>
-            )}
-         </DragDropContext>
-      );
-   }   
+                        return <List key={list.id} column={list} cards={cards} index={index} />;
+                      })}
+                      {provided.placeholder}
+                    </Container>}
+                </Droppable>}
+            </DragDropContext>
+          </BoardArea>
+        </Fragment>;   }   
 }
 
-function mapStateToProps({ board }) {
+const InfoBar = styled('div')`
+height:75px;
+border:1px solid black;
+display:flex;
+flex-direction:row;
+justify-content:space-between;
+align-items:center;
+
+`
+
+const BoardArea = styled('div')`
+display:flex;
+flex-direction:row;
+`
+
+function mapStateToProps({ board, organization }) {
    return {
-     board
+     board,
+     organization
    };
  }
  
