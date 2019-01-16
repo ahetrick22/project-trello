@@ -1,10 +1,9 @@
-//PUT list/listid (Update a list name)
-
 const router = require('express').Router();
 const bodyParser = require('body-parser');
 const List = require('../models/list');
 const Board = require('../models/board');
 
+//updates a list name or a card position within that list
 router.put('/list/:id', (req, res) => {
     //check to see which params come in the body
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -44,5 +43,9 @@ router.put('/list/:id', (req, res) => {
         res.send(400, 'Send a valid object ID as a parameter');
       }
     })
+
+router.post('/list/:listId/card', (req, res) => {
+  res.send("add a new card route");
+})
             
 module.exports = router;
