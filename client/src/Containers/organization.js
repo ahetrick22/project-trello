@@ -14,18 +14,22 @@ class Organization extends Component {
   render() {
     const { organization, boards } = this.props;
 
-    return (
-      <div className="org-home" style={{ fontFamily: TYPEFACE }}>
-        <OrgInfo>
-          <h1>{organization.name}</h1>
-        </OrgInfo>
-        <OrgBoards>
-          <h1>Boards</h1>
-          <BoardList boards={boards} />
-          <AddBoardButton>Add Board</AddBoardButton>
-        </OrgBoards>
-      </div>
-    );
+    if (Object.keys(organization).length === 0 && boards.length === 0) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <div className="org-home" style={{ fontFamily: TYPEFACE }}>
+          <OrgInfo>
+            <h1>{organization.name}</h1>
+          </OrgInfo>
+          <OrgBoards>
+            <h1>Boards</h1>
+            <BoardList boards={boards} />
+            <AddBoardButton>Add Board</AddBoardButton>
+          </OrgBoards>
+        </div>
+      );
+    }
   }
 }
 
