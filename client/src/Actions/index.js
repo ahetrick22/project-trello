@@ -80,12 +80,14 @@ export const fetchCard = cardID => dispatch => {
     });
 };
 
-export const addBoard = (organizationId, boardName) => dispatch => {
+export const addBoard = (organizationId, boardName) => async dispatch => {
   console.log(organizationId, boardName)
-  fetch(`organizations/${organizationId}/board`,{
+  let response = await fetch(`/organizations/${organizationId}`,{
     method:'POST',
-    body:{
+    body:JSON.stringify({
       name:boardName
-    }
-  }).then(r => console.log(r))
+    }), headers: {
+      "Content-Type": "application/json"}
+  })
+  console.log(response)
 }

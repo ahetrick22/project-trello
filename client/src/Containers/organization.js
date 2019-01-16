@@ -53,6 +53,13 @@ this.handleInput = this.handleInput.bind(this);
               <BoardList boards={boards} />
               {this.renderInput()}
             </BoardGrid>
+            <button
+              onClick={() =>
+              this.props.addBoard("5c3e61ac2923ed465c5f96bf", "DEM BOYZ")
+              }
+            >
+              Button
+            </button>
 
             <AddBoardButton onClick={() => this.setState({
                   addBoardInputShown: !this.state.addBoardInputShown
