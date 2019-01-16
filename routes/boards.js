@@ -15,6 +15,7 @@ router.get('/boards', (req, res) => {
 //get a specific board
 router.get('/board/:id', (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
+
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching board
     Board.findById(req.params.id, (err, board) => {
@@ -51,7 +52,9 @@ router.post('/board/:id/list', (req, res) => {
       //if no board at that id, then tell the user
       if (!board) {
         res.send(404, 'No board with that id');
+
         //otherwise, create the new list on that board and send it
+
       } else {
         let newList = new List({
           name: req.body.name,
@@ -86,6 +89,38 @@ router.post('/board/:id/list', (req, res) => {
     //if the object ID wasn't in the correct format
   } else {
     res.send(400, 'Send a valid object ID as a parameter');
+  }
+})
+
+//Updating a board's properties
+router.put('/board/:id', (req, res) => {
+  if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+    let updateObj = {};
+    if (req.body.name) {
+      updateObj.name = req.body.name
+    }
+    if (Object.keys(updateObj).length === 0) {
+      res.send(400, 'Body must have proper parameters')
+    }
+    let { id } = req.params;
+    Board.findByIdAndUpdate(id, updateObj, (err, board) => {
+      if (err) throw err;
+      if (!board) {
+        res.send(404, 'no board matching this id');
+      } else {
+        Board.findById(id).populate({
+          path: 'lists',
+          populate: {
+            path: 'cards'
+          }
+        }).exec((err, fullBoard) => {
+          if (err) throw err;
+          res.send(fullBoard)
+        })
+      }
+    })
+  } else {
+    res.send(400, 'Invalid parameters for request')
   }
 })
 
