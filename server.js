@@ -28,7 +28,7 @@ app.use(hardCodedData);
 app.use(organizationRoutes);
 app.use(boardRoutes);
 app.use(cardRoutes);
-app.use(loginRoutes);
+// app.use(loginRoutes);
 
 if (process.env.NODE_ENV === 'production') {
   // Express will serve up production assets

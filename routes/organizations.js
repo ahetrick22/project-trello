@@ -17,7 +17,7 @@ router.get('/organizations', (req, res) => {
 // Res: Updated Organization with populated boards
 //   - { Name: String, board: [boards] }
 
-router.post('organizations/:organizationId/board', (req, res) => {
+router.post('/organizations/:organizationId/board', (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching organization
@@ -54,6 +54,8 @@ router.post('organizations/:organizationId/board', (req, res) => {
   } else {
   res.send(400, 'Send a valid object ID as a parameter');
 }
+
+
 })
 
 
