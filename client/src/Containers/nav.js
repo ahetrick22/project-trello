@@ -88,6 +88,7 @@ export class NavBar extends Component {
         <LeftButtons>
           <Logo />
           <Menu>
+            
             <a href='#'>
               <FaHome />
             </a>

@@ -208,7 +208,6 @@ class Board extends Component {
                     </Container>}
                 </Droppable>}
             </DragDropContext>
-            <h1>hu</h1>
           </BoardArea>
         </Fragment>;   }   
 }
