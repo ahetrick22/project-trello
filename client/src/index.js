@@ -22,11 +22,10 @@ const loggedIn = () => {
 };
 
 render(
-
   <Provider store={store}>
-    <NavBar />
     <Router>
       <App>
+        <NavBar />
         <Switch>
           {/* TODO: root path should either be login page or org page depending on if user is logged in or not */}
           <Route exact path="/login" component={Login} />
@@ -38,7 +37,6 @@ render(
     </Router>
   </Provider>,
   document.getElementById('root')
-
 );
 
 //<Redirect from="/" to="/login" />
