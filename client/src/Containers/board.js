@@ -187,8 +187,7 @@ class Board extends Component {
                 </Droppable>}
             </DragDropContext>
           </BoardArea>
-        </Fragment>;
-   }   
+        </Fragment>;   }   
 }
 
 const InfoBar = styled('div')`
