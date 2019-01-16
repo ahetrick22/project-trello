@@ -66,19 +66,22 @@ router.post('/board/:id/list', (req, res) => {
           List.findById(refnId, (err, newList) => {
             if (err) throw err;
             board.lists.push(newList);
-            board.save();
+            board.save(function (err, board) {
+              if (err) throw err;
+              Board.findById(req.params.id).populate({
+                path: 'lists',
+                populate: {
+                  path: 'cards'
+                }
+              }).exec((err, fullBoard) => {
+                if (err) throw err;
+                res.send(JSON.stringify(fullBoard));
+              })
+            });
           })
         })
 
-        Board.findById(req.params.id).populate({
-          path: 'lists',
-          populate: {
-            path: 'cards'
-          }
-        }).exec((err, fullBoard) => {
-          if (err) throw err;
-          res.send(JSON.stringify(fullBoard));
-        })
+
       }
 
     })
