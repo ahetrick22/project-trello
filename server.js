@@ -4,7 +4,6 @@ const bodyParser = require('body-parser')
 var cors = require('cors');
 const keys = require('./config/keys');
 
-
 mongoose.connect(keys.MONGODB_URI);
 
 const app = express()
@@ -23,6 +22,7 @@ const boardRoutes = require('./routes/boards');
 const cardRoutes = require('./routes/cards');
 const updateCardRoute = require('./routes/update_card');
 //const loginRoutes = require('./routes/login');
+const listRoutes = require('./routes/lists');
 
 app.use(mainRoutes)
 app.use(hardCodedData);
@@ -31,6 +31,7 @@ app.use(boardRoutes);
 app.use(cardRoutes);
 app.use(updateCardRoute);
 //app.use(loginRoutes);
+app.use(listRoutes);
 
 
 if (process.env.NODE_ENV === 'production') {
