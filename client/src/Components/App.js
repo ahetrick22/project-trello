@@ -8,7 +8,7 @@ class App extends React.Component {
     return (
       <div
         className="app"
-        style={{ boxSizing: 'border-box', marginTop: '40px' }}
+        style={{ boxSizing: 'border-box' }}
       >
         {this.props.children}
       </div>
