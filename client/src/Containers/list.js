@@ -66,3 +66,5 @@ function mapStateToProps({ boards }) {
    mapStateToProps,
    actions
  )(List);
+
+ const PRIMARY_COLOR = '#'

@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import FlexContainer from 'react-styled-flexbox'
 import { FaHome, FaFlipboard } from "react-icons/fa"
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { orgReducer } from '../Reducers/orgReducer';
 
 
@@ -21,7 +21,7 @@ const NavDiv = styled.div`
 `;
 
 const Header = styled.header`
-  position: fixed;
+  position: absolute;
   left: 0;
   right: 0;
   height: 40px;
@@ -67,19 +67,17 @@ export class NavBar extends Component {
   render() {
     console.log(this.props);
     return <NavDiv>
-        <Header>
-          <Logo>
-            <Link to="/">
-              <FaHome />
-            </Link>
-          </Logo>
-          <Menu>
-            <a href={this.props.organization.organization.id} >
-              <FaFlipboard /> Boards
+      <Header>
+        <Logo>
+          <FaHome />
+        </Logo>
+        <Menu>
+          <a href={this.props.organization.organization.id} >
+            <FaFlipboard /> Boards
             </a>
-          </Menu>
-        </Header>
-      </NavDiv>;
+        </Menu>
+      </Header>
+    </NavDiv>;
   }
 }
 

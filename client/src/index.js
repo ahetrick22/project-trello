@@ -14,6 +14,7 @@ import Login from './Components/auth/login';
 import Organization from './Containers/organization';
 import Board from './Containers/board';
 import Card from './Containers/card';
+import emptyList from './Components/emptyList';
 
 
 
@@ -24,9 +25,11 @@ const loggedIn = () => {
 };
 
 render(
+
     <Provider store={store}>
-      <NavBar />
+    {/* <NavBar /> */}
       <Router>
+      
         <App>
           <Switch>
             {/* TODO: root path should either be login page or org page depending on if user is logged in or not */}
@@ -41,6 +44,7 @@ render(
     </Provider>,
 
   document.getElementById("root")
+
 );
 
 //<Redirect from="/" to="/login" />
