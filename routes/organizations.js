@@ -14,13 +14,6 @@ router.post('/organizations/:orgId/board', (req, res) => {
 })
 
 //ADD A BOARD TO AN ORGANIZATION
-
-// POST organization /: organizationId / board - add a new board to the organization
-// Params: organizationId
-// ReqBody: { Name: String }
-// Res: Updated Organization with populated boards
-//   - { Name: String, board: [boards] }
-
 router.post('/organizations/:organizationId/board', (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
