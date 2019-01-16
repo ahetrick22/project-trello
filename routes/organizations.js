@@ -8,5 +8,9 @@ router.get('/organizations', (req, res) => {
   });
 });
 
+//add a board to an org
+router.post('/organizations/:orgId/board', (req, res) => {
+  res.send('org Id route');
+})
 
 module.exports = router;

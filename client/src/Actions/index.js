@@ -3,15 +3,17 @@ import {
   FETCH_BOARDS,
   FETCH_BOARD,
   LOGIN,
-  FETCH_CARD_INFO
+  FETCH_CARD_INFO,
+  FETCH_LISTS
 } from './types';
 import organizations from '../hard-coded-data/organizations.json';
 import boards from '../hard-coded-data/boards.json';
 import users from '../hard-coded-data/users.json';
+import lists from '../hard-coded-data/lists.json';
 
 export const fetchLogin = (email, password) => dispatch => {
   console.log('fetchLOGIN');
-  fetch('http://localhost:3000/login', {
+  fetch('http://localhost:7000/login', {
     method: 'POST',
     body: JSON.stringify({
       email,
@@ -33,6 +35,10 @@ export const fetchOrg = () => dispatch => {
 
 export const fetchBoards = () => dispatch => {
   dispatch({ type: FETCH_BOARDS, payload: boards });
+};
+
+export const fetchLists = () => dispatch => {
+  dispatch({ type: FETCH_LISTS, payload: lists });
 };
 
 export const fetchBoard = boardID => dispatch => {

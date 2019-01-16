@@ -9,7 +9,7 @@ export const boardReducer = (state = {}, action) => {
 
   switch (type) {
     case FETCH_BOARD:
-    return {...state, ...payload}
+      return {...state, ...payload};
     default:
       return state;
   }
