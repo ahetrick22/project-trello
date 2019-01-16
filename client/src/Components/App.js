@@ -10,10 +10,8 @@ class App extends React.Component {
       <div
         className="app"
         style={{
-          boxSizing: 'border-box',
           fontFamily: TYPEFACE
         }}
-
       >
         {this.props.children}
       </div>

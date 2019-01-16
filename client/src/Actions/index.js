@@ -79,3 +79,13 @@ export const fetchCard = cardID => dispatch => {
       if (err) throw err;
     });
 };
+
+export const addBoard = (organizationId, boardName) => dispatch => {
+  console.log(organizationId, boardName)
+  fetch(`organizations/${organizationId}/board`,{
+    method:'POST',
+    body:{
+      name:boardName
+    }
+  }).then(r => console.log(r))
+}
