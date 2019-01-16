@@ -25,7 +25,7 @@ const loggedIn = () => {
 
 render(
     <Provider store={store}>
-    {/* <NavBar /> */}
+    <NavBar />
       <Router>
       
         <App>

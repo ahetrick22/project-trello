@@ -6,19 +6,21 @@ import users from '../hard-coded-data/users.json'
 
 export const fetchLogin = (email,password) => dispatch => {
   console.log("fetchLOGIN")
-  fetch('http://localhost:7000/login', {
+  fetch('/login', {
     method: 'POST',
-    body: JSON.stringify({
+    body: {
     email,
     password,
-  }), 
-    headers:{
-    'Content-Type': 'application/json'
   }
-}).then(res => res.json())
-  .then(response => console.log('Success:', JSON.stringify(response)))
+}).then(res => console.log(res))
+  .then(response => {
+    console.log(response)
+    dispatch({ type: LOGIN, payload: response.data })//depends on what the server returns
+    localStorage.setItem({token:response.data.token})
+
+  })
   .catch(error => console.error('Error:', error));
-  dispatch({ type: LOGIN, payload: users})
+  
 }
 
 export const fetchOrg = () => dispatch => {
