@@ -18,7 +18,7 @@ router.post('/organizations/:id/board', (req, res) => {
       if (err) throw err;
       //if no organization at that id, then tell the user
       if (!organization) {
-        res.send(404, 'No board with that id');
+        res.send(404, 'No organization with that id');
 
         //otherwise, create the new list on that board and send it
 
@@ -45,10 +45,10 @@ router.post('/organizations/:id/board', (req, res) => {
           populate: {
             path: 'users'
           }
-        }).exec((err, organziationView) => {
+        }).exec((err, organizationView) => {
           if (err) throw err;
-          organziationView.boards.push(newBoard);
-          res.send(JSON.stringify(organziationView));
+          organizationView.boards.push(newBoard);
+          res.send(JSON.stringify(organizationView));
         })
       }
 
