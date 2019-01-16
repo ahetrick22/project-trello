@@ -7,3 +7,8 @@ function subscribeToTimer(cb) {
   socket.emit('subscribeToTimer', 1000);
 }
 export { subscribeToTimer };
+
+const updateSameList = (socketObj) => {
+  socket.emit('updateSameList', socketObj);
+}
+export { updateSameList };

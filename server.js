@@ -5,6 +5,7 @@ var cors = require('cors');
 const keys = require('./config/keys');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
+const List = require('./models/list');
 
 
 mongoose.connect(keys.MONGODB_URI);
@@ -39,6 +40,25 @@ io.on('connection', (client) => {
       client.emit('timer', new Date());
     }, interval);
   });
+
+  client.on('updateSameList', (socketObj) => {
+    console.log('server has received socket object', socketObj);
+    List.findById(socketObj.listId, (err, list) => {
+      console.log('before splice', list.cards);
+      list.cards.splice(socketObj.sourceIndex, 1);
+      list.cards.splice(socketObj.destinationIndex, 0, socketObj.cardId);
+      console.log('after splice', list.cards);
+      list.save((err, newList) => {
+        if(err) throw err;
+        List.findById(socketObj.listId).populate({path: 'cards'}).exec((err, updatedList) => {
+          if(err) throw err;
+          console.log(updatedList);
+        })
+      })
+    })
+    client.emit('updateWithinSameList', 'updated list order');
+  })
+
 });
 
 

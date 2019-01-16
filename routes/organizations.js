@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const Organization = require('../models/organization');
-const Board = require('../models/board')
+const Board = require('../models/board');
 
 router.get('/organizations', (req, res) => {
   Organization.find({}, (err, organizations) => {
@@ -9,19 +9,7 @@ router.get('/organizations', (req, res) => {
   });
 });
 
-//add a board to an org
-// router.post('/organizations/:orgId/board', (req, res) => {
-//   res.send('org Id route');
-// })
-
 //ADD A BOARD TO AN ORGANIZATION
-
-// POST organization /: organizationId / board - add a new board to the organization
-// Params: organizationId
-// ReqBody: { Name: String }
-// Res: Updated Organization with populated boards
-//   - { Name: String, board: [boards] }
-
 router.post('/organizations/:id', (req, res) => {
     //make sure it's a valid mongo ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
