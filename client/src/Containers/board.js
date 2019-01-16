@@ -163,6 +163,7 @@ class Board extends Component {
    render() {
     //  const { board } = this.props.boards;
     console.log(this.props.board);
+    console.log(this.state);
       return (
 
          
