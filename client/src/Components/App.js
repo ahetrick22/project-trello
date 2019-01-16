@@ -13,6 +13,7 @@ class App extends React.Component {
           boxSizing: 'border-box',
           fontFamily: TYPEFACE
         }}
+
       >
         {this.props.children}
       </div>
