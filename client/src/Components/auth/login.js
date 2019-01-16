@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { compose } from "redux";
+import { Link } from "react-router-dom";
+
 import { connect } from "react-redux";
 import { fetchLogin } from "../../Actions/index";
 
@@ -70,9 +72,11 @@ class login extends Component {
               <div className="container-login100-form-btn">
                 <div className="wrap-login100-form-btn">
                   <div className="login100-form-bgbtn"></div>
-                  <button className="login100-form-btn" onClick={() => this.props.login(this.state.email,this.state.password)}>
+                  
+                  <button className="login100-form-btn" onClick={() => this.props.fetchLogin(this.state.email,this.state.password)}>
                     Login
-							</button>
+						    	</button>
+                  
                 </div>
               </div>
             </div>
@@ -84,7 +88,7 @@ class login extends Component {
 }
 
 const mapDispatchToProps = {
-  login: fetchLogin
+  fetchLogin,
 };
 
 export default connect(

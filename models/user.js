@@ -8,7 +8,8 @@ const UserSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
   hash: String,
   salt: String,
-  organizations: [{ type: Schema.Types.ObjectId, ref:'organization' }]
+  organizations: [{ type: Schema.Types.ObjectId, ref:'organization' }],
+  boards: [{type: Schema.Types.ObjectId, ref: 'board'}]
 });
 
 UserSchema.methods.setPassword = function(password){
