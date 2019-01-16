@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const Card = require('../models/card');
+const Comment = require('../models/comment')
 
 router.get('/card/:id', (req, res) => {
    //make sure it's a valid ID and won't trigger a cast error
@@ -66,8 +67,37 @@ router.put('/card/:id', (req, res) => {
   })
 
 //adds a new comment to a card
-router.post('/card/:cardId/comment', (req, res) => {
-  res.send("add comment route");
+router.post('/card/:id/comment', (req, res) => {
+    //make sure it's a valid ID and won't trigger a cast error
+   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+    //then find the matching card
+    Card.findById(req.params.id, (err, card) => {
+      if(err) throw err;
+      //tells user if no card with that id
+      if (!card) {
+        res.send(404, 'No card with that id');
+    } else {
+        //create your comment
+        const { text } = req.body
+        Comment.create({text}, (err, comment) => {
+            if (err) {
+                res.status(404, "You must enter a valid username or password");
+            }
+            card.comments.push(comment);
+            card.save();
+        })
+      
+        Card.findById(req.params.id).populate({
+            path: 'comments'
+        }).exec((err, fullcard) => {
+            if(err) throw err;
+            //fullcard.comments.push(comment);
+            res.send(JSON.stringify(fullcard));
+        })
+    }
 })
+   }
+});
 
 module.exports = router;
+
