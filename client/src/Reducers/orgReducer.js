@@ -1,16 +1,19 @@
-import {GET_BOARDS} from '../Actions/index'
+import { FETCH_ORG } from '../Actions/types';
 
 /*=====================================================
 this reducer will handle the order of boards on a given
 organization. most likely will only be one organizaition.
 =====================================================*/
-export const orgReducer = (state = [], action) => {
-  let {payload,type} = action //destructuring
+export const orgReducer = (state = {}, action) => {
+  let { payload, type } = action; //destructuring
+
   switch (type) {
-    case GET_BOARDS:
-    //TODO: get data from server
-      return 
+    case FETCH_ORG:
+      //TODO: get data from server
+      return { ...state, ...payload[0] };
+    // case FETCH_BOARDS:
+    //   return { ...state, ...payload };
     default:
-      return state
+      return state;
   }
-}
+};

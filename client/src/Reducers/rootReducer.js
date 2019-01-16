@@ -1,15 +1,21 @@
-import { combineReducers } from "redux";
-import {boardReducer} from './boardReducer';
-import {cardReducer} from './cardReducer';
-import {orgReducer} from './orgReducer';
-import {listReducer} from "./listReducer";
-
+import { combineReducers } from 'redux';
+import { boardReducer } from './boardReducer';
+import { cardReducer } from './cardReducer';
+import { orgReducer } from './orgReducer';
+import { loginReducer as userReducer } from './loginReducer';
+import { boardsReducer } from './boardsReducer';
+import { listReducer } from './listReducer';
 
 const rootReducer = combineReducers({
-  organization:orgReducer,
-  board:boardReducer,
-  list:listReducer,
-  card:cardReducer
+  organization: orgReducer,
+  boards: boardsReducer,
+  board: boardReducer,
+  lists: listReducer,
+  card: cardReducer,
+  loggedInOrganization: orgReducer,
+  selectedBoard: boardReducer,
+  selectedCard: cardReducer,
+  user: userReducer
 });
 
 export default rootReducer;

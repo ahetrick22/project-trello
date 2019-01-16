@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { render } from 'react-dom';
-// import Nav from './components/Nav';
+import NavBar from './Containers/nav';
 import App from './Components/App';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -15,6 +15,8 @@ import Organization from './Containers/organization';
 import Board from './Containers/board';
 import Card from './Containers/card';
 
+
+
 const store = createStore(rootReducer, {}, applyMiddleware(thunk, logger));
 
 const loggedIn = () => {
@@ -22,20 +24,24 @@ const loggedIn = () => {
 };
 
 render(
-  <Provider store={store}>
-    <Router>
-      {/* <Nav /> */}
-      <App>
-        <Switch>
-          {/* TODO: root path should either be login page or org page depending on if user is logged in or not */}
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/orgs/:orgID" component={Organization} />
-          <Route exact path="/boards/:boardID" component={Board} />
-          <Route exact path="/cards/:cardID" component={Card} />
-          <Redirect from="/" to="/login" />
-        </Switch>
-      </App>
-    </Router>
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+    {/* <NavBar /> */}
+      <Router>
+      
+        <App>
+          <Switch>
+            {/* TODO: root path should either be login page or org page depending on if user is logged in or not */}
+            <Route exact path="/" render={() => <Redirect to="/login" />} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/orgs/:orgID" component={Organization} />
+            <Route exact path="/boards/:boardID" component={Board} />
+            <Route exact path="/cards/:cardID" component={Card} />
+          </Switch>
+        </App>
+      </Router>
+    </Provider>,
+
+  document.getElementById("root")
 );
+
+//<Redirect from="/" to="/login" />

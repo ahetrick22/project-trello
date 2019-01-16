@@ -1,1 +1,37 @@
-[{"_id":{"$oid":"5c3d0a12c905af1b29c57f06"},"boards":[{"$oid":"5c3d0a12c905af1b29c57f11"},{"$oid":"5c3d0a12c905af1b29c57f12"},{"$oid":"5c3d0a12c905af1b29c57f13"}],"users":[{"$oid":"5c3d0a12c905af1b29c57f07"},{"$oid":"5c3d0a12c905af1b29c57f08"},{"$oid":"5c3d0a12c905af1b29c57f09"},{"$oid":"5c3d0a12c905af1b29c57f0a"},{"$oid":"5c3d0a12c905af1b29c57f0b"},{"$oid":"5c3d0a12c905af1b29c57f0c"},{"$oid":"5c3d0a12c905af1b29c57f0d"},{"$oid":"5c3d0a12c905af1b29c57f0e"},{"$oid":"5c3d0a12c905af1b29c57f0f"},{"$oid":"5c3d0a12c905af1b29c57f10"}],"name":"Project Shift","__v":{"$numberInt":"0"}}]
+[{
+   "_id": {
+      "$oid": "5c3d0a12c905af1b29c57f06"
+   },
+   "boards": [{
+      "$oid": "5c3d0a12c905af1b29c57f11"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f12"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f13"
+   }],
+   "users": [{
+      "$oid": "5c3d0a12c905af1b29c57f07"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f08"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f09"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f0a"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f0b"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f0c"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f0d"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f0e"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f0f"
+   }, {
+      "$oid": "5c3d0a12c905af1b29c57f10"
+   }],
+   "name": "Project Shift",
+   "__v": {
+      "$numberInt": "0"
+   }
+}]
