@@ -14,6 +14,7 @@ import Login from './Components/auth/login';
 import Organization from './Containers/organization';
 import Board from './Containers/board';
 import Card from './Containers/card';
+import emptyList from './Components/emptyList';
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk, logger));
 
@@ -32,6 +33,7 @@ render(
           <Route exact path="/orgs/:orgID" component={Organization} />
           <Route exact path="/boards/:boardID" component={Board} />
           <Route exact path="/cards/:cardID" component={Card} />
+          <Route exact path="/test" component={emptyList} />
         </Switch>
       </App>
     </Router>
