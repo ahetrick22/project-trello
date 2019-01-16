@@ -1,6 +1,91 @@
-[{"_id":{"$oid":"5c3d0a12c905af1b29c57f14"},"cards":[{"$oid":"5c3d0a12c905af1b29c57f1a"},{"$oid":"5c3d0a12c905af1b29c57f1b"}],"name":"Do the things","board":{"$oid":"5c3d0a12c905af1b29c57f11"},"__v":{"$numberInt":"0"}},
-{"_id":{"$oid":"5c3d0a12c905af1b29c57f15"},"cards":[{"$oid":"5c3d0a12c905af1b29c57f1c"},{"$oid":"5c3d0a12c905af1b29c57f1d"}],"name":"Eat snacks","board":{"$oid":"5c3d0a12c905af1b29c57f11"},"__v":{"$numberInt":"0"}},
-{"_id":{"$oid":"5c3d0a12c905af1b29c57f16"},"cards":[{"$oid":"5c3d0a12c905af1b29c57f1e"},{"$oid":"5c3d0a12c905af1b29c57f1f"}],"name":"Finish things","board":{"$oid":"5c3d0a12c905af1b29c57f12"},"__v":{"$numberInt":"0"}},
-{"_id":{"$oid":"5c3d0a12c905af1b29c57f17"},"cards":[],"name":"I am a list","board":{"$oid":"5c3d0a12c905af1b29c57f12"},"__v":{"$numberInt":"0"}},
-{"_id":{"$oid":"5c3d0a12c905af1b29c57f18"},"cards":[],"name":"Do ALL the things","board":{"$oid":"5c3d0a12c905af1b29c57f13"},"__v":{"$numberInt":"0"}},
-{"_id":{"$oid":"5c3d0a12c905af1b29c57f19"},"cards":[],"name":"Have awesome demos","board":{"$oid":"5c3d0a12c905af1b29c57f13"},"__v":{"$numberInt":"0"}}]
+[  {
+      "_id": {
+         "$oid": "5c3d0a12c905af1b29c57f14"
+      },
+      "cards": [{
+         "$oid": "5c3d0a12c905af1b29c57f1a"
+      }, {
+         "$oid": "5c3d0a12c905af1b29c57f1b"
+      }],
+      "name": "Do the things",
+      "board": {
+         "$oid": "5c3d0a12c905af1b29c57f11"
+      },
+      "__v": {
+         "$numberInt": "0"
+      }
+   },
+   {
+      "_id": {
+         "$oid": "5c3d0a12c905af1b29c57f15"
+      },
+      "cards": [{
+         "$oid": "5c3d0a12c905af1b29c57f1c"
+      }, {
+         "$oid": "5c3d0a12c905af1b29c57f1d"
+      }],
+      "name": "Eat snacks",
+      "board": {
+         "$oid": "5c3d0a12c905af1b29c57f11"
+      },
+      "__v": {
+         "$numberInt": "0"
+      }
+   },
+   {
+      "_id": {
+         "$oid": "5c3d0a12c905af1b29c57f16"
+      },
+      "cards": [{
+         "$oid": "5c3d0a12c905af1b29c57f1e"
+      }, {
+         "$oid": "5c3d0a12c905af1b29c57f1f"
+      }],
+      "name": "Finish things",
+      "board": {
+         "$oid": "5c3d0a12c905af1b29c57f12"
+      },
+      "__v": {
+         "$numberInt": "0"
+      }
+   },
+   {
+      "_id": {
+         "$oid": "5c3d0a12c905af1b29c57f17"
+      },
+      "cards": [],
+      "name": "I am a list",
+      "board": {
+         "$oid": "5c3d0a12c905af1b29c57f12"
+      },
+      "__v": {
+         "$numberInt": "0"
+      }
+   },
+   {
+      "_id": {
+         "$oid": "5c3d0a12c905af1b29c57f18"
+      },
+      "cards": [],
+      "name": "Do ALL the things",
+      "board": {
+         "$oid": "5c3d0a12c905af1b29c57f13"
+      },
+      "__v": {
+         "$numberInt": "0"
+      }
+   },
+   {
+      "_id": {
+         "$oid": "5c3d0a12c905af1b29c57f19"
+      },
+      "cards": [],
+      "name": "Have awesome demos",
+      "board": {
+         "$oid": "5c3d0a12c905af1b29c57f13"
+      },
+      "__v": {
+         "$numberInt": "0"
+      }
+   }
+]

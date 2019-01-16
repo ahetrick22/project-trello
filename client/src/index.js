@@ -16,6 +16,8 @@ import Board from './Containers/board';
 import Card from './Containers/card';
 import emptyList from './Components/emptyList';
 
+
+
 const store = createStore(rootReducer, {}, applyMiddleware(thunk, logger));
 
 const loggedIn = () => {
@@ -23,22 +25,26 @@ const loggedIn = () => {
 };
 
 render(
-  <Provider store={store}>
-    <NavBar />
-    <Router>
-      <App>
-        <Switch>
-          {/* TODO: root path should either be login page or org page depending on if user is logged in or not */}
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/orgs/:orgID" component={Organization} />
-          <Route exact path="/boards/:boardID" component={Board} />
-          <Route exact path="/cards/:cardID" component={Card} />
-          <Route exact path="/test" component={emptyList} />
-        </Switch>
-      </App>
-    </Router>
-  </Provider>,
-  document.getElementById('root')
+
+    <Provider store={store}>
+    {/* <NavBar /> */}
+      <Router>
+      
+        <App>
+          <Switch>
+            {/* TODO: root path should either be login page or org page depending on if user is logged in or not */}
+            <Route exact path="/" render={() => <Redirect to="/login" />} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/orgs/:orgID" component={Organization} />
+            <Route exact path="/boards/:boardID" component={Board} />
+            <Route exact path="/cards/:cardID" component={Card} />
+          </Switch>
+        </App>
+      </Router>
+    </Provider>,
+
+  document.getElementById("root")
+
 );
 
 //<Redirect from="/" to="/login" />
