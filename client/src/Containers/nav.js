@@ -69,9 +69,7 @@ export class NavBar extends Component {
     return <NavDiv>
       <Header>
         <Logo>
-
           <FaHome />
-
         </Logo>
         <Menu>
           <a href={this.props.organization.organization.id} >

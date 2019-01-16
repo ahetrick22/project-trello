@@ -6,7 +6,7 @@ import users from '../hard-coded-data/users.json'
 
 export const fetchLogin = (email,password) => dispatch => {
   console.log("fetchLOGIN")
-  fetch('http://localhost:3000/login', {
+  fetch('http://localhost:7000/login', {
     method: 'POST',
     body: JSON.stringify({
     email,
