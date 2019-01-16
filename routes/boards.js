@@ -115,7 +115,7 @@ router.put('/board/:id', (req, res) => {
           }
         }).exec((err, fullBoard) => {
           if (err) throw err;
-          res.send(fullBoard)
+          res.send(JSON.stringify(fullBoard));
         })
       }
     })

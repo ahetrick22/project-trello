@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 var cors = require('cors');
 const keys = require('./config/keys');
+const socketIo = require('socket.io');
+const http = require('http');
 
 mongoose.connect(keys.MONGODB_URI);
 
@@ -20,7 +22,6 @@ const hardCodedData = require('./routes/hard-coded-data');
 const organizationRoutes = require('./routes/organizations');
 const boardRoutes = require('./routes/boards');
 const cardRoutes = require('./routes/cards');
-const updateCardRoute = require('./routes/update_card');
 //const loginRoutes = require('./routes/login');
 const listRoutes = require('./routes/lists');
 
@@ -29,9 +30,15 @@ app.use(hardCodedData);
 app.use(organizationRoutes);
 app.use(boardRoutes);
 app.use(cardRoutes);
-app.use(updateCardRoute);
 //app.use(loginRoutes);
 app.use(listRoutes);
+
+const server = http.createServer(app);
+const io = socketIo(server);
+
+io.on('connection', socket => {
+  console.log('new client connected');
+})
 
 
 if (process.env.NODE_ENV === 'production') {
