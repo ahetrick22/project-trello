@@ -6,6 +6,7 @@ var jwt = require('jsonwebtoken');
 // Define our model
 const UserSchema = new Schema({
   email: { type: String, unique: true, lowercase: true },
+  name: String,
   hash: String,
   salt: String,
   organizations: [{ type: Schema.Types.ObjectId, ref:'organization' }]

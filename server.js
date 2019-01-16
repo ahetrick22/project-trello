@@ -22,7 +22,7 @@ const hardCodedData = require('./routes/hard-coded-data');
 const organizationRoutes = require('./routes/organizations');
 const boardRoutes = require('./routes/boards');
 const cardRoutes = require('./routes/cards');
-//const loginRoutes = require('./routes/login');
+const loginRoutes = require('./routes/login');
 const listRoutes = require('./routes/lists');
 
 app.use(mainRoutes)

@@ -56,6 +56,7 @@ router.put('/card/:id', (req, res) => {
                   path: 'comments'
               }).exec((err, fullCard) => {
                   if(err) throw err;
+                  //update card activity here
                   res.send(JSON.stringify(fullCard));
               })
           }
