@@ -176,7 +176,9 @@ class Board extends Component {
                 <h2>{this.props.organization.name}</h2>
             <StyledButton onClick={this.handleNewListClickEvent}>+New List</StyledButton>
           </InfoBar>
+
           <BoardArea>
+             
             <DragDropContext onDragEnd={this.onDragEnd}>
               {!this.state.listOrder ? <p>
                   '...Loading'
