@@ -11,7 +11,6 @@ class App extends React.Component {
         className="app"
         style={{
           boxSizing: 'border-box',
-          marginTop: '40px',
           fontFamily: TYPEFACE
         }}
       >
