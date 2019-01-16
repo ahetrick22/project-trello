@@ -10,13 +10,13 @@ import users from '../hard-coded-data/users.json';
 import lists from '../hard-coded-data/lists.json';
 
 export const fetchLogin = (email, password) => dispatch => {
-  console.log('fetchLOGIN');
   fetch('/login', {
     method: 'POST',
     body: {
       email,
       password
     },
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
     }
@@ -89,3 +89,5 @@ export const addBoard = (organizationId, boardName) => dispatch => {
     }
   }).then(r => console.log(r))
 }
+
+
