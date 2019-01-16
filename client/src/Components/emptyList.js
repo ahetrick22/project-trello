@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
 import {COLORS, TYPEFACE} from '../css/StyleGuide'
 
@@ -18,11 +18,8 @@ const EmptyListStyled = styled.button`
 export default class EmptyList extends Component {
   render() {
     return (
-
-      <EmptyListStyled>
-        + New List 
-      </EmptyListStyled>
-
+        <EmptyListStyled>+ New List</EmptyListStyled>
     )
+      
   }
 }

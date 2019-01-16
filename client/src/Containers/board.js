@@ -185,10 +185,14 @@ class Board extends Component {
       return <Fragment>
           <InfoBar>        
                 <h1>{this.props.board.name}</h1>
-                <h2>{this.props.organization.name}</h2>
-            <EmptyList />
+                <h2 >{this.props.organization.name}</h2>
+            <button onClick={() => alert("hi")}>
+               <EmptyList />
+            </button>
           </InfoBar>
+
           <BoardArea>
+             
             <DragDropContext onDragEnd={this.onDragEnd}>
               {!this.state.listOrder ? <p>
                   '...Loading'
@@ -204,6 +208,7 @@ class Board extends Component {
                     </Container>}
                 </Droppable>}
             </DragDropContext>
+            <h1>hu</h1>
           </BoardArea>
         </Fragment>;   }   
 }

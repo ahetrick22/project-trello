@@ -14,7 +14,7 @@ const BoardList = ({ boards }) => {
 
 export default BoardList;
 
-const StyledBoardList = styled.ul`
+const StyledBoardList = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
