@@ -6,7 +6,10 @@ import { connect } from 'react-redux';
 class App extends React.Component {
   render() {
     return (
-      <div className="app" style={{ boxSizing: 'border-box' }}>
+      <div
+        className="app"
+        style={{ boxSizing: 'border-box', marginTop: '40px' }}
+      >
         {this.props.children}
       </div>
     );

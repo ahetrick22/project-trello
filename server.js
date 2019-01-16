@@ -30,7 +30,6 @@ app.use(hardCodedData);
 app.use(organizationRoutes);
 app.use(boardRoutes);
 app.use(cardRoutes);
-//app.use(loginRoutes);
 app.use(listRoutes);
 
 const server = http.createServer(app);
