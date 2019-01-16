@@ -3,35 +3,50 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import FlexContainer from 'react-styled-flexbox'
-import { FaHome, FaFlipboard } from "react-icons/fa";
+import { FaHome, FaFlipboard } from "react-icons/fa"
+import { Link } from 'react-router-dom'
+import { orgReducer } from '../Reducers/orgReducer';
+import * as actions from "../Actions";
+
 
 
 
 const NavDiv = styled.div`
   font-family: 'Roboto', sans-serif;
   display:flex;
-  flex-direction:column;
+  flex-direction:row;
+  justify-content:space-between;
+  border:1px solid red;
+  background-color:green;
+  align-items:center;
   font-size: 1em;
   height: 100%;
+  width:100%;
   margin: 0;
   padding: 0;
 
 `;
 
-const Header = styled.header`
-  position: fixed;
-  left: 0;
-  right: 0;
-  height: 40px;
-  line-height: 40px;
-  color: #fff;
-  background-color:#3f51b5;
+const LeftButtons = styled.div`
+display:flex;
+flex-direction:row;
+padding:10px;
+font-size:1.25em;
+
+`  
+
+const RightButtons = styled.div`
+
 `
+
+const Brand = styled.div`
+
+`
+
 const Logo = styled.div`
   font-weight: 700;
   font-size:20px;
   padding: 0 10px;
-  float: left;
   color:white;
   :hover{
     background-color:#5b68ad;
@@ -44,7 +59,6 @@ const Logo = styled.div`
 `
 
 const Menu = styled.div`
- float: left;
   
   a {
     padding: 0 10px;
@@ -61,31 +75,36 @@ const Menu = styled.div`
 
 export class NavBar extends Component {
 
+  componentDidMount() {
+    this.props.fetchOrg();
+  }
+
+
+
 
   render() {
-    return (
-
-      <NavDiv>
-        <Header>
-          <Logo><FaHome /></Logo>
+    console.log(this.props);
+    return <NavDiv>
+        <LeftButtons>
+          <Logo />
           <Menu>
-            <a href="/"><FaFlipboard /> Boards</a>
+            <a href='#'>
+              <FaHome />
+            </a>
           </Menu>
-        </Header>
-
-
-      </NavDiv>
-    )
+        </LeftButtons>
+        <Brand>Trello</Brand>
+        <RightButtons>SignOut</RightButtons>
+      </NavDiv>;
   }
 }
 
-const mapStateToProps = (state) => ({
-
-})
-
-const mapDispatchToProps = {
-
+function mapStateToProps({ organization, boards }) {
+  return { organization, boards };
 }
 
-// export default connect(mapStateToProps, null)(Nav)
-export default NavBar
+export default connect(
+  mapStateToProps,
+  actions
+)(NavBar)
+
