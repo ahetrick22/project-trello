@@ -4,7 +4,7 @@ import { COLORS } from '../css/StyleGuide';
 
 const BoardItem = ({ board }) => {
   return (
-    <StyledBoardItem href={`/boards/${board._id.$oid}`} className="board">
+    <StyledBoardItem href={`/boards/${board._id}`} className="board">
       {board.name}
     </StyledBoardItem>
   );
