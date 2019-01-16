@@ -1,13 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-
-const BoardItem = ({ board }) => {
-  return <StyledBoardItem href={`/boards/${board._id.$oid}`} className="board">
-      <StyledBkgd>{board.name}</StyledBkgd>
-    </StyledBoardItem>;
-};
-
-export default BoardItem;
 
 const StyledBkgd = styled("div")`
   background-color: #f2f2f2;
@@ -22,12 +14,13 @@ const StyledBkgd = styled("div")`
   cursor: pointer;
   height: 100px;
   line-height: 100px;
+  
 `;
 
 const StyledBoardItem = styled.a`
   margin: 10px;
   text-decoration: none;
-  font-weight:600;
+  font-weight: 600;
   border-radius: 25px;
   background-color: #ffccff;
   &:hover {
@@ -35,3 +28,22 @@ const StyledBoardItem = styled.a`
     transition-duration: 300ms;
   }
 `;
+
+class AddBoardItem extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      name:''
+    }
+  }
+
+  render() {
+    return (
+      <StyledBoardItem onClick={() => alert("this is where the add board function happens")} >
+        <StyledBkgd>+ Add New Board</StyledBkgd>
+      </StyledBoardItem>
+    );
+  }
+}
+
+export default AddBoardItem;
