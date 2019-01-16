@@ -11,23 +11,28 @@ import boards from '../hard-coded-data/boards.json';
 import users from '../hard-coded-data/users.json';
 import lists from '../hard-coded-data/lists.json';
 
-export const fetchLogin = (email, password) => dispatch => {
-  console.log('fetchLOGIN');
-  fetch('http://localhost:7000/login', {
+
+export const fetchLogin = (email,password) => dispatch => {
+  console.log("fetchLOGIN")
+  fetch('/login', {
     method: 'POST',
-    body: JSON.stringify({
-      email,
-      password
-    }),
-    headers: {
+    body: {
+    email,
+    password,
+  },headers: {
       'Content-Type': 'application/json'
     }
+}).then(res => console.log(res))
+  .then(response => {
+    console.log(response)
+    dispatch({ type: LOGIN, payload: response.data })//depends on what the server returns
+    localStorage.setItem({token:response.data.token})
+
   })
-    .then(res => res.json())
-    .then(response => console.log('Success:', JSON.stringify(response)))
-    .catch(error => console.error('Error:', error));
-  dispatch({ type: LOGIN, payload: users });
-};
+  .catch(error => console.error('Error:', error));
+  
+}
+
 
 export const fetchOrg = () => dispatch => {
   dispatch({ type: FETCH_ORG, payload: organizations });

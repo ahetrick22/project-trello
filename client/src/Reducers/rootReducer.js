@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { boardReducer } from './boardReducer';
 import { cardReducer } from './cardReducer';
 import { orgReducer } from './orgReducer';
-import { loginReducer as userReducer } from './loginReducer';
+import { userReducer } from './loginReducer';
 import { boardsReducer } from './boardsReducer';
 import { listReducer } from './listReducer';
 
