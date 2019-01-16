@@ -6,6 +6,7 @@ import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import _ from 'underscore';
 import EmptyList from '../Components/emptyList'
+import { updateSameList } from '../api';
 
 const Container = styled.div`
    display: flex;
@@ -15,7 +16,11 @@ class Board extends Component {
 
    constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+        cards: {},
+        listOrder: [],
+        lists: {}
+      };
    }
 
    componentDidMount() {
@@ -92,7 +97,9 @@ class Board extends Component {
       if (type === 'column') {
          const newListOrder = Array.from(this.state.listOrder);
          newListOrder.splice(source.index, 1);
+         console.log('after source', newListOrder)
          newListOrder.splice(destination.index, 0, draggableId);
+        console.log('after destination', newListOrder);
 
          const newState = {
             ...this.state,
@@ -111,9 +118,20 @@ class Board extends Component {
          const newCardIds = Array.from(startList.cardIds);
          // remove the card from the card id list from where it was removed
          newCardIds.splice(source.index, 1);
+         console.log('source',source)
+         console.log(newCardIds);
          // insert the card into the card id list
          newCardIds.splice(destination.index, 0, draggableId);
-   
+          console.log('destination index',destination.index);
+         const sameListSocketObj = {
+          listId: startList.id,
+          cardId: draggableId,
+          sourceIndex: source.index,
+          destinationIndex: destination.index
+        };
+        updateSameList(sameListSocketObj);
+
+
          const newList = {
             ...startList,
             cardIds: newCardIds,
@@ -163,7 +181,7 @@ class Board extends Component {
 
    render() {
     //  const { board } = this.props.boards;
-    console.log(this.props);
+    console.log(this.state.lists);
       return <Fragment>
           <InfoBar>        
                 <h1>{this.props.board.name}</h1>
