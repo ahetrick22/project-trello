@@ -22,7 +22,7 @@ const StyledBoardItem = styled.a`
   text-decoration: none;
   font-weight: 600;
   border-radius: 25px;
-  background-color: #ffccff;
+  background-color: red;
   &:hover {
     transform: scale(1.06);
     transition-duration: 300ms;
