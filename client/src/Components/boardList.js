@@ -1,19 +1,23 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import BoardItem from './boardItem';
-import AddBoardItem from './addBoardItem'
 
 const BoardList = ({ boards }) => {
   return (
-    <Fragment>
-     
-        {boards.map((board, index) => (
-          <BoardItem board={board} key={index} />
-        ))}<AddBoardItem/>
-
-    </Fragment>
+    <StyledBoardList>
+      {boards.map((board, index) => (
+        <BoardItem board={board} key={index} />
+      ))}
+    </StyledBoardList>
   );
 };
 
 export default BoardList;
 
+const StyledBoardList = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 2em 0;
+`;

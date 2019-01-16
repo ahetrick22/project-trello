@@ -1,27 +1,25 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import styled from 'styled-components'
+import {COLORS, TYPEFACE} from '../css/StyleGuide'
 
 const EmptyListStyled = styled.button`
-    justify: center;
-    color: grey;
-    float:right;
-    border-radius: 10px solid black;
-    width: 440px;
-    
+    border-radius:15px;
+    height:50px;
+    font-size:1.3em;
+    margin:10px;
+    font-family:${TYPEFACE};
+    color:${COLORS.tertiary};
+    background-color:${COLORS.addButtons};
+
     `  
-const EmptyListDiv = styled.div`
-    padding-top: 50px;
-`
 
 
-export default class emptyList extends Component {
+
+export default class EmptyList extends Component {
   render() {
     return (
-      <EmptyListDiv>
-      <EmptyListStyled>
-          <h1> + Add a New Card </h1>   
-      </EmptyListStyled>
-      </EmptyListDiv>
+        <EmptyListStyled>+ New List</EmptyListStyled>
     )
+      
   }
 }

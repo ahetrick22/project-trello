@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import List from './list';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import _ from 'underscore';
+import EmptyList from '../Components/emptyList'
 
 const Container = styled.div`
    display: flex;
@@ -14,33 +15,62 @@ class Board extends Component {
 
    constructor(props) {
       super(props);
-      this.state = {
-         listOrder: ["column-1", 'column-2'],
-         lists: {
-            "column-1": {
-               id: "column-1",
-               title: "To Do",
-               cardIds: ["task-1", "task-2", "task-3", "task-4"]
-            }, 
-            "column-2": {
-               id: "column-2",
-               title: "In Progress",
-               cardIds: []
-            },
-         },
-         cards: {
-            "task-1": { id: "task-1", content: "Take out the garbage"},
-            "task-2": { id: "task-2", content: "Watch my favorite show"},
-            "task-3": { id: "task-3", content: "Charge my phone"},
-            "task-4": { id: "task-4", content: "Cook dinner"}
-         }
-      };
+      this.state = {};
    }
 
    componentDidMount() {
-     const { boardID } = this.props.match.params;
-    this.props.fetchBoard(boardID);
+      const { boardID } = this.props.match.params;
+      this.props.fetchBoard(boardID);
    }
+
+   componentWillReceiveProps(nextProps) {
+      if (this.props.board !== nextProps.board) {
+         var board = nextProps.board;
+
+         //Build up this newData object for setState
+         var newData = {
+            listOrder: [], 
+            lists: {},
+            cards: {}
+         };
+
+         var newListOrder =  board.lists.map(list => list._id);
+         var newListsArray = [];
+         var newCardsArray = [];
+
+         board.lists.forEach(list =>{
+         let listItem = { 
+            "id": list._id, 
+            "title": list.name,
+            "cardIds": []
+         }
+         list.cards.forEach(card => {
+            listItem.cardIds.push(card._id);
+            newCardsArray.push({"id": card._id, "content": card.title});
+         })
+         newListsArray.push(listItem);
+         });
+
+         //normalize newListsArray
+         var newLists = newListsArray.reduce((sum, list) => {
+            return {...sum, [list.id]: list}
+            }, {});
+            
+         //normalize newCardsArray
+         var newCards = newCardsArray.reduce((sum, card) => {
+         return {...sum, [card.id]: card}
+         }, {});
+
+         newData.listOrder = newListOrder;
+         newData.lists = newLists;
+         newData.cards = newCards;
+
+         this.setState(newData);
+      }
+   }
+      
+
+      
 
    onDragEnd = result => {
 
@@ -133,48 +163,57 @@ class Board extends Component {
 
    render() {
     //  const { board } = this.props.boards;
-    console.log(this.props.board);
-      return (
-         <DragDropContext
-            onDragEnd = {this.onDragEnd}
-         >
-            <Droppable 
-               droppableId='all-lists' 
-               direction='horizontal' 
-               type='column'
-            >
-               { (provided) => (
-                  <Container
-                     {...provided.droppableProps}
-                     ref={provided.innerRef}
-                  >
-                     {this.state.listOrder.map((listId, index) => {
+    console.log(this.props);
+      return <Fragment>
+          <InfoBar>        
+                <h1>{this.props.board.name}</h1>
+                <h2 >{this.props.organization.name}</h2>
+            <button onClick={() => alert("hi")}>
+               <EmptyList />
+            </button>
+          </InfoBar>
+
+          <BoardArea>
+             
+            <DragDropContext onDragEnd={this.onDragEnd}>
+              {!this.state.listOrder ? <p>
+                  '...Loading'
+                </p> : <Droppable droppableId="all-lists" direction="horizontal" type="column">
+                  {provided => <Container {...provided.droppableProps} ref={provided.innerRef}>
+                      {this.state.listOrder.map((listId, index) => {
                         const list = this.state.lists[listId];
                         const cards = list.cardIds.map(taskId => this.state.cards[taskId]);
 
-                        return (
-                           <List 
-                              key={list.id} 
-                              column={list} 
-                              cards={cards} 
-                              index={index}
-                           />
-                        );
-                     })}
-                     {provided.placeholder}
-                  </Container>
-               )}
-            </Droppable>
-         </DragDropContext>
-      );
-   }   
+                        return <List key={list.id} column={list} cards={cards} index={index} />;
+                      })}
+                      {provided.placeholder}
+                    </Container>}
+                </Droppable>}
+            </DragDropContext>
+            <h1>hu</h1>
+          </BoardArea>
+        </Fragment>;   }   
 }
 
-function mapStateToProps({ boards, lists, board }) {
+const InfoBar = styled('div')`
+height:75px;
+border:1px solid black;
+display:flex;
+flex-direction:row;
+justify-content:space-between;
+align-items:center;
+
+`
+
+const BoardArea = styled('div')`
+display:flex;
+flex-direction:row;
+`
+
+function mapStateToProps({ board, organization }) {
    return {
-     boards,
-     lists,
-     board
+     board,
+     organization
    };
  }
  

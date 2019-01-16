@@ -1,14 +1,13 @@
-const express = require('express')
+const app = require('express')();
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 var cors = require('cors');
 const keys = require('./config/keys');
-const socketIo = require('socket.io');
-const http = require('http');
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
 
 mongoose.connect(keys.MONGODB_URI);
-
-const app = express()
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -33,12 +32,14 @@ app.use(cardRoutes);
 //app.use(loginRoutes);
 app.use(listRoutes);
 
-const server = http.createServer(app);
-const io = socketIo(server);
-
-io.on('connection', socket => {
-  console.log('new client connected');
-})
+io.on('connection', (client) => {
+  client.on('subscribeToTimer', (interval) => {
+    console.log('client is subscribing to timer with interval ', interval);
+    setInterval(() => {
+      client.emit('timer', new Date());
+    }, interval);
+  });
+});
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -56,6 +57,6 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 7000;
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log('Node.js listening on port ' + port)
 })
