@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 import FlexContainer from 'react-styled-flexbox'
-import { FaHome, FaFlipboard } from "react-icons/fa"
+import { FaHome, FaSignOutAlt, FaFlipboard } from "react-icons/fa"
 import { Link } from 'react-router-dom'
 import { orgReducer } from '../Reducers/orgReducer';
 import * as actions from "../Actions";
@@ -33,9 +33,12 @@ flex-direction:row;
 padding:10px;
 font-size:1.25em;
 
-`  
+`
 
 const RightButtons = styled.div`
+display: flex;
+flex-direction:row;
+padding-right: 20px; 
 
 `
 
@@ -85,17 +88,24 @@ export class NavBar extends Component {
   render() {
     console.log(this.props);
     return <NavDiv>
-        <LeftButtons>
-          <Logo />
-          <Menu>
-            <a href='#'>
-              <FaHome />
-            </a>
-          </Menu>
-        </LeftButtons>
-        <Brand>Trello</Brand>
-        <RightButtons>SignOut</RightButtons>
-      </NavDiv>;
+      <LeftButtons>
+        <Logo />
+        <Menu>
+          <a href='#'>
+            <FaHome />
+          </a>
+        </Menu>
+      </LeftButtons>
+      <Brand>Trello</Brand>
+      <RightButtons>
+        <Logo />
+        <Menu>
+          <a href='#' >
+            <FaSignOutAlt />
+          </a>
+        </Menu>
+      </RightButtons>
+    </NavDiv>;
   }
 }
 
