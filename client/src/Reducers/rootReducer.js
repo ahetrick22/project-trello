@@ -8,12 +8,12 @@ import { listReducer } from './listReducer';
 import { loginReducer } from './loginReducer';
 
 const rootReducer = combineReducers({
-  organization: orgReducer,
+  // organization: orgReducer,
   boards: boardsReducer,
-  board: boardReducer,
-  lists: listReducer,
-  card: cardReducer,
-  loggedInOrganization: orgReducer,
+  // board: boardReducer,
+  // lists: listReducer,
+  // card: cardReducer,
+  // loggedInOrganization: orgReducer,
   selectedBoard: boardReducer,
   selectedCard: cardReducer,
   user: loginReducer

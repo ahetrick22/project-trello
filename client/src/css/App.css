@@ -40,3 +40,7 @@ html {
   font-family: 'Helvetica Neue', Cambria, sans-serif;
 }
 
+a {
+  text-decoration: none;
+}
+

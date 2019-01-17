@@ -6,10 +6,10 @@ import {
   FETCH_CARD_INFO,
   FETCH_LISTS,
   ADD_BOARD,
-  REGISTER
+  REGISTER,
+  ADD_CARD,
+  ADD_LIST
 } from './types';
-import users from '../hard-coded-data/users.json';
-import lists from '../hard-coded-data/lists.json';
 
 export const fetchLogin = (email, password) => dispatch => {
   fetch('/login', {
@@ -46,17 +46,19 @@ export const fetchRegister = (email, password) => dispatch => {
   })
     .then(res => res.json())
     .then(response => {
+
       console.log(response);
       dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
       localStorage.setItem('token',response.token);
       localStorage.setItem('email', response.email);
+
     })
     .catch(error => console.error('Error:', error));
 };
 
 
-export const fetchOrg = () => dispatch => {
-  fetch(`/organizations`)
+export const fetchOrg = orgID => dispatch => {
+  fetch(`/organizations/${orgID}`)
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_ORG, payload: data });
@@ -67,7 +69,7 @@ export const fetchOrg = () => dispatch => {
 };
 
 export const fetchBoards = () => dispatch => {
-  fetch(`/boards`)
+  fetch(`http://localhost:7000/boards`)
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_BOARDS, payload: data });
@@ -77,15 +79,10 @@ export const fetchBoards = () => dispatch => {
     });
 };
 
-export const fetchLists = () => dispatch => {
-  dispatch({ type: FETCH_LISTS, payload: lists });
-};
-
 export const fetchBoard = boardID => dispatch => {
   fetch(`/board/${boardID}`)
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       dispatch({ type: FETCH_BOARD, payload: data });
     })
     .catch(err => {
@@ -104,7 +101,6 @@ export const fetchCard = cardID => dispatch => {
   })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       dispatch({ type: FETCH_CARD_INFO, payload: data });
     })
     .catch(err => {
@@ -113,11 +109,12 @@ export const fetchCard = cardID => dispatch => {
 };
 
 export const addBoard = (organizationId, boardName) => dispatch => {
+
   console.log(organizationId, boardName)
    fetch(`/organizations/${organizationId}`,{
     method:'POST',
     body:JSON.stringify({
-      name:boardName
+      title:boardName
     }), headers: {
       "Content-Type": "application/json"}
   }).then(response => response.json())
@@ -127,4 +124,36 @@ export const addBoard = (organizationId, boardName) => dispatch => {
   })
 }
 
+export const addCard = (listId, cardName) => dispatch => {
+  console.log("Add Card")
+  fetch(`/list/${listId}`,{
+    method: 'POST',
+    body: JSON.stringify({
+      title: cardName
+    }), headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(response => response.json())
+  .then(data => dispatch({type:ADD_CARD, payload:data}))
 
+}
+
+
+
+export const addList = (boardId, listName) => dispatch => {
+  console.log(boardId, listName);
+  fetch(`/board/${boardId}/list`, {
+    method: 'POST',
+    body: JSON.stringify({
+      name: listName
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('returning data from server add list post: ', data);
+      dispatch({ type: ADD_BOARD, payload: data });
+    });
+};

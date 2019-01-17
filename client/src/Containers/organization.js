@@ -6,47 +6,72 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 
 class Organization extends Component {
-  constructor(props){
+  constructor(props) {
     super();
-    this.state= {
-      addBoardInputShown:false,
-      addBoardInput:''
-    }
-//() => this.props.addBoard(organization._id,'123')
-this.renderInput = this.renderInput.bind(this);
-this.handleInput = this.handleInput.bind(this);
+    this.state = {
+      addBoardInputShown: false,
+      addBoardInput: ''
+
+    };
+    //() => this.props.addBoard(organization._id,'123')
+    this.renderInput = this.renderInput.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.addOrCancel = this.addOrCancel.bind(this);
+
   }
   componentDidMount() {
-    this.props.fetchOrg();
     this.props.fetchBoards();
   }
 
-  handleInput = (input) => {
-    if(input.key == 'Enter'){
-      alert('addboard now')
+
+  handleInput = input => {
+    if (input.key == 'Enter') {
+      this.props.addBoard(
+        this.props.organization._id,
+        this.state.addBoardInput
+      );
+      this.setState({ addBoardInputShown: false, addBoardInput: '' });
     }
-  }
-   renderInput = () => {
+  };
+
+  renderInput = () => {
     if (this.state.addBoardInputShown) {
       return (
         <EmptyBoardToAdd>
-        <input value={this.state.addBoardInput} 
-        onKeyPress={(e) => this.handleInput(e)} 
-            onChange={(e) => this.setState({ addBoardInput: e.target.value })}></input></EmptyBoardToAdd>
-      )
+
+          <input
+            autoFocus
+            value={this.state.addBoardInput}
+            onKeyPress={e => this.handleInput(e)}
+            onChange={e => this.setState({ addBoardInput: e.target.value })}
+          />
+        </EmptyBoardToAdd>
+      );
+
     }
-  }
+  };
+
+  addOrCancel = () => {
+    if (this.state.addBoardInputShown) {
+      return 'Cancel';
+    } else {
+      return 'New Board';
+    }
+  };
 
   render() {
-    
-    const { organization, boards } = this.props;
 
-    if (Object.keys(organization).length === 0 && boards.length === 0) {
+    const { boards } = this.props;
+
+
+    if (Object.keys(boards).length === 0) {
       return <div>Loading...</div>;
     } else {
-      return <div className="org-home" style={{ fontFamily: TYPEFACE }}>
+
+      return (
+        <div className="org-home" style={{ fontFamily: TYPEFACE }}>
           <OrgInfo>
-            <h1>{organization.name}</h1>
+            <h1>{boards[0].organization.name}</h1>
           </OrgInfo>
           <OrgBoards>
             <h1>Boards</h1>
@@ -56,22 +81,25 @@ this.handleInput = this.handleInput.bind(this);
             </BoardGrid>
             <button
               onClick={() =>
-                this.props.addBoard(
-                  "5c3fafdf44ae364f70407ec6",
-                  "DEM BOYZ"
-                )
+                this.props.addBoard('5c3fafdf44ae364f70407ec6', 'DEM BOYZ')
               }
             >
               Button
             </button>
 
-            <AddBoardButton onClick={() => this.setState({
+            <AddBoardButton
+              onClick={() =>
+                this.setState({
                   addBoardInputShown: !this.state.addBoardInputShown
-                })}>
+                })
+              }
+            >
               Add Board
             </AddBoardButton>
           </OrgBoards>
-        </div>;
+        </div>
+      );
+
     }
   }
 }
@@ -88,17 +116,25 @@ const OrgBoards = styled('div')`
   text-align: center;
   height: 60vh;
   padding: 2em 0;
+  
 `;
 
-const BoardGrid = styled("div")`
+const BoardGrid = styled('div')`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  overflow-x: scroll;
+  overflow-y: auto;
   flex-wrap: nowrap;
   padding: 2em 0;
-`;
+  padding-left: 10px;
+  width: 100%;
+  text-align: 20%;
+  
+`
 
 const AddBoardButton = styled.button`
+  justify-content: center;
   font-size: 1em;
   margin-top: 3em;
   height: 50px;
@@ -106,26 +142,42 @@ const AddBoardButton = styled.button`
   background-color: ${COLORS.addButtons};
   color: ${COLORS.tertiary};
   border-radius: 10px;
+
+  box-shadow: 1px 1px 15px #999;
+
+  cursor: pointer;
+
 `;
 
 const EmptyBoardToAdd = styled.div`
   cursor: pointer;
-  background-color: ${COLORS.primary}
+  background-color: ${COLORS.primary};
+  font-family: ${TYPEFACE};
+
   color: ${COLORS.tertiary};
   height: 100px;
   line-height: 100px;
-  width: 170px;
+  width: 300px;
   text-decoration: none;
-  font-weight: 350;
+  min-width: 200px;
+
   border-radius: 25px;
   &:hover {
     transform: scale(1.06);
     transition-duration: 300ms;
   }
-`
+  input {
+    height: 30%;
+    background-color: white;
+    margin: 0 5px 0 5px;
+    width: 80%;
+    font-weight: 500;
+    font-size: 1.2em;
+  }
+`;
 
-function mapStateToProps({ organization, boards }) {
-  return { organization, boards };
+function mapStateToProps({ boards }) {
+  return { boards };
 }
 
 export default connect(
