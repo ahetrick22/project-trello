@@ -10,9 +10,18 @@ class CardDetail extends Component {
     super(props);
 
     this.state = {
-      card: {},
+      card: {
+        comments: [],
+        title: '',
+        list: '',
+        description: '',
+        label: { 
+          value: 'green',
+        }
+      },
       editTitle: false,
-      editDesc: false
+      editDesc: false,
+     
     };
   }
 
@@ -48,6 +57,18 @@ class CardDetail extends Component {
     this.setState({ card });
   };
 
+  updateCardLabel = e => {
+    let card = {...this.state.card};
+    // card.label = e.target.style;
+    this.setState({
+      card: { 
+        label: {
+          value: e.target.value
+        }
+      }
+    });
+  }
+
   render() {
     const { card, editTitle, editDesc } = this.state;
 
@@ -78,25 +99,32 @@ class CardDetail extends Component {
                 onDoubleClick={() => this.setState({ editTitle: true })}
               >
                 {/* Truncate title if longer than 50 chars */}
-                {card.title.length > 50
-                  ? `${card.title.slice(0, 50)}...`
-                  : card.title}
+                {this.state.card.title.length > 50
+                  ? `${this.state.card.title.slice(0, 50)}...`
+                  : this.state.card.title}
               </h1>
             )}
             <br />
             <span>List:</span>
             <select name="list" id="list" defaultValue={card.list}>
               <option value={card.list}>{card.list}</option>
+              {/* <option value={this.board.list.name}>{card.list.name}</option> */}
             </select>
             <br></br>
-            <span>Label:</span>
-            <select name="label" id="label" defaultValue={card.label}>
-              <option value={card.label}>{card.label}</option>
-              <option value="green">Green</option>
-              <option value="blue">Blue</option>
-              <option value="red">Red</option>
-              <option value="purple">Purple</option>
-            </select>
+
+              <div className="card-label" 
+              // style={{ padding: '1em' }}
+              >
+                <span>Label:</span>
+              <select className="label" id="label" value={this.state.card.label.value} onChange={this.updateCardLabel}>  
+                  <option value="red" style={{backgroundColor:'red', color: 'white'}}>Red</option>
+                  <option value="orange" style={{ backgroundColor: 'orange', color: 'white' }}>Orange</option>
+                  <option value="yellow" style={{ backgroundColor: 'yellow', color: 'black' }}>Yellow</option>
+                  <option value="green" style={{ backgroundColor: 'green', color: 'white' }}>Green</option>
+                  <option value="blue" style={{ backgroundColor: 'blue', color: 'white' }}>Blue</option>
+                  <option value="purple" style={{ backgroundColor: 'purple', color: 'white' }}>Purple</option>
+                </select>
+              </div>
           </div>
           <div className="card-description" style={{ padding: '1em' }}>
             <img
