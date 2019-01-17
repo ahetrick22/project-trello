@@ -42,6 +42,8 @@ class Board extends Component {
 
   componentDidMount() {
     const { boardID } = this.props.match.params;
+    console.log(boardID);
+    console.log(this.props);
     this.props.fetchBoard(boardID);
   }
 
