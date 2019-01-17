@@ -6,8 +6,9 @@ const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 const List = require('../models/list');
 const Board = require('../models/board');
+const Comment = require('../models/comment')
 
-router.get('/card/:id', (req, res) => {
+router.get('/card/:id', requireAuth, (req, res) => {
   //make sure it's a valid ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching card
@@ -69,7 +70,7 @@ router.get('/card/:id', (req, res) => {
 //   }
 // });
 
-router.put('/card/:id', async (req, res) => {
+router.put('/card/:id', requireAuth, (req, res) => {
   //check to see which params come in the body
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     let activityObj = {};
@@ -120,7 +121,6 @@ router.put('/card/:id', async (req, res) => {
       Card.findByIdAndUpdate(id, updateObject,(err, card) => {
           if(err) throw err;
           card.activity.push(activityObj)
-          console.log(card)
           if (!card) {
               res.send(404, 'no card with that id');
           } else {
@@ -141,6 +141,7 @@ router.put('/card/:id', async (req, res) => {
 
 router.post('/card/:id/comment', requireAuth, (req, res) => {
      if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+        let activityObj = {};
       //then find the matching card
       Card.findById(req.params.id, (err, card) => {
         if(err) throw err;
@@ -148,19 +149,23 @@ router.post('/card/:id/comment', requireAuth, (req, res) => {
         if (!card) {
           res.send(404, 'No such card');
         } else {
-            User.find({email : req.headers.email}, (err, user) => {
+            User.findOne({email : req.headers.email}, (err, user) => {
                 if (err) throw err;
                 let newComment = new Comment({
                     user: user,
                     text: req.body.text,
                     card: req.params.id
                 });
+                activityObj.user = user._id;
+                activityObj.text = user.email + ` commented ${newComment.text}`;
+                activityObj.timestamp = new Date();
                 newComment.save((err, savedComment) => {
                     if (err) throw err;
                     let commentId = savedComment._id;
                     Comment.findById(commentId, (err, newComment) =>{
                         if (err) throw err;
                         card.comments.push(newComment);
+                        card.activity.push(activityObj)
                         card.save(function (err, card) {
                             if (err) throw err;
                             Card.findById(req.params.id).populate({
