@@ -9,10 +9,15 @@ typos, errors, etc.
 export const LOGIN = 'LOGIN';
 //for the org reducer
 export const FETCH_BOARDS = 'FETCH_BOARDS';
+
 export const FETCH_ORG = 'FETCH_ORG';
 //for the board reducer
-export const FETCH_LISTS = 'FETCH_LISTS';
+export const FETCH_BOARD = 'FETCH_BOARD';
 //for the list reducer
 export const FETCH_CARDS = 'FETCH_CARDS';
 //for the card reducer
 export const FETCH_CARD_INFO = 'FETCH_CARD_INFO';
+
+export const FETCH_LISTS = 'FETCH_LISTS';
+
+export const ADD_BOARD = "ADD_BOARD"

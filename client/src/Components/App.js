@@ -2,10 +2,20 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
+import { TYPEFACE } from '../css/StyleGuide';
 
 class App extends React.Component {
   render() {
-    return <div>{this.props.children}</div>;
+    return (
+      <div
+        className="app"
+        style={{
+          fontFamily: TYPEFACE
+        }}
+      >
+        {this.props.children}
+      </div>
+    );
   }
 }
 

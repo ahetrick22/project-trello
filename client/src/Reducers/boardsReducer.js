@@ -1,4 +1,4 @@
-import { FETCH_BOARDS } from '../Actions/types';
+import { FETCH_BOARDS, ADD_BOARD } from '../Actions/types';
 
 /*=====================================================
 This reducer will handle the whole board object,
@@ -11,6 +11,9 @@ export const boardsReducer = (state = [], action) => {
     case FETCH_BOARDS:
       //TODO: get data from server
       return [...state, ...payload];
+    case ADD_BOARD:
+      console.log(payload)
+      return state = payload;
     default:
       return state;
   }

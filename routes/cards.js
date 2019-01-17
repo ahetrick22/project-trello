@@ -68,4 +68,45 @@ router.put('/card/:id', (req, res) => {
     }
   })
 
+router.post('/card/:id/comment', requireAuth, (req, res) => {
+     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+      //then find the matching card
+      Card.findById(req.params.id, (err, card) => {
+        if(err) throw err;
+        //tells user if no card with that id
+        if (!card) {
+          res.send(404, 'No such card');
+        } else {
+            User.find({email : req.headers.email}, (err, user) => {
+                if (err) throw err;
+                let newComment = new Comment({
+                    user: user,
+                    text: req.body.text,
+                    card: req.params.id
+                });
+                newComment.save((err, savedComment) => {
+                    if (err) throw err;
+                    let commentId = savedComment._id;
+                    Comment.findById(commentId, (err, newComment) =>{
+                        if (err) throw err;
+                        card.comments.push(newComment);
+                        card.save(function (err, card) {
+                            if (err) throw err;
+                            Card.findById(req.params.id).populate({
+                                    path: 'comments'
+                                }).exec((err, fullCard) => {
+                                    if (err) throw err;
+                                    res.send(JSON.stringify(fullCard));
+                            })
+                        })
+                    })
+                })
+            })
+      }
+  })
+     } else {
+        res.send(400, "Send a valid card Id as a parameter");
+     } 
+  });
+
 module.exports = router;

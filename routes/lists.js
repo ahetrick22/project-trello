@@ -1,10 +1,10 @@
 const router = require('express').Router();
+const bodyParser = require('body-parser');
 const Card = require('../models/card');
 const List = require('../models/list');
 const Board = require('../models/board');
 
 router.post('/list/:id/card', (req, res) => {
-
 
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     List.findById(req.params.id, (err, list) => {
@@ -13,53 +13,48 @@ router.post('/list/:id/card', (req, res) => {
       if (!list) {
         res.send(404, 'That is no such List');
       //otherwise, populate the list with its id and send it
-      }
-     else {
-        let newCard = new Card( {
+      } else {
+        let newCard = new Card({
             title: req.body.title,
             list: req.body.list,
             label: req.body.label,
             description: req.body.description,
             comments: [],
-            activity: [],
-            archived: req.body.archived
-          
-          });
+            archived: req.body.archived,
+            activity: []
+        });
         
         newCard.save((err, _id) => {
             if (err) return err
             let cardnId = _id;
-        
-        //   let cardId = newCard._id;
-          Card.findById(cardnId, (err, newCard) => {
-          if (err) throw err;
-          list.cards.push(newCard);
-          list.save(function (err, list) {
-              if(err) throw err;
-          List.findById(req.params.id, (err, updatedList) => {
-              const boardId = updatedList.board;
-              Board.findById(boardId).populate({
-                path: 'lists',
-                populate: {
-                    path: 'cards'
+            Card.findById(cardnId, (err, newCard) => {
+              if (err) throw err;
+              list.cards.push(newCard);
+              list.save(function (err, list) {
+                if(err) throw err;
+                List.findById(req.params.id, (err, updatedList) => {
+                  const boardId = updatedList.board;
+                  Board.findById(boardId).populate({
+                    path: 'lists',
+                    populate: {
+                      path: 'cards'
                     }
-                }).exec((err, fullBoard) => {
+                  }).exec((err, fullBoard) => {
                     if(err) throw err;
                     res.send(JSON.stringify(fullBoard));
                   });
-              })
-          })         
-    })  
-   })
-  }
- })
-}
-
-  else {
+                })
+              })         
+            })  
+          })
+        }
+      })
+  } else {
     res.send(400, 'Send a valid Card as a parameter');
   }
 })
 
+//updates a list name or a card position within that list
 router.put('/list/:id', (req, res) => {
     //check to see which params come in the body
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -73,7 +68,12 @@ router.put('/list/:id', (req, res) => {
         }
         //make sure the correct body was sent
         if (Object.keys(updateObject).length === 0) {
-            res.send(400, "Body must have a name parameter or an archival parameter");
+            res.send(400, "Body must have the proper parameters");
+            updateObject.name = req.body.name;
+        }
+        //make sure the correct body was sent
+        if (Object.keys(updateObject).length === 0) {
+            res.send(400, "Body must have a name parameter ");
         }
 
         let { id } = req.params;
@@ -89,7 +89,7 @@ router.put('/list/:id', (req, res) => {
                 Board.findById(boardId).populate({
                   path: 'lists',
                   populate: {
-                    path: 'cards',
+                    path: 'cards'
                   }
                 }).exec((err, fullBoard) => {
                   if (err) throw err;
