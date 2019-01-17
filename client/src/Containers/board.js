@@ -174,12 +174,11 @@ class Board extends Component {
 
   render() {
     //  const { board } = this.props.boards;
-    console.log(this.state.lists);
     return (
       <Fragment>
         <InfoBar>
-          <h1>{this.props.board.name}</h1>
-          <h2>{this.props.organization.name}</h2>
+          <h3>{this.props.board.name}</h3>
+          <h3>Project Shift</h3>
           <button onClick={() => alert('hi')}>
             <EmptyList />
           </button>
@@ -241,10 +240,10 @@ const BoardArea = styled('div')`
   flex-direction: row;
 `;
 
-function mapStateToProps({ selectedBoard, loggedInOrganization }) {
+function mapStateToProps({ selectedBoard, boards }) {
   return {
-    board: selectedBoard,
-    organization: loggedInOrganization
+    board: selectedBoard
+    // organization: boards[0].organization
   };
 }
 

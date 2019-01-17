@@ -17,8 +17,7 @@ class Organization extends Component {
     this.handleInput = this.handleInput.bind(this);
   }
   componentDidMount() {
-    const { orgID } = this.props.match.params;
-    this.props.fetchOrg(orgID);
+    this.props.fetchBoards();
   }
 
   handleInput = input => {
@@ -41,20 +40,20 @@ class Organization extends Component {
   };
 
   render() {
-    const { organization } = this.props;
+    const { boards } = this.props;
 
-    if (Object.keys(organization).length === 0) {
+    if (Object.keys(boards).length === 0) {
       return <div>Loading...</div>;
     } else {
       return (
         <div className="org-home" style={{ fontFamily: TYPEFACE }}>
           <OrgInfo>
-            <h1>{organization.name}</h1>
+            <h1>{boards[0].organization.name}</h1>
           </OrgInfo>
           <OrgBoards>
             <h1>Boards</h1>
             <BoardGrid>
-              <BoardList boards={organization.boards} />
+              <BoardList boards={boards} />
               {this.renderInput()}
             </BoardGrid>
             <button
@@ -129,8 +128,8 @@ const EmptyBoardToAdd = styled.div`
   }
 `;
 
-function mapStateToProps({ loggedInOrganization }) {
-  return { organization: loggedInOrganization };
+function mapStateToProps({ boards }) {
+  return { boards };
 }
 
 export default connect(

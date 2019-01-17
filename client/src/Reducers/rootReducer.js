@@ -8,11 +8,11 @@ import { listReducer } from './listReducer';
 
 const rootReducer = combineReducers({
   // organization: orgReducer,
-  // boards: boardsReducer,
+  boards: boardsReducer,
   // board: boardReducer,
   // lists: listReducer,
   // card: cardReducer,
-  loggedInOrganization: orgReducer,
+  // loggedInOrganization: orgReducer,
   selectedBoard: boardReducer,
   selectedCard: cardReducer,
   user: userReducer

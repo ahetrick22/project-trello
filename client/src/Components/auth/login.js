@@ -1,49 +1,45 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import { compose } from "redux";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { compose } from 'redux';
+import { Link } from 'react-router-dom';
 import * as actions from '../../Actions';
-import { connect } from "react-redux";
-
-
-
+import { connect } from 'react-redux';
 
 const Title = styled.div`
-    padding-top: 50px;
-    padding-left: 555px;
-    font-size: 20px;`
-
+  padding-top: 50px;
+  padding-left: 555px;
+  font-size: 20px;
+`;
 
 const Button = styled.button`
-    border:0;
-    border-radius:5px;
-    font-size:1.5em;
-    font-weight:600;
-    margin:10px;
-    padding:5px;`
+  border: 0;
+  border-radius: 5px;
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 10px;
+  padding: 5px;
+`;
 
 const LoginButton = styled.button`
-    background-color: #4CAF50;`
+  background-color: #4caf50;
+`;
 
 class login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: ""
+      email: '',
+      password: ''
     };
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit = () => {
+  handleSubmit = () => {
     this.props.fetchLogin((this.state.email, this.state.password), () => {
-      this.props.history.push("/orgs/5c3d0a12c905af1b29c57f06");
+      this.props.history.push('/orgs/5c3d0a12c905af1b29c57f06');
     });
   };
 
   render() {
-    const { handleSubmit } = this.props;
-
     return (
       <LoginCss>
         <div className="limiter">
@@ -52,31 +48,56 @@ class login extends Component {
               <div className="login100-form validate-form">
                 <span className="welcome login100-form-title p-b-26">
                   Welcome
-					</span>
-                <span className="login100-form-title p-b-48">
-                  <i className="zmdi zmdi-font"></i>
                 </span>
-                <div className="wrap-input100 validate-input" data-validate="Valid email is: a@b.c">
-                  <input className="input100" type="text" name="email" value={this.state.email} onChange={event =>
-                    this.setState({ email: event.target.value })} />
-                  <span className="focus-input100" data-placeholder="Email"></span>
+                <span className="login100-form-title p-b-48">
+                  <i className="zmdi zmdi-font" />
+                </span>
+                <div
+                  className="wrap-input100 validate-input"
+                  data-validate="Valid email is: a@b.c"
+                >
+                  <input
+                    className="input100"
+                    type="text"
+                    name="email"
+                    value={this.state.email}
+                    onChange={event =>
+                      this.setState({ email: event.target.value })
+                    }
+                  />
+                  <span className="focus-input100" data-placeholder="Email" />
                 </div>
-                <div className="wrap-input100 validate-input" data-validate="Enter password">
+                <div
+                  className="wrap-input100 validate-input"
+                  data-validate="Enter password"
+                >
                   <span className="btn-show-pass">
-                    <i className="zmdi zmdi-eye"></i>
+                    <i className="zmdi zmdi-eye" />
                   </span>
-                  <input className="input100" type="password" name="pass" value={this.state.password} onChange={event =>
-                    this.setState({ password: event.target.value })} />
-                  <span className="focus-input100" data-placeholder="Password"></span>
+                  <input
+                    className="input100"
+                    type="password"
+                    name="pass"
+                    value={this.state.password}
+                    onChange={event =>
+                      this.setState({ password: event.target.value })
+                    }
+                  />
+                  <span
+                    className="focus-input100"
+                    data-placeholder="Password"
+                  />
                 </div>
                 <div className="container-login100-form-btn">
                   <div className="wrap-login100-form-btn">
-                    <div className="login100-form-bgbtn"></div>
+                    <div className="login100-form-bgbtn" />
 
-                    <button className="login100-form-btn" onClick={() => this.props.fetchLogin(this.state.email, this.state.password)}>
+                    <button
+                      className="login100-form-btn"
+                      onClick={this.handleSubmit}
+                    >
                       Login
-						    	</button>
-
+                    </button>
                   </div>
                 </div>
               </div>
@@ -88,7 +109,7 @@ class login extends Component {
   }
 }
 
-const LoginCss = styled("div")`
+const LoginCss = styled('div')`
   h1,
   h2,
   h3,
@@ -303,7 +324,7 @@ const LoginCss = styled("div")`
   }
 
   .focus-input100::before {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     bottom: -2px;
@@ -518,7 +539,7 @@ const LoginCss = styled("div")`
   }
 
   .alert-validate::after {
-    content: "\f06a";
+    content: '\f06a';
     font-family: FontAwesome;
     font-size: 16px;
     color: #c80000;
@@ -548,12 +569,11 @@ const LoginCss = styled("div")`
   }
 `;
 
-const mapStateToProps = ({user}) => {
+const mapStateToProps = ({ user }) => {
   return {
     user
-  }
-}
-
+  };
+};
 
 export default connect(
   mapStateToProps,

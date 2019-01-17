@@ -28,7 +28,7 @@ render(
         <NavBar />
         <Switch>
           {/* TODO: root path should either be login page or org page depending on if user is logged in or not */}
-          <Redirect exact from='/' to='/login' />
+          {/* <Redirect exact from='/' to='/login' /> */}
           <Route exact path="/login" component={Login} />
           <Route exact path="/orgs/:orgID" component={Organization} />
           <Route exact path="/boards/:boardID" component={Board} />
@@ -39,5 +39,3 @@ render(
   </Provider>,
   document.getElementById('root')
 );
-
-//<Redirect from="/" to="/login" />
