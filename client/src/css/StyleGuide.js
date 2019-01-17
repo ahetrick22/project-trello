@@ -8,4 +8,5 @@ const COLORS = {
 
 const TYPEFACE = 'Helvetica Neue';
 
+
 module.exports = { COLORS, TYPEFACE };

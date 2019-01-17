@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import styled from 'styled-components';
+import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import Card from './card';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
@@ -25,6 +26,28 @@ const CardList = styled.div`
    flex-grow: 1;
    min-height: 100px;
 `;
+
+const Button = styled.button`
+   background-color:${COLORS.addButtons};
+	border-radius:28px;
+	border:1px solid ${COLORS.addButtons};
+   display:flex;
+   justify-content: center;
+   margin: 0 auto;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:${TYPEFACE};
+	font-size:17px;
+	padding:5px 20px;
+	text-decoration:none;
+   text-shadow:0px 1px 0px #2f6627;
+   
+   :hover{
+      background-color: ${COLORS.primary};
+      border:1px solid ${COLORS.primary};
+   }
+`;
+
 
 class List extends React.Component {
    constructor(props){
@@ -58,6 +81,7 @@ class List extends React.Component {
       }
    }
    render() {
+
       return <Fragment>
           <Draggable draggableId={this.props.column.id} index={this.props.index}>
             {provided => <Container {...provided.draggableProps} ref={provided.innerRef}>

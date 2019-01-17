@@ -11,15 +11,18 @@ class Organization extends Component {
     this.state = {
       addBoardInputShown: false,
       addBoardInput: ''
+
     };
     //() => this.props.addBoard(organization._id,'123')
     this.renderInput = this.renderInput.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.addOrCancel = this.addOrCancel.bind(this);
+
   }
   componentDidMount() {
     this.props.fetchBoards();
   }
+
 
   handleInput = input => {
     if (input.key == 'Enter') {
@@ -30,10 +33,12 @@ class Organization extends Component {
       this.setState({ addBoardInputShown: false, addBoardInput: '' });
     }
   };
+
   renderInput = () => {
     if (this.state.addBoardInputShown) {
       return (
         <EmptyBoardToAdd>
+
           <input
             autoFocus
             value={this.state.addBoardInput}
@@ -42,6 +47,7 @@ class Organization extends Component {
           />
         </EmptyBoardToAdd>
       );
+
     }
   };
 
@@ -54,11 +60,14 @@ class Organization extends Component {
   };
 
   render() {
+
     const { boards } = this.props;
+
 
     if (Object.keys(boards).length === 0) {
       return <div>Loading...</div>;
     } else {
+
       return (
         <div className="org-home" style={{ fontFamily: TYPEFACE }}>
           <OrgInfo>
@@ -90,6 +99,7 @@ class Organization extends Component {
           </OrgBoards>
         </div>
       );
+
     }
   }
 }
@@ -124,6 +134,7 @@ const AddBoardButton = styled.button`
   background-color: ${COLORS.addButtons};
   color: ${COLORS.tertiary};
   border-radius: 10px;
+  cursor: pointer;
 `;
 
 const EmptyBoardToAdd = styled.div`
