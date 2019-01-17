@@ -4,7 +4,13 @@ const Card = require('../models/card');
 const List = require('../models/list');
 const Board = require('../models/board');
 
-router.post('/list/:id', (req, res) => {
+const User = require('../models/user')
+const passportService = require('../services/passport');
+const passport = require('passport');
+const requireAuth = passport.authenticate('jwt', { session: false });
+
+
+router.post('/list/:id', requireAuth, (req, res) => {
 
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     List.findById(req.params.id, (err, list) => {
@@ -55,7 +61,7 @@ router.post('/list/:id', (req, res) => {
 })
 
 //updates a list name or a card position within that list
-router.put('/list/:id', (req, res) => {
+router.put('/list/:id', requireAuth, (req, res) => {
     //check to see which params come in the body
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
       let updateObject = {};

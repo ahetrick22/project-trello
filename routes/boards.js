@@ -9,7 +9,7 @@ const requireAuth = passport.authenticate('jwt', { session: false });
 
 
 //get all boards
-router.get('/boards', (req, res) => {
+router.get('/boards', requireAuth, (req, res) => {
   Board.find({})
     .populate({path: 'organization'})
     .exec((err, boards) => {
@@ -19,7 +19,7 @@ router.get('/boards', (req, res) => {
 });
 
 //get all boards of a specific user
-router.get('/boards/:userId', (req, res) => {
+router.get('/boards/:userId', requireAuth, (req, res) => {
   if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
     User.findById(req.params.userId, (err, user) => {
       if (err) throw err;
@@ -77,7 +77,7 @@ router.get('/board/:id', requireAuth, (req, res) => {
 });
 
 //ADD A NEW LIST to a specific board
-router.post('/board/:id/list', (req, res) => {
+router.post('/board/:id/list', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching board
@@ -126,41 +126,7 @@ router.post('/board/:id/list', (req, res) => {
 });
 
 //Updating a board's properties
-router.put('/board/:id', (req, res) => {
-  if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-    let updateObj = {};
-    if (req.body.name) {
-      updateObj.name = req.body.name;
-    }
-    if (Object.keys(updateObj).length === 0) {
-      res.send(400, 'Body must have proper parameters');
-    }
-    let { id } = req.params;
-    Board.findByIdAndUpdate(id, updateObj, (err, board) => {
-      if (err) throw err;
-      if (!board) {
-        res.send(404, 'no board matching this id');
-      } else {
-        Board.findById(id)
-          .populate({
-            path: 'lists',
-            populate: {
-              path: 'cards'
-            }
-          })
-          .exec((err, fullBoard) => {
-            if (err) throw err;
-            res.send(JSON.stringify(fullBoard));
-          });
-      }
-    });
-  } else {
-    res.send(400, 'Invalid parameters for request');
-  }
-});
-
-//Updating a board's properties
-router.put('/board/:id', (req, res) => {
+router.put('/board/:id', requireAuth,  (req, res) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     let updateObj = {};
     if (req.body.name) {
