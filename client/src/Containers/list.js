@@ -10,10 +10,11 @@ const Container = styled.div`
   margin: 8px;
   border: 1px solid lightgrey;
   background-color: white;
-  border-radius: 2px;
+  border-radius: 8px;
   width: 220px;
   display: flex;
   flex-direction: column;
+  box-shadow: 1px 1px 8px #999;
 `;
 const Title = styled.h3`
   padding: 8px;
