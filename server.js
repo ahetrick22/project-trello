@@ -23,7 +23,7 @@ const hardCodedData = require('./routes/hard-coded-data');
 const organizationRoutes = require('./routes/organizations');
 const boardRoutes = require('./routes/boards');
 const cardRoutes = require('./routes/cards');
-//const loginRoutes = require('./routes/login');
+const loginRoutes = require('./routes/login');
 const listRoutes = require('./routes/lists');
 
 app.use(mainRoutes)
@@ -31,7 +31,7 @@ app.use(hardCodedData);
 app.use(organizationRoutes);
 app.use(boardRoutes);
 app.use(cardRoutes);
-//app.use(loginRoutes);
+app.use(loginRoutes);
 app.use(listRoutes);
 
 io.on('connection', (client) => {
