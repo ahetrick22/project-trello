@@ -1,15 +1,16 @@
 const router = require('express').Router();
 const Board = require('../models/board');
 const List = require('../models/list');
-const User = require('../models/user')
-
+const User = require('../models/user');
 
 //get all boards
 router.get('/boards', (req, res) => {
-  Board.find({}, (err, boards) => {
-    if (err) throw err;
-    res.send(JSON.stringify(boards));
-  });
+  Board.find({})
+    .populate({ path: 'organization' })
+    .exec((err, boards) => {
+      if (err) throw err;
+      res.send(JSON.stringify(boards));
+    });
 });
 
 //get all boards of a specific user
@@ -18,22 +19,26 @@ router.get('/boards/:userId', (req, res) => {
     User.findById(req.params.userId, (err, user) => {
       if (err) throw err;
       if (!user) {
-        res.send(404, 'No user found with that ID. Please register before accessing boards')
+        res.send(
+          404,
+          'No user found with that ID. Please register before accessing boards'
+        );
       } else {
-        User.findById(req.params.userId).populate({
-          path: 'organizations',
-          populate: { 
-            path: 'boards',
-          }
-        }).exec((err, UserBoards) => {
-          if (err) throw err;
-          res.send(JSON.stringify(UserBoards))
-        })
+        User.findById(req.params.userId)
+          .populate({
+            path: 'organizations',
+            populate: {
+              path: 'boards'
+            }
+          })
+          .exec((err, UserBoards) => {
+            if (err) throw err;
+            res.send(JSON.stringify(UserBoards));
+          });
       }
-    })
+    });
   }
-})
-
+});
 
 //get a specific board
 router.get('/board/:id', (req, res) => {
@@ -48,22 +53,24 @@ router.get('/board/:id', (req, res) => {
         res.send(404, 'No board with that id');
         //otherwise, populate the board with its lists and cards and send it
       } else {
-        Board.findById(req.params.id).populate({
-          path: 'lists',
-          populate: {
-            path: 'cards'
-          }
-        }).exec((err, fullBoard) => {
-          if (err) throw err;
-          res.send(JSON.stringify(fullBoard));
-        })
+        Board.findById(req.params.id)
+          .populate({
+            path: 'lists',
+            populate: {
+              path: 'cards'
+            }
+          })
+          .exec((err, fullBoard) => {
+            if (err) throw err;
+            res.send(JSON.stringify(fullBoard));
+          });
       }
-    })
+    });
     //if the object ID wasn't in the correct format
   } else {
     res.send(400, 'Send a valid object ID as a parameter');
   }
-})
+});
 
 //ADD A NEW LIST to a specific board
 router.post('/board/:id/list', (req, res) => {
@@ -77,7 +84,6 @@ router.post('/board/:id/list', (req, res) => {
         res.send(404, 'No board with that id');
 
         //otherwise, create the new list on that board and send it
-
       } else {
         let newList = new List({
           name: req.body.name,
@@ -93,10 +99,9 @@ router.post('/board/:id/list', (req, res) => {
             if (err) throw err;
             board.lists.push(newList);
             board.save();
-          })
+          });
 
-          Board.
-            findById(req.params.id)
+          Board.findById(req.params.id)
             .populate({
               path: 'lists',
               populate: { path: 'cards' }
@@ -105,26 +110,26 @@ router.post('/board/:id/list', (req, res) => {
               if (err) throw err;
               fullBoard.lists.push(newList);
               res.send(JSON.stringify(fullBoard));
-            })
-        })
-      }}
-  )
+            });
+        });
+      }
+    });
 
     //if the object ID wasn't in the correct format
   } else {
-  res.send(400, 'Send a valid object ID as a parameter');
-}
-})
+    res.send(400, 'Send a valid object ID as a parameter');
+  }
+});
 
 //Updating a board's properties
 router.put('/board/:id', (req, res) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     let updateObj = {};
     if (req.body.name) {
-      updateObj.name = req.body.name
+      updateObj.name = req.body.name;
     }
     if (Object.keys(updateObj).length === 0) {
-      res.send(400, 'Body must have proper parameters')
+      res.send(400, 'Body must have proper parameters');
     }
     let { id } = req.params;
     Board.findByIdAndUpdate(id, updateObj, (err, board) => {
@@ -132,31 +137,33 @@ router.put('/board/:id', (req, res) => {
       if (!board) {
         res.send(404, 'no board matching this id');
       } else {
-        Board.findById(id).populate({
-          path: 'lists',
-          populate: {
-            path: 'cards'
-          }
-        }).exec((err, fullBoard) => {
-          if (err) throw err;
-          res.send(JSON.stringify(fullBoard));
-        })
+        Board.findById(id)
+          .populate({
+            path: 'lists',
+            populate: {
+              path: 'cards'
+            }
+          })
+          .exec((err, fullBoard) => {
+            if (err) throw err;
+            res.send(JSON.stringify(fullBoard));
+          });
       }
-    })
+    });
   } else {
-    res.send(400, 'Invalid parameters for request')
+    res.send(400, 'Invalid parameters for request');
   }
-})
+});
 
 //Updating a board's properties
 router.put('/board/:id', (req, res) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     let updateObj = {};
     if (req.body.name) {
-      updateObj.name = req.body.name
+      updateObj.name = req.body.name;
     }
     if (Object.keys(updateObj).length === 0) {
-      res.send(400, 'Body must have proper parameters')
+      res.send(400, 'Body must have proper parameters');
     }
     let { id } = req.params;
     Board.findByIdAndUpdate(id, updateObj, (err, board) => {
@@ -164,20 +171,22 @@ router.put('/board/:id', (req, res) => {
       if (!board) {
         res.send(404, 'no board matching this id');
       } else {
-        Board.findById(id).populate({
-          path: 'lists',
-          populate: {
-            path: 'cards'
-          }
-        }).exec((err, fullBoard) => {
-          if (err) throw err;
-          res.send(JSON.stringify(fullBoard));
-        })
+        Board.findById(id)
+          .populate({
+            path: 'lists',
+            populate: {
+              path: 'cards'
+            }
+          })
+          .exec((err, fullBoard) => {
+            if (err) throw err;
+            res.send(JSON.stringify(fullBoard));
+          });
       }
-    })
+    });
   } else {
-    res.send(400, 'Invalid parameters for request')
+    res.send(400, 'Invalid parameters for request');
   }
-})
+});
 
 module.exports = router;
