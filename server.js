@@ -43,23 +43,34 @@ io.on('connection', (client) => {
   });
 
   client.on('updateSameList', (socketObj) => {
-    console.log('server has received socket object', socketObj);
     List.findById(socketObj.listId, (err, list) => {
-      console.log('before splice', list.cards);
       list.cards.splice(socketObj.sourceIndex, 1);
       list.cards.splice(socketObj.destinationIndex, 0, socketObj.cardId);
-      console.log('after splice', list.cards);
       list.save((err, newList) => {
         if(err) throw err;
         List.findById(socketObj.listId).populate({path: 'cards'}).exec((err, updatedList) => {
           if(err) throw err;
-          console.log(updatedList);
+          io.emit('updatedList', 'update');
         })
       })
     })
-    client.emit('updateWithinSameList', 'updated list order');
   })
 
+  client.on('updateDifferentList', (socketObj) => {
+    List.findById(socketObj.startListId, (err, oldList) => {
+      oldList.cards.splice(socketObj.sourceIndex, 1);
+      oldList.save((err, savedOldList) => {
+        if(err) throw err;
+        List.findById(socketObj.finishListId, (err, newList) => {
+          newList.cards.splice(socketObj.destinationIndex, 0, socketObj.cardId);
+          newList.save((err, savedNewList) => {
+            if(err) throw err;
+            io.emit('updatedList', 'update');
+          })
+        })
+      })
+    })
+  })
 });
 
 

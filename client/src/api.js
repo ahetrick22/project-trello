@@ -10,5 +10,18 @@ export { subscribeToTimer };
 
 const updateSameList = (socketObj) => {
   socket.emit('updateSameList', socketObj);
+  
 }
-export { updateSameList };
+
+const updateDifferentList = (socketObj) => {
+  socket.emit('updateDifferentList', socketObj);
+}
+
+const updatedList = (self) => {
+  socket.on('updatedList', () => {
+    
+    console.log('updating');
+  })
+}
+
+export { updateSameList, updateDifferentList, updatedList };

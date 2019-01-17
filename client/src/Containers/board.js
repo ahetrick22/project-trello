@@ -6,7 +6,7 @@ import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { StyledButton } from '../Components/styledButton';
 //import { COLORS, TYPEFACE } from '../css/StyleGuide';
-import { updateSameList } from '../api';
+import { updateSameList, updatedList, updateDifferentList } from '../api';
 
 
 class Board extends Component {
@@ -15,7 +15,8 @@ class Board extends Component {
     this.state = {
       cards: {},
       listOrder: [],
-      lists: {}
+      lists: {},
+      hello: ''
     };
   }
 
@@ -46,6 +47,8 @@ class Board extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    updatedList(this);
+
     if (this.props.board !== nextProps.board) {
       var board = nextProps.board;
 
@@ -131,11 +134,8 @@ class Board extends Component {
       const newCardIds = Array.from(startList.cardIds);
       // remove the card from the card id list from where it was removed
       newCardIds.splice(source.index, 1);
-      console.log('source', source);
-      console.log(newCardIds);
       // insert the card into the card id list
       newCardIds.splice(destination.index, 0, draggableId);
-      console.log('destination index', destination.index);
       const sameListSocketObj = {
         listId: startList.id,
         cardId: draggableId,
@@ -175,6 +175,15 @@ class Board extends Component {
       ...finishList,
       cardIds: finishCardIds
     };
+    const differentListSocketObj = {
+      startListId: startList.id,
+      finishListId: finishList.id,
+      cardId: draggableId,
+      sourceIndex: source.index,
+      destinationIndex: destination.index
+    };
+    console.log(differentListSocketObj);
+    updateDifferentList(differentListSocketObj);
 
     const newState = {
       ...this.state,
