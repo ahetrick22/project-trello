@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 //import FlexContainer from 'react-styled-flexbox';
 import { FaHome, FaSignOutAlt } from 'react-icons/fa';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as actions from '../Actions';
 
 const NavDiv = styled.div`
@@ -94,9 +94,11 @@ export class NavBar extends Component {
         <Brand>Trello</Brand>
         <RightButtons>
           <Linker>
-            <a href="#" onClick={this.handleSignOut}>
+          <Link to='/'>
+               <a href="#" onClick={this.handleSignOut}>
               <FaSignOutAlt />
-            </a>
+              </a>
+            </Link>
           </Linker>
         </RightButtons>
       </NavDiv>
