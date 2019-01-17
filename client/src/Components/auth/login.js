@@ -51,7 +51,7 @@ class login extends Component {
   render() {
     if(this.props.user.authenticated){
      return (
-<Redirect to='/orgs/5c3fd62510515d4778d0d367' /> 
+<Redirect to='/orgs/5c40d87638edcf12d48dcf48' /> 
      )      
     } else {
 
