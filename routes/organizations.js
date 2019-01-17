@@ -1,8 +1,11 @@
 const router = require('express').Router();
 const Organization = require('../models/organization');
 const Board = require('../models/board');
+const passportService = require('../services/passport');
+const passport = require('passport');
+const requireAuth = passport.authenticate('jwt', { session: false });
 
-router.get('/organizations/:id', (req, res) => {
+router.get('/api/organizations/:id', requireAuth, (req, res) => {
   
   Organization.find({}, (err, organizations) => {
     if(!organizations) {
@@ -14,7 +17,7 @@ router.get('/organizations/:id', (req, res) => {
 });
 
 //ADD A BOARD TO AN ORGANIZATION
-router.post('/organizations/:id', (req, res) => {
+router.post('/api/organizations/:id', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
 if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
   //then find the matching organization

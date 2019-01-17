@@ -2,7 +2,9 @@ const router = require('express').Router();
 const Board = require('../models/board');
 const List = require('../models/list');
 const User = require('../models/user')
-const Organization = require('../models/organization');
+const passportService = require('../services/passport');
+const passport = require('passport');
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 //get all boards
 router.get('/boards', (req, res) => {
@@ -13,7 +15,7 @@ router.get('/boards', (req, res) => {
 });
 
 //get all boards of a specific user
-router.get('/boards/:userId', (req, res) => {
+router.get('/api/boards/:userId', requireAuth, (req, res) => {
   if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
     User.findById(req.params.userId, (err, user) => {
       if (err) throw err;
@@ -36,7 +38,7 @@ router.get('/boards/:userId', (req, res) => {
 
 
 //get a specific board
-router.get('/api/boards/:id', (req, res) => {
+router.get('/api/boards/:id', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
 
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -66,7 +68,7 @@ router.get('/api/boards/:id', (req, res) => {
 })
 
 //ADD A NEW LIST to a specific board
-router.post('/board/:id/list', (req, res) => {
+router.post('/api/board/:id/list', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching board
@@ -112,7 +114,7 @@ router.post('/board/:id/list', (req, res) => {
   }
 
 //Updating a board's properties
-router.put('/board/:id', (req, res) => {
+router.put('/api/board/:id', requireAuth, (req, res) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     let updateObj = {};
     if (req.body.name) {
