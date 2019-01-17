@@ -13,7 +13,9 @@ class CardDetail extends Component {
       card: {
         comments: [],
         title: '',
-        list: '',
+        list: {
+          name: ''
+        },
         description: '',
         label: { 
           value: 'green',
@@ -63,6 +65,25 @@ class CardDetail extends Component {
     this.setState({label});
   }
 
+  createListItems (){
+    let items = [];
+    //get card.list.val, find matching list.name
+    console.log("Props: ", this.props);
+    for (let i=0; i< this.props.maxValue; i++) {
+      items.push(<option key={i} value={i}>{i}</option>);
+      //create options dynamically based on which props are passed to parent
+    }
+    return;
+  }
+
+
+  onDropDownList = e => {
+    console.log("the list item is: ", e.target.value);
+    // let list = {...this.state.card.list};
+    // list.name = e.target.value;
+    // this.setState({list});
+  }
+
   render() {
     const { card, editTitle, editDesc } = this.state;
 
@@ -101,10 +122,12 @@ class CardDetail extends Component {
             <br />
             <div className='cardList'> 
               <span>List:</span>
-              <select name="list" id="list" defaultValue={card.list}>
+                  <input type="select" onChange={this.onDropDownList} label='Multiple Select' multiple>{this.createListItems()}
+                  </input>
+              {/* <select name="list" id="list" value={this.state.card.list.name.value}  onChange= {this.onDropDownList}>
                 <option value={card.list}>{card.list}</option>
                 {/* <option value={this.board.list.name}>{card.list.name}</option> */}
-              </select>
+              {/* </select> */} */}
             </div>
               <br></br>
 
