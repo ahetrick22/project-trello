@@ -20,7 +20,7 @@ exports.login = function(req, res, next) {
       return res.status(422).send({ error: 'You must provide email and password'})
    }
 
-   res.send({
+   res.json({
      token: tokenForUser(req.user),
      email: req.user.email
    })
@@ -63,9 +63,9 @@ exports.signup = function(req, res, next) {
       user.organizations.push(...org);
       user.save(function(err, user) {
         if (err) { return next(err) }
-  
+        console.log(user.email);
         // Repond to request indicating the user was created
-        res.json({ token: tokenForUser(user), email: user.email })
+        res.send(JSON.stringify({ token: tokenForUser(user), email: user.email }))
       });
     })
   });

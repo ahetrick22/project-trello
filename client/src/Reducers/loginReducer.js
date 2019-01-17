@@ -2,10 +2,11 @@ import { LOGIN } from '../Actions/types';
 
 const INITIAL_STATE = {
     authenticated: localStorage.getItem('token') || '',
+    email: '',
     errorMessage: ''
 };
 
-export const userReducer = (state = INITIAL_STATE, action) => {
+export const loginReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case LOGIN:
             return {
