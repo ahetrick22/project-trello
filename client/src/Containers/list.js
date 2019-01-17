@@ -28,21 +28,24 @@ const CardList = styled.div`
 `;
 
 const Button = styled.button`
-   background-color:${COLORS.primary};
+   background-color:${COLORS.addButtons};
 	border-radius:28px;
-	border:1px solid #18ab29;
-	display:inline-block;
+	border:1px solid ${COLORS.addButtons};
+   display:flex;
+   justify-content: center;
+   margin: 0 auto;
 	cursor:pointer;
 	color:#ffffff;
 	font-family:${TYPEFACE};
 	font-size:17px;
-	padding:16px 31px;
+	padding:5px 20px;
 	text-decoration:none;
-	text-shadow:0px 1px 0px #2f6627;
-`;
-
-const ButtonHover = styled.div`
-   background-color: #3bbf5f;
+   text-shadow:0px 1px 0px #2f6627;
+   
+   :hover{
+      background-color: ${COLORS.primary};
+      border:1px solid ${COLORS.primary};
+   }
 `;
 
 
@@ -67,12 +70,13 @@ class List extends React.Component {
                            {provided.placeholder}
                         </CardList>
                      )}
-                     <ButtonHover> 
-                        <a href="#">
-                           <Button>Add a Card </Button>
-                        </a> 
-                     </ButtonHover>
+                    
                   </Droppable>
+                  {/* <ButtonHover> */}
+                     <a href="#">
+                        <Button>Add a Card </Button>
+                     </a>
+                  {/* </ButtonHover> */}
                </Container>
             )}
          </Draggable>
