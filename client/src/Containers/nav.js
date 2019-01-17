@@ -91,6 +91,7 @@ export class NavBar extends Component {
   render() {
     console.log(this.props);
     return <NavDiv>
+
       <LeftButtons>
         <Linker>
           <a href='#'>
@@ -103,6 +104,7 @@ export class NavBar extends Component {
           <Linker>
             <a href='#' >
               <FaSignOutAlt />
+
             </a>
           </Linker> 
       </RightButtons>
