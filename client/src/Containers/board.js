@@ -5,7 +5,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { StyledButton } from '../Components/styledButton';
-import { COLORS, TYPEFACE } from '../css/StyleGuide';
+//import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { updateSameList } from '../api';
 
 const Container = styled.div`

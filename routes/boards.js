@@ -46,9 +46,8 @@ router.get('/boards/:userId', (req, res) => {
 });
 
 //get a specific board
-router.get('/board/:id', (req, res) => {
+router.get('/board/:id', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
-
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching board
     Board.findById(req.params.id, (err, board) => {

@@ -25,7 +25,7 @@ class Organization extends Component {
 
 
   handleInput = input => {
-    if (input.key == 'Enter') {
+    if (input.key === 'Enter') {
       this.props.addBoard(
         this.props.boards[0].organization._id,
         this.state.addBoardInput

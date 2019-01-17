@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import styled from 'styled-components';
-import { COLORS, TYPEFACE } from '../css/StyleGuide';
+//import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import Card from './card';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
@@ -28,26 +28,26 @@ const CardList = styled.div`
    min-height: 100px;
 `;
 
-const Button = styled.button`
-   background-color:${COLORS.addButtons};
-	border-radius:28px;
-	border:1px solid ${COLORS.addButtons};
-   display:flex;
-   justify-content: center;
-   margin: 0 auto;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:${TYPEFACE};
-	font-size:17px;
-	padding:5px 20px;
-	text-decoration:none;
-   text-shadow:0px 1px 0px #2f6627;
+// const Button = styled.button`
+//    background-color:${COLORS.addButtons};
+// 	border-radius:28px;
+// 	border:1px solid ${COLORS.addButtons};
+//    display:flex;
+//    justify-content: center;
+//    margin: 0 auto;
+// 	cursor:pointer;
+// 	color:#ffffff;
+// 	font-family:${TYPEFACE};
+// 	font-size:17px;
+// 	padding:5px 20px;
+// 	text-decoration:none;
+//    text-shadow:0px 1px 0px #2f6627;
    
-   :hover{
-      background-color: ${COLORS.primary};
-      border:1px solid ${COLORS.primary};
-   }
-`;
+//    :hover{
+//       background-color: ${COLORS.primary};
+//       border:1px solid ${COLORS.primary};
+//    }
+// `;
 
 
 class List extends React.Component {
@@ -75,7 +75,7 @@ class List extends React.Component {
       }
    }
    handleKeyPress(event) {
-      if(event.key=='Enter'){
+      if(event.key==='Enter'){
          console.log(this.props)
          this.props.addCard(this.props.column.id,this.state.listInput)
          this.setState({listInput:''})
@@ -125,4 +125,4 @@ export default connect(
   actions
 )(List);
 
-const PRIMARY_COLOR = '#';
+//const PRIMARY_COLOR = '#';

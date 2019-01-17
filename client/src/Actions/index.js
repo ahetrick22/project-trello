@@ -4,12 +4,14 @@ import {
   FETCH_BOARD,
   LOGIN,
   FETCH_CARD_INFO,
-  FETCH_LISTS,
+//  FETCH_LISTS,
+//  ADD_LIST
   ADD_BOARD,
-  REGISTER,
   ADD_CARD,
-  ADD_LIST
 } from './types';
+
+const email = localStorage.getItem('email');
+const token = localStorage.getItem('token');
 
 export const fetchLogin = (email, password) => dispatch => {
   fetch('/login', {
@@ -90,8 +92,16 @@ export const fetchBoards = () => dispatch => {
 };
 
 export const fetchBoard = boardID => dispatch => {
-  fetch(`/board/${boardID}`)
-    .then(res => res.json())
+  fetch(`/board/${boardID}`, {headers: {
+      email: email,
+      "Authorization": `bearer ${token}`
+    }
+  })
+    .then(res => {
+      const resStatus = res.status;
+      console.log(resStatus);
+      return res.json()
+    })
     .then(data => {
       dispatch({ type: FETCH_BOARD, payload: data });
     })
