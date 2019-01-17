@@ -7,11 +7,11 @@ import { boardsReducer } from './boardsReducer';
 import { listReducer } from './listReducer';
 
 const rootReducer = combineReducers({
-  organization: orgReducer,
-  boards: boardsReducer,
-  board: boardReducer,
-  lists: listReducer,
-  card: cardReducer,
+  // organization: orgReducer,
+  // boards: boardsReducer,
+  // board: boardReducer,
+  // lists: listReducer,
+  // card: cardReducer,
   loggedInOrganization: orgReducer,
   selectedBoard: boardReducer,
   selectedCard: cardReducer,

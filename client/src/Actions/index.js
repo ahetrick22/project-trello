@@ -31,8 +31,8 @@ export const fetchLogin = (email, password) => dispatch => {
     .catch(error => console.error('Error:', error));
 };
 
-export const fetchOrg = () => dispatch => {
-  fetch(`/organizations`)
+export const fetchOrg = orgID => dispatch => {
+  fetch(`/organizations/${orgID}`)
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_ORG, payload: data });
@@ -82,16 +82,19 @@ export const fetchCard = cardID => dispatch => {
 };
 
 export const addBoard = (organizationId, boardName) => dispatch => {
-  console.log(organizationId, boardName)
-   fetch(`/organizations/${organizationId}`,{
-    method:'POST',
-    body:JSON.stringify({
-      name:boardName
-    }), headers: {
-      "Content-Type": "application/json"}
-  }).then(response => response.json())
-  .then(data => {
-    console.log(data)
-    dispatch({type:ADD_BOARD,payload:data.boards})
+  console.log(organizationId, boardName);
+  fetch(`/organizations/${organizationId}`, {
+    method: 'POST',
+    body: JSON.stringify({
+      name: boardName
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
-}
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      dispatch({ type: ADD_BOARD, payload: data.boards });
+    });
+};
