@@ -45,8 +45,9 @@ class Board extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
     updatedList(this);
-
+    if(nextProps.board.lists){
     if (this.props.board !== nextProps.board) {
       var board = nextProps.board;
 
@@ -90,6 +91,7 @@ class Board extends Component {
 
       this.setState(newData);
     }
+  }
   }
 
   onDragEnd = result => {
@@ -198,6 +200,7 @@ class Board extends Component {
   };
 
   render() {
+    
     return (
       <Fragment>
         <InfoBar>
