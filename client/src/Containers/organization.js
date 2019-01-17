@@ -87,17 +87,25 @@ const OrgBoards = styled('div')`
   text-align: center;
   height: 60vh;
   padding: 2em 0;
+  
 `;
 
 const BoardGrid = styled("div")`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  overflow-x: scroll;
+  overflow-y: auto;
   flex-wrap: nowrap;
   padding: 2em 0;
-`;
+  padding-left: 10px;
+  width: 100%;
+  text-align: 20%;
+  
+`
 
 const AddBoardButton = styled.button`
+  justify-content: center;
   font-size: 1em;
   margin-top: 3em;
   height: 50px;
@@ -105,6 +113,7 @@ const AddBoardButton = styled.button`
   background-color: ${COLORS.addButtons};
   color: ${COLORS.tertiary};
   border-radius: 10px;
+  box-shadow: 1px 1px 15px #999;
 `;
 
 const EmptyBoardToAdd = styled.div`
@@ -115,8 +124,9 @@ const EmptyBoardToAdd = styled.div`
   color: ${COLORS.tertiary};
   height: 100px;
   line-height: 100px;
-  width: 170px;
+  width: 300px;
   text-decoration: none;
+  min-width: 200px;
 
   border-radius: 25px;
   &:hover {
@@ -127,7 +137,7 @@ const EmptyBoardToAdd = styled.div`
     height: 30%;
     background-color: white;
     margin: 0 5px 0 5px;
-    width: 75%;
+    width: 80%;
     font-weight: 500;
     font-size: 1.2em;
   }

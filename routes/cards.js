@@ -68,7 +68,7 @@ router.put('/card/:id', (req, res) => {
     }
   })
 
-router.post('/card/:id/comment', requireAuth, (req, res) => {
+router.post('/card/:id/comment', (req, res) => {
      if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
       //then find the matching card
       Card.findById(req.params.id, (err, card) => {
