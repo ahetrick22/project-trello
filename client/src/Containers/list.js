@@ -47,26 +47,40 @@ class List extends React.Component {
    }
 
    render() {
-      return <Fragment>
-          <Draggable draggableId={this.props.column.id} index={this.props.index}>
-            {provided => <Container {...provided.draggableProps} ref={provided.innerRef}>
-                <Title {...provided.dragHandleProps}>
-                  {this.props.column.title}
-                </Title>
-                <Droppable droppableId={this.props.column.id} type="card">
-                  {(provided, snapshot) => <CardList ref={provided.innerRef} {...provided.droppableProps} isDraggingOver={snapshot.isDraggingOver}>
-                      {this.props.cards.map((card, index) => (
-                        <Card key={card.id} card={card} index={index} />
-                      ))}
-                      {provided.placeholder}
-                    </CardList>}
-                </Droppable>
-                {this.renderListInputField()}
-              </Container>}
-          </Draggable>
-        </Fragment>;
+      const cardLength = this.props.cards.length;
+      return (
+         <Fragment>
+            <Draggable draggableId={this.props.column.id} index={this.props.index}>
+               {provided => <Container {...provided.draggableProps} ref={provided.innerRef}>
+                  <Title {...provided.dragHandleProps}>
+                     {this.props.column.title}
+                     { 
+                        cardLength === 1 ?
+                        (<CardInfo>1 Card</CardInfo>) :
+                        (<CardInfo>{cardLength} Cards</CardInfo>)
+                     }
+                  </Title>
+                  <Droppable droppableId={this.props.column.id} type="card">
+                     {(provided, snapshot) => <CardList ref={provided.innerRef} {...provided.droppableProps} isDraggingOver={snapshot.isDraggingOver}>
+                        {this.props.cards.map((card, index) => (
+                           <Card key={card.id} card={card} index={index} />
+                        ))}
+                        {provided.placeholder}
+                     </CardList>}
+                  </Droppable>
+                  {this.renderListInputField()}
+               </Container>}
+            </Draggable>
+         </Fragment>
+      );
    }
 }
+
+const CardInfo = styled.p`
+   font-family: ${TYPEFACE};
+   font-size: 12px;
+   opacity: 0.7;
+`
 
 const Button = styled.button`
    background-color:${COLORS.addButtons};
