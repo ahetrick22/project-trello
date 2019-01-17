@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Container = styled.div`
   border: 1px solid lightgrey;
   border-radius: 8px;
-  padding: 8px;
+  padding: 20px 8px;
   margin-bottom: 8px;
   background-color: ${props => (props.isDragging ? 'lightgreen' : 'white')};
   box-shadow: 2px 1px 4px #999;
