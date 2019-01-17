@@ -42,9 +42,11 @@ class List extends React.Component {
                       {provided.placeholder}
                     </CardList>}
                 </Droppable>
+               <button onClick={() => this.props.addCard(this.props.column.id, "yo")}>Test</button>
               </Container>}
+            
           </Draggable>
-         <button onClick={() => this.props.addCard(this.props.column.id,"yo")}>Test</button>
+         
         </Fragment>;
    }
 }

@@ -102,12 +102,12 @@ export const addCard = (listId, cardName) => dispatch => {
   fetch(`/list/${listId}`,{
     method: 'POST',
     body: JSON.stringify({
-      name: cardName
+      title: cardName
     }), headers: {
       "Content-Type": "application/json"
     }
   }).then(response => response.json())
-  .then(data => dispatch({type:ADD_CARD}))
+  .then(data => dispatch({type:ADD_CARD, payload:data}))
 
 }
 
