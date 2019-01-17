@@ -142,5 +142,6 @@ router.put('/board/:id', (req, res) => {
     res.send(400, 'Invalid parameters for request')
   }
 })
+})
 
 module.exports = router;
