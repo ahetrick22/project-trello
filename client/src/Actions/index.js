@@ -32,6 +32,16 @@ export const fetchLogin = (email, password) => dispatch => {
     .catch(error => console.error('Error:', error));
 };
 
+export const signout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('email');
+
+  return{
+    type: LOGIN,
+    payload:''
+  };
+};
+
 export const fetchRegister = (email, password) => dispatch => {
   fetch('/register', {
     method: 'POST',
