@@ -21,7 +21,7 @@ class Board extends Component {
       cards: {},
       listOrder: [],
       lists: {},
-      hello: ''
+      hello: '',
     };
   }
 
@@ -210,6 +210,17 @@ class Board extends Component {
     //need setState
     this.setState(newState);
   };
+
+  //change board name
+// ChangeBoardName() {
+//   <BoardNameInputField>
+//     <input 
+//       value={this.props.board.name}
+//       autoFocus={true}
+//       onChange={(e) => this.setState({boardInput: e.target.value})} 
+//     />
+//   </BoardNameInputField>
+// }
 
   render() {
     return (
