@@ -25,11 +25,12 @@ class CardDetail extends Component {
       editDesc: false,
      
     };
+    const { cardID } = this.props.match.params;
+     this.props.fetchCard(cardID);
   }
 
   componentDidMount = async () => {
-    const { cardID } = this.props.match.params;
-    await this.props.fetchCard(cardID);
+
   };
 
   componentWillReceiveProps(nextProps) {
@@ -86,11 +87,14 @@ class CardDetail extends Component {
 
   render() {
     const { card, editTitle, editDesc } = this.state;
-    console.log(this.state)
+
+    console.log(this.state.card)
 
     if (Object.keys(card).length === 0) {
       return <div>Loading...</div>;
-    } else {
+    } 
+    
+    else {
       return (
         <CardModal className="modal">
           <CloseButton onClick={this.closeModal}>X</CloseButton>
@@ -128,13 +132,13 @@ class CardDetail extends Component {
               {/* <select name="list" id="list" value={this.state.card.list.name.value}  onChange= {this.onDropDownList}>
                 <option value={card.list}>{card.list}</option>
                 {/* <option value={this.board.list.name}>{card.list.name}</option> */}
-              {/* </select> */} */}
+              {/* </select> */}
             </div>
               <br></br>
 
               <div className="card-label">
                 <span>Label:</span>
-                <select className="label" id="label" value={this.state.card.label.value} onChange={this.updateCardLabel}>  
+                <select className="label" id="label"  onChange={this.updateCardLabel}>  
                   <option value="red" style={{backgroundColor:'red', color: 'white'}}>Red</option>
                   <option value="orange" style={{ backgroundColor: 'orange', color: 'white' }}>Orange</option>
                   <option value="yellow" style={{ backgroundColor: 'yellow', color: 'black' }}>Yellow</option>
