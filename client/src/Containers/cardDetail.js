@@ -58,15 +58,9 @@ class CardDetail extends Component {
   };
 
   updateCardLabel = e => {
-    let card = {...this.state.card};
-    // card.label = e.target.style;
-    this.setState({
-      card: { 
-        label: {
-          value: e.target.value
-        }
-      }
-    });
+    let label = { ...this.state.card.label };
+    label.value = e.target.value;
+    this.setState({label});
   }
 
   render() {
@@ -105,25 +99,25 @@ class CardDetail extends Component {
               </h1>
             )}
             <br />
-            <span>List:</span>
-            <select name="list" id="list" defaultValue={card.list}>
-              <option value={card.list}>{card.list}</option>
-              {/* <option value={this.board.list.name}>{card.list.name}</option> */}
-            </select>
-            <br></br>
+            <div className='cardList'> 
+              <span>List:</span>
+              <select name="list" id="list" defaultValue={card.list}>
+                <option value={card.list}>{card.list}</option>
+                {/* <option value={this.board.list.name}>{card.list.name}</option> */}
+              </select>
+            </div>
+              <br></br>
 
-              <div className="card-label" 
-              // style={{ padding: '1em' }}
-              >
+              <div className="card-label">
                 <span>Label:</span>
-              <select className="label" id="label" value={this.state.card.label.value} onChange={this.updateCardLabel}>  
+                <select className="label" id="label" value={this.state.card.label.value} onChange={this.updateCardLabel}>  
                   <option value="red" style={{backgroundColor:'red', color: 'white'}}>Red</option>
                   <option value="orange" style={{ backgroundColor: 'orange', color: 'white' }}>Orange</option>
                   <option value="yellow" style={{ backgroundColor: 'yellow', color: 'black' }}>Yellow</option>
                   <option value="green" style={{ backgroundColor: 'green', color: 'white' }}>Green</option>
                   <option value="blue" style={{ backgroundColor: 'blue', color: 'white' }}>Blue</option>
                   <option value="purple" style={{ backgroundColor: 'purple', color: 'white' }}>Purple</option>
-                </select>
+                  </select>
               </div>
           </div>
           <div className="card-description" style={{ padding: '1em' }}>
