@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const BoardItem = ({ board }) => {
   return (
-    <StyledBoardItem to={`/boards/${board._id}`} className="board">
+    <StyledBoardItem href={`/boards/${board._id}`} className="board">
       {board.name}
     </StyledBoardItem>
   );
@@ -13,13 +13,13 @@ const BoardItem = ({ board }) => {
 
 export default BoardItem;
 
-const StyledBoardItem = styled(Link)`
+const StyledBoardItem = styled.a`
   cursor: pointer;
   background-color: ${COLORS.primary};
   color: ${COLORS.tertiary};
   height: 100px;
   min-width: 200px;
-  margin:0 5px 0 5px;
+  margin: 0 5px 0 5px;
   line-height: 100px;
   width: 170px;
   text-decoration: none;

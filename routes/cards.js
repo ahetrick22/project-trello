@@ -1,5 +1,10 @@
 const router = require('express').Router();
 const Card = require('../models/card');
+const User = require('../models/user')
+const passportService = require('../services/passport');
+const passport = require('passport');
+const requireAuth = passport.authenticate('jwt', { session: false });
+
 
 router.get('/card/:id', (req, res) => {
 
