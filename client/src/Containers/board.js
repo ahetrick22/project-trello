@@ -4,8 +4,8 @@ import List from './list';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
-import _ from 'underscore';
-import EmptyList from '../Components/emptyList'
+import {StyledButton} from '../Components/styledButton';
+import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { updateSameList } from '../api';
 
 const Container = styled.div`
@@ -17,10 +17,36 @@ class Board extends Component {
    constructor(props) {
       super(props);
       this.state = {
-        cards: {},
-        listOrder: [],
-        lists: {}
-      };
+         cards: {},
+         listOrder: [],
+         lists: {}
+       };
+
+      this.handleNewListClickEvent = this.handleNewListClickEvent.bind(this);
+      this.handleSubmitEvent.bind(this);
+   }
+   handleNewListClickEvent() {
+      var newListAreaElement = document.getElementById('newListArea');
+      if (newListAreaElement.style.visibility === 'hidden') {
+         newListAreaElement.style.visibility = 'visible';
+         document.getElementById('new-list-title').focus()
+      } else {
+         newListAreaElement.style.visibility = 'hidden';
+      }
+   }
+
+   handleSubmitEvent() {
+      var input = document.getElementById('new-list-title');
+      if (input.value) {
+         //send to server
+         this.props.addList(
+            this.props.match.params.boardID,
+            input.value
+          )
+         //reset value of input to null, and css visibility to hidden
+         input.value = "";
+         document.getElementById('newListArea').style.visibility = 'hidden';
+      }
    }
 
    componentDidMount() {
@@ -179,20 +205,17 @@ class Board extends Component {
 
    }
 
+
    render() {
-    //  const { board } = this.props.boards;
-    console.log(this.state.lists);
-      return <Fragment>
+      return (
+         <Fragment>
           <InfoBar>        
                 <h1>{this.props.board.name}</h1>
-                <h2 >{this.props.organization.name}</h2>
-            <button onClick={() => alert("hi")}>
-               <EmptyList />
-            </button>
+                <h2>{this.props.organization.name}</h2>
+            <StyledButton onClick={this.handleNewListClickEvent}>+New List</StyledButton>
           </InfoBar>
 
           <BoardArea>
-             
             <DragDropContext onDragEnd={this.onDragEnd}>
               {!this.state.listOrder ? <p>
                   '...Loading'
@@ -208,23 +231,37 @@ class Board extends Component {
                     </Container>}
                 </Droppable>}
             </DragDropContext>
+            <NewListArea id='newListArea' style={{visibility:'hidden'}}>
+               <h3>New list name</h3><br/>
+               <input id="new-list-title" type="text" name="listName" onKeyPress={e => e.key === 'Enter' ? this.handleSubmitEvent() : null}/>       
+            </NewListArea>
           </BoardArea>
-        </Fragment>;   }   
+        </Fragment>   
+   )}   
 }
 
-const InfoBar = styled('div')`
-height:75px;
-border:1px solid black;
-display:flex;
-flex-direction:row;
-justify-content:space-between;
-align-items:center;
 
+const NewListArea = styled('div')`
+   margin: 8px;
+   padding: 8px;
+   border: 1px solid lightgrey;
+   background-color: white;
+   border-radius: 2px;
+   width: 220px;
+`
+
+const InfoBar = styled('div')`
+   height:75px;
+   border:1px solid black;
+   display:flex;
+   flex-direction:row;
+   justify-content:space-between;
+   align-items:center;
 `
 
 const BoardArea = styled('div')`
-display:flex;
-flex-direction:row;
+   display:flex;
+   flex-direction:row;
 `
 
 function mapStateToProps({ board, organization }) {
