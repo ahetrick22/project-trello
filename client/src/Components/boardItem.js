@@ -14,7 +14,7 @@ export default BoardItem;
 
 const StyledBoardItem = styled.a` 
   cursor: pointer;
-  background-color: ${COLORS.primary}
+  background-color: ${COLORS.primary};
   color: ${COLORS.tertiary};
   height: 100px;
   line-height: 100px;

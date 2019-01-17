@@ -20,6 +20,7 @@ this.handleInput = this.handleInput.bind(this);
     this.props.fetchOrg();
     this.props.fetchBoards();
   }
+
   handleInput = (input) => {
     if(input.key == 'Enter'){
       alert('addboard now')
@@ -53,6 +54,17 @@ this.handleInput = this.handleInput.bind(this);
               <BoardList boards={boards} />
               {this.renderInput()}
             </BoardGrid>
+            <button
+              onClick={() =>
+                this.props.addBoard(
+                  "5c3fafdf44ae364f70407ec6",
+                  "DEM BOYZ"
+                )
+              }
+            >
+              Button
+            </button>
+
             <AddBoardButton onClick={() => this.setState({
                   addBoardInputShown: !this.state.addBoardInputShown
                 })}>
@@ -78,11 +90,13 @@ const OrgBoards = styled('div')`
   padding: 2em 0;
 `;
 
-const BoardGrid = styled('div')`
-display:flex;
-flex-direction:row;
-align-items:bottom;
-`
+const BoardGrid = styled("div")`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+  padding: 2em 0;
+`;
 
 const AddBoardButton = styled.button`
   font-size: 1em;
@@ -94,9 +108,9 @@ const AddBoardButton = styled.button`
   border-radius: 10px;
 `;
 
-const EmptyBoardToAdd = styled.a`
+const EmptyBoardToAdd = styled.div`
   cursor: pointer;
-  background-color: ${COLORS.primary};
+  background-color: ${COLORS.primary}
   color: ${COLORS.tertiary};
   height: 100px;
   line-height: 100px;

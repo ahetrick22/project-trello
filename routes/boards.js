@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Board = require('../models/board');
 const List = require('../models/list');
-
+const User = require('../models/user')
 
 
 //get all boards
@@ -11,6 +11,29 @@ router.get('/boards', (req, res) => {
     res.send(JSON.stringify(boards));
   });
 });
+
+//get all boards of a specific user
+router.get('/boards/:userId', (req, res) => {
+  if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+    User.findById(req.params.userId, (err, user) => {
+      if (err) throw err;
+      if (!user) {
+        res.send(404, 'No user found with that ID. Please register before accessing boards')
+      } else {
+        User.findById(req.params.userId).populate({
+          path: 'organizations',
+          populate: { 
+            path: 'boards',
+          }
+        }).exec((err, UserBoards) => {
+          if (err) throw err;
+          res.send(JSON.stringify(UserBoards))
+        })
+      }
+    })
+  }
+})
+
 
 //get a specific board
 router.get('/board/:id', (req, res) => {
@@ -156,7 +179,5 @@ router.put('/board/:id', (req, res) => {
     res.send(400, 'Invalid parameters for request')
   }
 })
-
-
 
 module.exports = router;
