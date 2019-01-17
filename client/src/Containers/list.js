@@ -22,9 +22,7 @@ const Title = styled.h3`
 const CardList = styled.div`
    padding: 8px;
    transition: background-color 0.5s ease;
-
-   background-color: ${props => props.isDraggingOver ? 'lightgrey' : 'inherit'}
-
+   background-color: ${props => props.isDraggingOver ? 'lightgrey' : 'inherit'};
    flex-grow: 1;
    min-height: 100px;
 `;
