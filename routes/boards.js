@@ -3,68 +3,50 @@ const Board = require('../models/board');
 const List = require('../models/list');
 const Organization = require('../models/organization');
 
-const User = require('../models/user')
+const User = require('../models/user');
 const passportService = require('../services/passport');
 const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 
-
-const masterQuery = (orgId) => {
-  return Organization.findById(orgId).populate({
-    path: 'boards', 
-    populate: {
-      path: 'lists', 
-      populate: {
-        path: 'cards', 
-        populate: {
-          path: 'comments'
-        }
-      }
-    }
-  });
-}
-
-
 //get all boards
 router.get('/boards', (req, res) => {
-  Board.find({}, (err, boards) => {
-    const query = masterQuery(boards[0].organization._id);
-    query.exec((err, org) => {
+  Board.find({})
+    .populate({ path: 'organization' })
+    .exec((err, boards) => {
       if (err) throw err;
-      res.send(JSON.stringify(org));
-    })
-  });
+      res.send(JSON.stringify(boards));
+    });
 });
 
 //get all boards of a specific user
-router.get('/boards/:userId', (req, res) => {
-  if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
-    User.findById(req.params.userId, (err, user) => {
-      if (err) throw err;
-      if (!user) {
-        res.send(
-          404,
-          'No user found with that ID. Please register before accessing boards'
-        );
-      } else {
-        User.findById(req.params.userId)
-          .populate({
-            path: 'organizations',
-            populate: {
-              path: 'boards'
-            }
-          })
-          .exec((err, UserBoards) => {
-            if (err) throw err;
-            res.send(JSON.stringify(UserBoards));
-          });
-      }
-    });
-  }
-});
+// router.get('/boarda/:userId', (req, res) => {
+//   if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+//     User.findById(req.params.userId, (err, user) => {
+//       if (err) throw err;
+//       if (!user) {
+//         res.send(
+//           404,
+//           'No user found with that ID. Please register before accessing boards'
+//         );
+//       } else {
+//         User.findById(req.params.userId)
+//           .populate({
+//             path: 'organizations',
+//             populate: {
+//               path: 'boards'
+//             }
+//           })
+//           .exec((err, UserBoards) => {
+//             if (err) throw err;
+//             res.send(JSON.stringify(UserBoards));
+//           });
+//       }
+//     });
+//   }
+// });
 
 //get a specific board
-router.get('/board/:id', requireAuth, (req, res) => {
+router.get('/boards/:id', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching board

@@ -8,7 +8,6 @@ import { StyledButton } from '../Components/styledButton';
 //import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { updateSameList, updatedList, updateDifferentList } from '../api';
 
-
 class Board extends Component {
   constructor(props) {
     super(props);
@@ -142,7 +141,6 @@ class Board extends Component {
         sourceIndex: source.index,
         destinationIndex: destination.index
       };
-      updateSameList(sameListSocketObj);
 
       const newList = {
         ...startList,
@@ -157,7 +155,7 @@ class Board extends Component {
         }
       };
 
-      this.setState(newState);
+      updateSameList(sameListSocketObj, newState);
       return;
     }
 
@@ -183,7 +181,6 @@ class Board extends Component {
       destinationIndex: destination.index
     };
     console.log(differentListSocketObj);
-    updateDifferentList(differentListSocketObj);
 
     const newState = {
       ...this.state,
@@ -194,7 +191,7 @@ class Board extends Component {
       }
     };
 
-    this.setState(newState);
+    updateDifferentList(differentListSocketObj, newState);
 
     // call server endpoint to let know that a reorder has occurred
   };
