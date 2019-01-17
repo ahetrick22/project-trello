@@ -155,7 +155,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: 'orange',
     description: 'blah blah blah',
     comments: [],
-    activity: 'I got moved',
+    activity: [],
     archived: false
   })
 
@@ -165,7 +165,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: 'red',
     description: 'Fun things',
     comments: [],
-    activity: 'I got updated',
+    activity: [],
     archived: false
   })
 
@@ -175,7 +175,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '',
     description: 'test test test',
     comments: [],
-    activity: '',
+    activity: [],
     archived: false
   })
 
@@ -185,7 +185,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: 'yellow',
     description: 'More lorem ipsum',
     comments: [],
-    activity: 'Random gibberish',
+    activity: [],
     archived: false
   })
 
@@ -195,7 +195,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: 'purple',
     description: '',
     comments: [],
-    activity: 'Cool things',
+    activity: [],
     archived: false
   })
   const card6 = new Card({
@@ -204,7 +204,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '#444444',
     description: '',
     comments: [],
-    activity: 'I got restored from the archive',
+    activity: [],
     archived: false
   })
   const card7 = new Card({
@@ -213,7 +213,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '#29F263',
     description: 'I am a fun task',
     comments: [],
-    activity: 'I got updated',
+    activity: [],
     archived: false
   })
   const card8 = new Card({
@@ -222,7 +222,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '#8620E2',
     description: '',
     comments: [],
-    activity: 'I got moved',
+    activity: [],
     archived: false
   })
   const card9 = new Card({
@@ -231,7 +231,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: 'FF11FF',
     description: '',
     comments: [],
-    activity: 'More things',
+    activity: [],
     archived: false
   })
   const card10 = new Card({
@@ -240,7 +240,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '#003388',
     description: '',
     comments: [],
-    activity: 'I got moved too',
+    activity: [],
     archived: false
   })
   const card11 = new Card({
@@ -249,7 +249,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '#A45BBB',
     description: '',
     comments: [],
-    activity: '',
+    activity: [],
     archived: false
   })
   const card12 = new Card({
@@ -258,7 +258,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '',
     description: '',
     comments: [],
-    activity: '',
+    activity: [],
     archived: false
   })
 
