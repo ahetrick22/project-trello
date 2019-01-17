@@ -94,8 +94,6 @@ router.put('/list/:id', (req, res) => {
       }
     })
 
-router.post('/list/:listId/card', (req, res) => {
-  res.send("add a new card route");
-})
+
             
 module.exports = router;

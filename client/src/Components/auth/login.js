@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
-
+import * as actions from '../../Actions';
 import { connect } from "react-redux";
-import { fetchLogin } from "../../Actions/index";
+
 
 
 
 const Title = styled.div`
     padding-top: 50px;
-    padding-left: 555px
+    padding-left: 555px;
     font-size: 20px;`
 
 
@@ -35,8 +35,8 @@ class login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit = props => {
-    this.props.login(props, () => {
+  onSubmit = () => {
+    this.props.fetchLogin((this.state.email, this.state.password), () => {
       this.props.history.push("/orgs/5c3d0a12c905af1b29c57f06");
     });
   };
@@ -548,11 +548,14 @@ const LoginCss = styled("div")`
   }
 `;
 
-const mapDispatchToProps = {
-  fetchLogin,
-};
+const mapStateToProps = ({user}) => {
+  return {
+    user
+  }
+}
+
 
 export default connect(
-  null,
-  mapDispatchToProps
+  mapStateToProps,
+  actions
 )(login);
