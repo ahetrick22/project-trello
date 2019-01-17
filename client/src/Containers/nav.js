@@ -73,6 +73,16 @@ const Linker = styled.div`
 //Still needs some work but is a functioning navBar
 
 export class NavBar extends Component {
+  constructor(props) {
+    super(props);
+      
+  }
+   handleSignOut = () => {
+    this.props.signout();
+    console.log(this.props);
+    
+  };
+
   render() {
     return (
       <NavDiv>
@@ -86,7 +96,7 @@ export class NavBar extends Component {
         <Brand>Trello</Brand>
         <RightButtons>
           <Linker>
-            <a href="#">
+            <a href="#" onClick={this.handleSignOut}>
               <FaSignOutAlt />
             </a>
           </Linker>
