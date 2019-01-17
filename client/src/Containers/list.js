@@ -38,34 +38,49 @@ class List extends React.Component {
    handleKeyPress(event) {
       if(event.key==='Enter' && this.state.listInput){
          console.log('this props: ', this.props);
-         this.props.addCard(this.props.column.id, this.state.listInput)
+         
          this.setState({listInput:''})
-
-         this.props.fetchBoard(this.props.column.id);
+         
+         //addCard() needs to update the server, and returned value from the server needs to update the storeState 
+         this.props.addCard(this.props.column.id, this.state.listInput)
       }
    }
 
    render() {
-      return <Fragment>
-          <Draggable draggableId={this.props.column.id} index={this.props.index}>
-            {provided => <Container {...provided.draggableProps} ref={provided.innerRef}>
-                <Title {...provided.dragHandleProps}>
-                  {this.props.column.title}
-                </Title>
-                <Droppable droppableId={this.props.column.id} type="card">
-                  {(provided, snapshot) => <CardList ref={provided.innerRef} {...provided.droppableProps} isDraggingOver={snapshot.isDraggingOver}>
-                      {this.props.cards.map((card, index) => (
-                        <Card key={card.id} card={card} index={index} />
-                      ))}
-                      {provided.placeholder}
-                    </CardList>}
-                </Droppable>
-                {this.renderListInputField()}
-              </Container>}
-          </Draggable>
-        </Fragment>;
+      const cardLength = this.props.cards.length;
+      return (
+         <Fragment>
+            <Draggable draggableId={this.props.column.id} index={this.props.index}>
+               {provided => <Container {...provided.draggableProps} ref={provided.innerRef}>
+                  <Title {...provided.dragHandleProps}>
+                     {this.props.column.title}
+                     { 
+                        cardLength === 1 ?
+                        (<CardInfo>1 Card</CardInfo>) :
+                        (<CardInfo>{cardLength} Cards</CardInfo>)
+                     }
+                  </Title>
+                  <Droppable droppableId={this.props.column.id} type="card">
+                     {(provided, snapshot) => <CardList ref={provided.innerRef} {...provided.droppableProps} isDraggingOver={snapshot.isDraggingOver}>
+                        {this.props.cards.map((card, index) => (
+                           <Card key={card.id} card={card} index={index} />
+                        ))}
+                        {provided.placeholder}
+                     </CardList>}
+                  </Droppable>
+                  {this.renderListInputField()}
+               </Container>}
+            </Draggable>
+         </Fragment>
+      );
    }
 }
+
+const CardInfo = styled.p`
+   font-family: ${TYPEFACE};
+   font-size: 12px;
+   opacity: 0.7;
+`
 
 const Button = styled.button`
    background-color:${COLORS.addButtons};
