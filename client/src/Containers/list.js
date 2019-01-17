@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import Card from './card';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
@@ -26,6 +27,25 @@ const CardList = styled.div`
    min-height: 100px;
 `;
 
+const Buttons = styled.div`
+   background-color:${COLORS.primary};
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:${TYPEFACE};
+	font-size:17px;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+`;
+
+const ButtonHover = styled.div`
+   background-color: #3bbf5f;
+`;
+
+
 class List extends React.Component {
    render() {
       return (
@@ -47,7 +67,11 @@ class List extends React.Component {
                            {provided.placeholder}
                         </CardList>
                      )}
-                  
+                     <ButtonHover> 
+                        <a href="#">
+                           <Buttons>Add a Card </Buttons>
+                        </a> 
+                     </ButtonHover>
                   </Droppable>
                </Container>
             )}
