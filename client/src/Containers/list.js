@@ -27,7 +27,7 @@ const CardList = styled.div`
    min-height: 100px;
 `;
 
-const Buttons = styled.div`
+const Button = styled.button`
    background-color:${COLORS.primary};
 	border-radius:28px;
 	border:1px solid #18ab29;
@@ -69,7 +69,7 @@ class List extends React.Component {
                      )}
                      <ButtonHover> 
                         <a href="#">
-                           <Buttons>Add a Card </Buttons>
+                           <Button>Add a Card </Button>
                         </a> 
                      </ButtonHover>
                   </Droppable>
