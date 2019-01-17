@@ -38,10 +38,11 @@ class List extends React.Component {
    handleKeyPress(event) {
       if(event.key==='Enter' && this.state.listInput){
          console.log('this props: ', this.props);
-         this.props.addCard(this.props.column.id, this.state.listInput)
+         
          this.setState({listInput:''})
-
-         this.props.fetchBoard(this.props.column.id);
+         
+         //addCard() needs to update the server, and returned value from the server needs to update the storeState 
+         this.props.addCard(this.props.column.id, this.state.listInput)
       }
    }
 
