@@ -8,6 +8,7 @@ import { StyledButton } from '../Components/styledButton';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { updateSameList, updatedList, updateDifferentList } from '../api';
 
+
 class Board extends Component {
   constructor(props) {
     super(props);
@@ -115,15 +116,22 @@ class Board extends Component {
     if (type === 'column') {
       const newListOrder = Array.from(this.state.listOrder);
       newListOrder.splice(source.index, 1);
-      console.log('after source', newListOrder);
       newListOrder.splice(destination.index, 0, draggableId);
-      console.log('after destination', newListOrder);
+
+      const newListPositionSocketObj = {
+        listId: draggableId,
+        sourceIndex: source.index,
+        destinationIndex: destination.index
+      };
+
 
       const newState = {
         ...this.state,
         listOrder: newListOrder
       };
 
+      newListOrderEvent(newListPositionSocketObj, newState);
+      console.log(newListPositionSocketObj)
       this.setState(newState);
       return;
     }

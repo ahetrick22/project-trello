@@ -7,6 +7,7 @@ const keys = require('./config/keys');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const List = require('./models/list');
+const Board = require('./models/board');
 
 mongoose.connect(keys.MONGODB_URI);
 
@@ -74,6 +75,21 @@ io.on('connection', client => {
       });
     });
   });
+
+  client.on('updateListPosition', ({socketObj, newState }) => {
+    List.findById(socketObj.listId, (err, list) => {
+      if (err) throw err;
+      Board.findById(list.board._id, (err, board) => {
+        if(err) throw err;
+        board.lists.splice(socketObj.sourceIndex, 1);
+        board.lists.splice(socketObj.destinationIndex, 0, socketObj.listId);
+        board.save((err, savedBoard) => {
+          if (err) throw err;
+          io.emit('updatedList', newState);
+        })
+      })
+    })
+  })
 });
 
 if (process.env.NODE_ENV === 'production') {
