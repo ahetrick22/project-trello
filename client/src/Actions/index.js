@@ -90,6 +90,7 @@ export const fetchBoards = () => dispatch => {
       Authorization: `bearer ${token}`
     }
   })
+
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_BOARDS, payload: data });
