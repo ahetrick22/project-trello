@@ -88,61 +88,61 @@ router.get('/generate-dummy-data', async (req, res) => {
 
   //3 boards
   const board1 = new Board({
-    name: 'Project Reddit',
+    name: 'Project Reddit which is an Integral part of Project Shift',
     lists: [],
     organization: org1
   })
 
   const board2 = new Board({
-    name: 'To-do List',
+    name: 'To-do List for the day',
     lists: [],
     organization: org1
   })
 
   const board3 = new Board({
-    name: 'Hello World',
+    name: 'Hello World it is good to see you',
     lists: [],
     organization: org1
   })
 
   //6 lists - 2 lists per board
   const list1 = new List({
-    name: 'Do the things',
+    name: 'Do the things you want to do',
     board: board1,
     cards: [],
     archived: false
   })
 
   const list2 = new List({
-    name: 'Eat snacks',
+    name: 'Eat snacks at the movie theatre',
     board: board1,
     cards: [],
     archived: false
   })
   
   const list3 = new List({
-    name: 'Finish things',
+    name: 'Finish things as soon as possible',
     board: board2,
     cards: [],
     archived: false
   })
 
   const list4 = new List({
-    name: 'I am a list',
+    name: 'I am a list of things to do',
     board: board2,
     cards: [],
     archived: false
   })
 
   const list5 = new List({
-    name: 'Do ALL the things',
+    name: 'Do ALL the things that you hope to accomplish in life',
     board: board3,
     cards: [],
     archived: false
   })
 
   const list6 = new List({
-    name: 'Have awesome demos',
+    name: 'Have awesome demos to do on Demo night',
     board: board3,
     cards: [],
     archived: false
@@ -150,7 +150,7 @@ router.get('/generate-dummy-data', async (req, res) => {
 
   //12 cards (2 per list)
   const card1 = new Card({
-    title: 'Sample card',
+    title: 'Sample card for the day',
     list: list1,
     label: 'orange',
     description: 'blah blah blah',
@@ -160,7 +160,7 @@ router.get('/generate-dummy-data', async (req, res) => {
   })
 
   const card2 = new Card({
-    title: 'Test card',
+    title: 'Test card for the next question',
     list: list1,
     label: 'red',
     description: 'Fun things',
@@ -170,7 +170,7 @@ router.get('/generate-dummy-data', async (req, res) => {
   })
 
   const card3 = new Card({
-    title: 'New card',
+    title: 'New card for tomorrow',
     list: list2,
     label: '',
     description: 'test test test',
@@ -180,7 +180,7 @@ router.get('/generate-dummy-data', async (req, res) => {
   })
 
   const card4 = new Card({
-    title: 'Lorem ipsum',
+    title: 'Lorem ipsum is amazing',
     list: list2,
     label: 'yellow',
     description: 'More lorem ipsum',
@@ -190,7 +190,7 @@ router.get('/generate-dummy-data', async (req, res) => {
   })
 
   const card5 = new Card({
-    title: 'Have lunch',
+    title: 'Have lunch for your first full meal when you wake up late',
     list: list3,
     label: 'purple',
     description: '',
@@ -199,7 +199,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     archived: false
   })
   const card6 = new Card({
-    title: 'Sample text',
+    title: 'Sample text for what happened yesterday',
     list: list3,
     label: '#444444',
     description: '',
@@ -208,7 +208,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     archived: false
   })
   const card7 = new Card({
-    title: 'File things',
+    title: 'File things in anticipation of needing them sometime in the future',
     list: list4,
     label: '#29F263',
     description: 'I am a fun task',
@@ -217,7 +217,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     archived: false
   })
   const card8 = new Card({
-    title: 'Organize stuff',
+    title: 'Organize stuff neatly at least once a week',
     list: list4,
     label: '#8620E2',
     description: '',
@@ -226,7 +226,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     archived: false
   })
   const card9 = new Card({
-    title: 'Doing things',
+    title: 'Doing things at the right time',
     list: list5,
     label: 'FF11FF',
     description: '',
@@ -235,7 +235,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     archived: false
   })
   const card10 = new Card({
-    title: 'Sample sample sample',
+    title: 'Sample sample sample sample sample sample sample',
     list: list5,
     label: '#003388',
     description: '',
@@ -244,7 +244,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     archived: false
   })
   const card11 = new Card({
-    title: 'Card card card card',
+    title: 'Card card card card card card card',
     list: list6,
     label: '#A45BBB',
     description: '',
@@ -253,7 +253,7 @@ router.get('/generate-dummy-data', async (req, res) => {
     archived: false
   })
   const card12 = new Card({
-    title: 'Sampling more things',
+    title: 'Sampling more things that need to be sampled',
     list: list6,
     label: '',
     description: '',
@@ -264,75 +264,75 @@ router.get('/generate-dummy-data', async (req, res) => {
 
   //12 comments (1 per card)
   const comment1 = new Comment({
-    text: 'Hello',
+    text: 'Hello to each and every one of you',
     user: user1,
     card: card1
   })
 
   const comment2 = new Comment({
-    text: 'Goodbye',
+    text: 'Goodbye and do not let the Golden door hit you on the way out',
     user: user2,
     card: card2
   })
 
   const comment3 = new Comment({
-    text: 'Hello back',
+    text: 'Hello back to you',
     user: user3,
     card: card3
   })
 
   const comment4 = new Comment({
-    text: 'Hi',
+    text: 'Hi to all the new guests',
     user: user4,
     card: card4
   })
 
   const comment5 = new Comment({
-    text: 'I am a comment',
+    text: 'I am a comment and I do not belong in a lecture course',
     user: user5,
     card: card5
   })
 
   const comment6 = new Comment({
-    text: 'I love Project Reddit',
+    text: 'I love Project Reddit because I know multiple applications where it could be useful',
     user: user6,
     card: card6
   })
 
   const comment7 = new Comment({
-    text: 'React is the best',
+    text: 'React is the best and better than Backbone',
     user: user7,
     card: card7
   })
 
   const comment8 = new Comment({
-    text: 'Lodash is my favorite!',
+    text: 'Lodash is my favorite! Backbone is my least favorite!',
     user: user8,
     card: card8
   })
 
   const comment9 = new Comment({
-    text: 'Testing, 1-2-3',
+    text: 'Testing, 1-2-3-4-5-6-7',
     user: user1,
     card: card9
   })
 
   const comment10 = new Comment({
-    text: 'Some sample text',
+    text: 'Some sample text that you can view',
     user: user2,
     card: card10
     
   })
 
   const comment11 = new Comment({
-    text: 'More sample text',
+    text: 'More sample text that you can view',
     user: user1,
     card: card11
    
   })
 
   const comment12 = new Comment({
-    text: 'Hi there',
+    text: 'Hi there and welcome to the party',
     user: user2,
     card: card12
 
