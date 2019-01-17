@@ -6,7 +6,11 @@ import {
   FETCH_CARD_INFO,
   FETCH_LISTS,
   ADD_BOARD,
+
+  ADD_CARD
+
   ADD_LIST
+
 } from './types';
 
 export const fetchLogin = (email, password) => dispatch => {
@@ -74,17 +78,36 @@ export const fetchCard = cardID => dispatch => {
 };
 
 export const addBoard = (organizationId, boardName) => dispatch => {
-  console.log(organizationId, boardName);
-  fetch(`/organizations/${organizationId}`, {
+
+  console.log(organizationId, boardName)
+   fetch(`/organizations/${organizationId}`,{
+    method:'POST',
+    body:JSON.stringify({
+      title:boardName
+    }), headers: {
+      "Content-Type": "application/json"}
+  }).then(response => response.json())
+  .then(data => {
+    console.log(data)
+    dispatch({type:ADD_BOARD,payload:data.boards})
+  })
+}
+
+export const addCard = (listId, cardName) => dispatch => {
+  console.log("Add Card")
+  fetch(`/list/${listId}`,{
     method: 'POST',
     body: JSON.stringify({
-      name: boardName
-    }),
-    headers: {
-      'Content-Type': 'application/json'
+      title: cardName
+    }), headers: {
+      "Content-Type": "application/json"
     }
-  });
-};
+  }).then(response => response.json())
+  .then(data => dispatch({type:ADD_CARD, payload:data}))
+
+}
+
+
 
 export const addList = (boardId, listName) => dispatch => {
   console.log(boardId, listName);

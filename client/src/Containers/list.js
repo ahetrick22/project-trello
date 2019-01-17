@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styled from 'styled-components';
 import Card from './card';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
@@ -27,34 +27,67 @@ const CardList = styled.div`
 `;
 
 class List extends React.Component {
-  render() {
-    return (
-      <Draggable draggableId={this.props.column.id} index={this.props.index}>
-        {provided => (
-          <Container {...provided.draggableProps} ref={provided.innerRef}>
-            <Title {...provided.dragHandleProps}>
-              {this.props.column.title}
-            </Title>
-            <Droppable droppableId={this.props.column.id} type="card">
-              {(provided, snapshot) => (
-                <CardList
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  isDraggingOver={snapshot.isDraggingOver}
-                >
-                  {this.props.cards.map((card, index) => (
-                    <Card key={card.id} card={card} index={index} />
-                  ))}
-                  {provided.placeholder}
-                </CardList>
-              )}
-            </Droppable>
-          </Container>
-        )}
-      </Draggable>
-    );
-  }
+   constructor(props){
+      super(props)
+      this.state= {
+         listInputHidden:true,
+         listInput:''
+      }
+
+      this.renderListInputField = this.renderListInputField.bind(this)
+      this.handleKeyPress = this.handleKeyPress.bind(this)
+   }
+   renderListInputField() {
+      if(this.state.listInputHidden){
+         return (
+         <button onClick={() => this.setState({ listInputHidden: !this.state.listInputHidden })}>Add Card</button>)
+      } else {
+         return (
+         <CardInputField>
+            <input value={this.state.listInput} onKeyPress={(e) => this.handleKeyPress(e)} onChange={(e) => this.setState({listInput:e.target.value})} />
+            <button onClick={() => this.setState({ listInputHidden: !this.state.listInputHidden })}>Cancel Card</button>
+         </CardInputField>
+         )
+      }
+   }
+   handleKeyPress(event) {
+      if(event.key=='Enter'){
+         console.log(this.props)
+         this.props.addCard(this.props.column.id,this.state.listInput)
+         this.setState({listInput:''})
+      }
+   }
+   render() {
+      return <Fragment>
+          <Draggable draggableId={this.props.column.id} index={this.props.index}>
+            {provided => <Container {...provided.draggableProps} ref={provided.innerRef}>
+                <Title {...provided.dragHandleProps}>
+                  {this.props.column.title}
+                </Title>
+                <Droppable droppableId={this.props.column.id} type="card">
+                  {(provided, snapshot) => <CardList ref={provided.innerRef} {...provided.droppableProps} isDraggingOver={snapshot.isDraggingOver}>
+                      {this.props.cards.map((card, index) => (
+                        <Card key={card.id} card={card} index={index} />
+                      ))}
+                      {provided.placeholder}
+                    </CardList>}
+                </Droppable>
+                {this.renderListInputField()}
+              </Container>}
+            
+          </Draggable>
+         
+        </Fragment>;
+   }
+
 }
+
+const CardInputField = styled('div')`
+display:flex;
+flex-direction:row;
+align-items:center;
+width:100%
+`
 
 function mapStateToProps({ boards }) {
   return {

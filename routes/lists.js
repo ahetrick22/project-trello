@@ -4,7 +4,7 @@ const Card = require('../models/card');
 const List = require('../models/list');
 const Board = require('../models/board');
 
-router.post('/list/:id/card', (req, res) => {
+router.post('/list/:id', (req, res) => {
 
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     List.findById(req.params.id, (err, list) => {
@@ -16,7 +16,7 @@ router.post('/list/:id/card', (req, res) => {
       } else {
         let newCard = new Card({
             title: req.body.title,
-            list: req.body.list,
+            list: req.params.id,
             label: req.body.label,
             description: req.body.description,
             comments: [],
