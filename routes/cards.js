@@ -90,8 +90,7 @@ router.put('/card/:id', (req, res) => {
   } else {
       res.send(400, 'Send a valid object ID as a parameter');
     }
-  }
-});
+  });
 
 router.post('/card/:id/comment', (req, res) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {

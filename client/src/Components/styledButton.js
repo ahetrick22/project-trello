@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { } from 'react'
 import styled from 'styled-components'
 import {COLORS, TYPEFACE} from '../css/StyleGuide'
 

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
-import FlexContainer from 'react-styled-flexbox';
-import { FaHome, FaSignOutAlt, FaFlipboard } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import { orgReducer } from '../Reducers/orgReducer';
+//import FlexContainer from 'react-styled-flexbox';
+import { FaHome, FaSignOutAlt } from 'react-icons/fa';
+//import { Link } from 'react-router-dom';
 import * as actions from '../Actions';
 
 const NavDiv = styled.div`
@@ -43,20 +41,20 @@ const Brand = styled.div`
   color: ${COLORS.tertiary};
 `;
 //not using since created another blob next to icon
-const Logo = styled.div`
-  font-weight: 700;
-  font-size: 20px;
-  padding: 0 10px;
-  color: white;
-  :hover {
-    background-color: #5b68ad;
-    border-radius: 15px;
-  }
-  img {
-    height: 100%;
-    padding-bottom: -10px;
-  }
-`;
+// const Logo = styled.div`
+//   font-weight: 700;
+//   font-size: 20px;
+//   padding: 0 10px;
+//   color: white;
+//   :hover {
+//     background-color: #5b68ad;
+//     border-radius: 15px;
+//   }
+//   img {
+//     height: 100%;
+//     padding-bottom: -10px;
+//   }
+// `;
 
 const Linker = styled.div`
   a {

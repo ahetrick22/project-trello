@@ -4,11 +4,10 @@ import {
   FETCH_BOARD,
   LOGIN,
   FETCH_CARD_INFO,
-  FETCH_LISTS,
+//  FETCH_LISTS,
+//  ADD_LIST
   ADD_BOARD,
-  REGISTER,
   ADD_CARD,
-  ADD_LIST
 } from './types';
 
 export const fetchLogin = (email, password) => dispatch => {

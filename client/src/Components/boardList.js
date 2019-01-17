@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react';
-import styled from 'styled-components';
+//import styled from 'styled-components';
 import BoardItem from './boardItem';
 
 const BoardList = ({ boards }) => {
@@ -14,10 +14,10 @@ const BoardList = ({ boards }) => {
 
 export default BoardList;
 
-const StyledBoardList = styled.ul`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  padding: 2em 0;
-`;
+// const StyledBoardList = styled.ul`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-around;
+//   flex-wrap: wrap;
+//   padding: 2em 0;
+// `;

@@ -1,30 +1,29 @@
 
 import React, { Component } from "react";
 import styled from "styled-components";
-import { compose } from "redux";
 import { Redirect } from "react-router";
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import * as actions from '../../Actions';
 import { connect } from 'react-redux';
 
-const Title = styled.div`
-  padding-top: 50px;
-  padding-left: 555px;
-  font-size: 20px;
-`;
+// const Title = styled.div`
+//   padding-top: 50px;
+//   padding-left: 555px;
+//   font-size: 20px;
+// `;
 
-const Button = styled.button`
-  border: 0;
-  border-radius: 5px;
-  font-size: 1.5em;
-  font-weight: 600;
-  margin: 10px;
-  padding: 5px;
-`;
+// const Button = styled.button`
+//   border: 0;
+//   border-radius: 5px;
+//   font-size: 1.5em;
+//   font-weight: 600;
+//   margin: 10px;
+//   padding: 5px;
+// `;
 
-const LoginButton = styled.button`
-  background-color: #4caf50;
-`;
+// const LoginButton = styled.button`
+//   background-color: #4caf50;
+// `;
 
 class login extends Component {
   constructor(props) {
@@ -46,7 +45,6 @@ class login extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
     if(this.props.user.authenticated){
      return (
 <Redirect to='/orgs/5c3fcb35c0f4e115d564ac83' /> 
