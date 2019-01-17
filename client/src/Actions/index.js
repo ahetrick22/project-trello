@@ -70,7 +70,12 @@ export const fetchRegister = (email, password) => dispatch => {
 
 
 export const fetchOrg = orgID => dispatch => {
-  fetch(`/organizations/${orgID}`)
+  fetch(`/organizations/${orgID}`, {
+    headers: {
+    "email": email,
+    "Authorization": `bearer ${token}`
+  }
+})
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_ORG, payload: data });
@@ -81,7 +86,12 @@ export const fetchOrg = orgID => dispatch => {
 };
 
 export const fetchBoards = () => dispatch => {
-  fetch(`http://localhost:7000/boards`)
+  fetch(`boards`, {
+    headers: {
+    "email": email,
+    "Authorization": `bearer ${token}`
+  }
+})
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_BOARDS, payload: data });
@@ -113,11 +123,10 @@ export const fetchBoard = boardID => dispatch => {
 export const fetchCard = cardID => dispatch => {
   const token = localStorage.getItem('token');
   const email = localStorage.getItem('email');
-  fetch(`/card/${cardID}`, {
-    headers: {
-      "email": email,
-      "token": `bearer ${token}`
-    }
+  fetch(`/card/${cardID}`,{headers: {
+    email: email,
+    "Authorization": `bearer ${token}`
+  }
   })
     .then(res => res.json())
     .then(data => {
@@ -136,7 +145,10 @@ export const addBoard = (organizationId, boardName) => dispatch => {
     body:JSON.stringify({
       name:boardName
     }), headers: {
-      "Content-Type": "application/json"}
+      "Content-Type": "application/json",
+        email: email,
+        "Authorization": `bearer ${token}`
+      }
   }).then(response => response.json())
   .then(data => {
     console.log(data)
@@ -151,7 +163,9 @@ export const addCard = (listId, cardName) => dispatch => {
     body: JSON.stringify({
       title: cardName
     }), headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+        email: email,
+        "Authorization": `bearer ${token}`
     }
   }).then(response => response.json())
   .then(data => dispatch({type:ADD_CARD, payload:data}))
@@ -168,7 +182,9 @@ export const addList = (boardId, listName) => dispatch => {
       name: listName
     }),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+        email: email,
+        "Authorization": `bearer ${token}`
     }
   })
     .then(response => response.json())
