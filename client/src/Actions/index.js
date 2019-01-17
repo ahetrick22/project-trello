@@ -83,12 +83,14 @@ export const fetchOrg = orgID => dispatch => {
 };
 
 export const fetchBoards = () => dispatch => {
+
   fetch(`/boards`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
     }
   })
+
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_BOARDS, payload: data });

@@ -2,10 +2,15 @@ const router = require('express').Router();
 const Organization = require('../models/organization');
 const Board = require('../models/board');
 
-router.get('/organizations', (req, res) => {
-  Organization.find({}, (err, organizations) => {
-    if (err) throw err;
+router.get('/organizations/:id', (req, res) => {
+  let {id} = req.params;
+  
+  Organization.findById(id, (err, organizations) => {
+    if(!organizations) {
+      return res.send({})
+    } else {
     res.send(JSON.stringify(organizations));
+    }
   });
 });
 
