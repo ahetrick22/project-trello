@@ -11,66 +11,95 @@ class Organization extends Component {
     this.state = {
       addBoardInputShown: false,
       addBoardInput: ''
-    }
+
+    };
     //() => this.props.addBoard(organization._id,'123')
     this.renderInput = this.renderInput.bind(this);
     this.handleInput = this.handleInput.bind(this);
-    this.addOrCancel = this.addOrCancel.bind(this)
+    this.addOrCancel = this.addOrCancel.bind(this);
+
   }
   componentDidMount() {
-    this.props.fetchOrg();
     this.props.fetchBoards();
   }
 
-  handleInput = (input) => {
+
+  handleInput = input => {
     if (input.key == 'Enter') {
-      this.props.addBoard(this.props.organization._id, this.state.addBoardInput)
-      this.setState({ addBoardInputShown: false, addBoardInput: '' })
+      this.props.addBoard(
+        this.props.organization._id,
+        this.state.addBoardInput
+      );
+      this.setState({ addBoardInputShown: false, addBoardInput: '' });
     }
-  }
+  };
+
   renderInput = () => {
     if (this.state.addBoardInputShown) {
       return (
         <EmptyBoardToAdd>
-          <input autoFocus value={this.state.addBoardInput}
-            onKeyPress={(e) => this.handleInput(e)}
-            onChange={(e) => this.setState({ addBoardInput: e.target.value })}></input></EmptyBoardToAdd>
-      )
+
+          <input
+            autoFocus
+            value={this.state.addBoardInput}
+            onKeyPress={e => this.handleInput(e)}
+            onChange={e => this.setState({ addBoardInput: e.target.value })}
+          />
+        </EmptyBoardToAdd>
+      );
+
     }
-  }
+  };
 
   addOrCancel = () => {
     if (this.state.addBoardInputShown) {
-      return ('Cancel')
+      return 'Cancel';
     } else {
-      return ('New Board')
+      return 'New Board';
     }
-  }
+  };
 
   render() {
 
-    const { organization, boards } = this.props;
+    const { boards } = this.props;
 
-    if (Object.keys(organization).length === 0 && boards.length === 0) {
+
+    if (Object.keys(boards).length === 0) {
       return <div>Loading...</div>;
     } else {
-      return <div className="org-home" style={{ fontFamily: TYPEFACE }}>
-        <OrgInfo>
-          <h1>{organization.name}</h1>
-        </OrgInfo>
-        <OrgBoards>
-          <h1>Boards</h1>
-          <BoardGrid>
-            <BoardList boards={boards} />
-            {this.renderInput()}
-          </BoardGrid>
-          <AddBoardButton onClick={() => this.setState({
-            addBoardInputShown: !this.state.addBoardInputShown
-          })}>
-            {this.addOrCancel()}
-          </AddBoardButton>
-        </OrgBoards>
-      </div>;
+
+      return (
+        <div className="org-home" style={{ fontFamily: TYPEFACE }}>
+          <OrgInfo>
+            <h1>{boards[0].organization.name}</h1>
+          </OrgInfo>
+          <OrgBoards>
+            <h1>Boards</h1>
+            <BoardGrid>
+              <BoardList boards={boards} />
+              {this.renderInput()}
+            </BoardGrid>
+            <button
+              onClick={() =>
+                this.props.addBoard('5c3fafdf44ae364f70407ec6', 'DEM BOYZ')
+              }
+            >
+              Button
+            </button>
+
+            <AddBoardButton
+              onClick={() =>
+                this.setState({
+                  addBoardInputShown: !this.state.addBoardInputShown
+                })
+              }
+            >
+              Add Board
+            </AddBoardButton>
+          </OrgBoards>
+        </div>
+      );
+
     }
   }
 }
@@ -87,17 +116,25 @@ const OrgBoards = styled('div')`
   text-align: center;
   height: 60vh;
   padding: 2em 0;
+  
 `;
 
-const BoardGrid = styled("div")`
+const BoardGrid = styled('div')`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  overflow-x: scroll;
+  overflow-y: auto;
   flex-wrap: nowrap;
   padding: 2em 0;
-`;
+  padding-left: 10px;
+  width: 100%;
+  text-align: 20%;
+  
+`
 
 const AddBoardButton = styled.button`
+  justify-content: center;
   font-size: 1em;
   margin-top: 3em;
   height: 50px;
@@ -105,6 +142,11 @@ const AddBoardButton = styled.button`
   background-color: ${COLORS.addButtons};
   color: ${COLORS.tertiary};
   border-radius: 10px;
+
+  box-shadow: 1px 1px 15px #999;
+
+  cursor: pointer;
+
 `;
 
 const EmptyBoardToAdd = styled.div`
@@ -115,8 +157,9 @@ const EmptyBoardToAdd = styled.div`
   color: ${COLORS.tertiary};
   height: 100px;
   line-height: 100px;
-  width: 170px;
+  width: 300px;
   text-decoration: none;
+  min-width: 200px;
 
   border-radius: 25px;
   &:hover {
@@ -127,14 +170,14 @@ const EmptyBoardToAdd = styled.div`
     height: 30%;
     background-color: white;
     margin: 0 5px 0 5px;
-    width: 75%;
+    width: 80%;
     font-weight: 500;
     font-size: 1.2em;
   }
 `;
 
-function mapStateToProps({ organization, boards }) {
-  return { organization, boards };
+function mapStateToProps({ boards }) {
+  return { boards };
 }
 
 export default connect(

@@ -10,7 +10,7 @@ export const orgReducer = (state = {}, action) => {
   switch (type) {
     case FETCH_ORG:
       //TODO: get data from server
-      return { ...state, ...payload[0] };
+      return { ...state, ...payload };
     // case FETCH_BOARDS:
     //   return { ...state, ...payload };
     default:
