@@ -8,7 +8,7 @@ import { FaArchive } from 'react-icons/fa';
 class CardDetail extends Component {
   constructor(props) {
     super(props);
-
+    console.log("Props: ", this.props);
     this.state = {
       card: {
         comments: [],
@@ -68,7 +68,7 @@ class CardDetail extends Component {
   createListItems (){
     let items = [];
     //get card.list.val, find matching list.name
-    console.log("Props: ", this.props);
+    
     for (let i=0; i< this.props.maxValue; i++) {
       items.push(<option key={i} value={i}>{i}</option>);
       //create options dynamically based on which props are passed to parent
