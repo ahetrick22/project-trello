@@ -4,6 +4,7 @@ import Card from './card';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
+import {COLORS} from '../css/StyleGuide';
 
 const Container = styled.div`
    margin: 8px;
@@ -26,6 +27,17 @@ const CardList = styled.div`
    min-height: 100px;
 `;
 
+const Button = styled.div`
+  display: flex;
+  flex-direction:row;
+  padding: 10px; 
+  color: ${COLORS.tertiary};
+  background-color: ${COLORS.primary};
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  `;
+
 class List extends React.Component {
    render() {
       return (
@@ -47,7 +59,7 @@ class List extends React.Component {
                            {provided.placeholder}
                         </CardList>
                      )}
-                  
+                  <Button>Add a Card</Button>
                   </Droppable>
                </Container>
             )}
