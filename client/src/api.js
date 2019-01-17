@@ -1,6 +1,5 @@
 import openSocket from 'socket.io-client';
-const  socket = openSocket('http://localhost:7000');
-
+const socket = openSocket();
 
 function subscribeToTimer(cb) {
   socket.on('timer', timestamp => cb(null, timestamp));
@@ -8,7 +7,18 @@ function subscribeToTimer(cb) {
 }
 export { subscribeToTimer };
 
-const updateSameList = (socketObj) => {
-  socket.emit('updateSameList', socketObj);
-}
-export { updateSameList };
+const updateSameList = (socketObj, newState) => {
+  socket.emit('updateSameList', { socketObj, newState });
+};
+
+const updateDifferentList = (socketObj, newState) => {
+  socket.emit('updateDifferentList', { socketObj, newState });
+};
+
+const updatedList = self => {
+  socket.on('updatedList', newState => {
+    self.setState(newState);
+  });
+};
+
+export { updateSameList, updateDifferentList, updatedList };
