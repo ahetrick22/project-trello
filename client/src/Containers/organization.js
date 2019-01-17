@@ -124,7 +124,7 @@ const BoardGrid = styled('div')`
   justify-content: space-evenly;
   overflow-x: scroll;
   overflow-y: auto;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   padding: 2em 0;
   padding-left: 10px;
   width: 100%;

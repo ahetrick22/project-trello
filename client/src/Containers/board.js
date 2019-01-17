@@ -226,12 +226,7 @@ class Board extends Component {
     return (
       <Fragment>
         <InfoBar>
-<<<<<<< HEAD
           <h3>{this.props.board.name} | Project Shift</h3>
-=======
-          {/* <h1 onDoubleClick={this.ChangeBoardName}>{this.props.board.name}</h1> */}
-          <h2>Project Shift</h2>
->>>>>>> 6c7fde06009e3507aacec15455776eb61b02cd7e
           <StyledButton onClick={this.handleNewListClickEvent}>
             Add List
           </StyledButton>
