@@ -20,9 +20,9 @@ router.post('/list/:id', requireAuth, (req, res) => {
       } else {
         let newCard = new Card({
             title: req.body.title,
-            list: req.params._id,
-            label: req.body.label,
-            description: req.body.description,
+            list: req.params.id,
+            label: "",
+            description: "",
             comments: [],
             archived: false,
             activity: []
@@ -35,6 +35,7 @@ router.post('/list/:id', requireAuth, (req, res) => {
               if (err) throw err;
               list.cards.push(newCard);
               list.save(function (err, list) {
+                console.log(list)
                 if(err) throw err;
                 List.findById(req.params.id, (err, updatedList) => {
                   const boardId = updatedList.board;

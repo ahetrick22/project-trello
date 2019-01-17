@@ -2,7 +2,7 @@ const router = require('express').Router();
 const Board = require('../models/board');
 const List = require('../models/list');
 const User = require('../models/user')
-
+const Organization = require('../models/organization');
 
 //get all boards
 router.get('/boards', (req, res) => {
@@ -36,7 +36,7 @@ router.get('/boards/:userId', (req, res) => {
 
 
 //get a specific board
-router.get('/board/:id', (req, res) => {
+router.get('/api/boards/:id', (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
 
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {

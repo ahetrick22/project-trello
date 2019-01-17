@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 //import FlexContainer from 'react-styled-flexbox';
 import { FaHome, FaSignOutAlt } from 'react-icons/fa';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as actions from '../Actions';
 
 const NavDiv = styled.div`
@@ -82,25 +82,27 @@ export class NavBar extends Component {
   };
 
   render() {
-    return (
-      <NavDiv>
+    return <NavDiv>
         <LeftButtons>
           <Linker>
-            <a href="#">
+          <Link to='/org'>
+            <a>
               <FaHome />
             </a>
+          </Link>
           </Linker>
         </LeftButtons>
         <Brand>Trello</Brand>
         <RightButtons>
           <Linker>
-            <a href="#" onClick={this.handleSignOut}>
-              <FaSignOutAlt />
-            </a>
+            <Link to="/login">
+              <a href="#" onClick={this.handleSignOut}>
+                <FaSignOutAlt />
+              </a>
+            </Link>
           </Linker>
         </RightButtons>
-      </NavDiv>
-    );
+      </NavDiv>;
   }
 }
 

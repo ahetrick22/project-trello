@@ -5,6 +5,7 @@ import { Redirect } from "react-router";
 //import { Link } from 'react-router-dom';
 import * as actions from '../../Actions';
 import { connect } from 'react-redux';
+// import { getMaxListeners } from "cluster";
 
 // const Title = styled.div`
 //   padding-top: 50px;
@@ -37,8 +38,11 @@ class login extends Component {
 
   onSubmit = () => {
     this.props.fetchLogin(this.state.email, this.state.password);
+    this.props.fetchLogin('test@gmail.com', 'test');
+    
   };
 
+  
   onRegister = () => {
     this.props.fetchRegister(this.state.email, this.state.password);
 
@@ -47,7 +51,9 @@ class login extends Component {
   render() {
     if(this.props.user.authenticated){
      return (
-<Redirect to='/orgs/5c3fcb35c0f4e115d564ac83' /> 
+
+<Redirect to='/org' /> 
+
      )      
     } else {
 
@@ -109,7 +115,9 @@ class login extends Component {
                       Register
                     </button>
               </div>
-              <p className="guestLogin"><a href='/organizations'>Login As Guest</a></p>
+
+              <p className="guestLogin"><a href='/org'>Login As Guest</a></p>
+
             </div>
           </div>
         </div>

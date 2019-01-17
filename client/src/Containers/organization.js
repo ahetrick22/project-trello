@@ -20,6 +20,8 @@ class Organization extends Component {
 
   }
   componentDidMount() {
+    this.props.fetchOrg()
+    //this fetchboards currently will only ever return one org boards - NO args
     this.props.fetchBoards();
   }
 
@@ -62,17 +64,20 @@ class Organization extends Component {
 
   render() {
 
-    const { boards } = this.props;
+    const { boards, organization } = this.props;
+    console.log(this.props)
 
-
-    if (Object.keys(boards).length === 0) {
+    if(organization === null) {
       return <div>Loading...</div>;
+    }
+    else if (!organization._id) {
+      return <div>No organization found</div>
     } else {
 
       return (
         <div className="org-home" style={{ fontFamily: TYPEFACE }}>
           <OrgInfo>
-            <h1>{boards[0].organization.name}</h1>
+            <h1>{organization.name}</h1>
           </OrgInfo>
           <OrgBoards>
             <h1>Boards</h1>
@@ -170,8 +175,8 @@ const EmptyBoardToAdd = styled.div`
   }
 `;
 
-function mapStateToProps({ boards }) {
-  return { boards };
+function mapStateToProps({ boards, organization }) {
+  return { boards, organization };
 }
 
 export default connect(

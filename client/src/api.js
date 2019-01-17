@@ -15,10 +15,14 @@ const updateDifferentList = (socketObj, newState) => {
   socket.emit('updateDifferentList', { socketObj, newState });
 };
 
+const newListOrderEvent = (socketObj, newState) => {
+  socket.emit('updateListPosition', { socketObj, newState })
+}
+
 const updatedList = self => {
   socket.on('updatedList', newState => {
     self.setState(newState);
   });
 };
 
-export { updateSameList, updateDifferentList, updatedList };
+export { updateSameList, updateDifferentList, updatedList, newListOrderEvent };
