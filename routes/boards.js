@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Board = require('../models/board');
 const List = require('../models/list');
+const Organization = require('../models/organization');
 
 const User = require('../models/user');
 const passportService = require('../services/passport');
