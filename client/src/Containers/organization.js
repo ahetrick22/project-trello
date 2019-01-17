@@ -20,6 +20,7 @@ this.handleInput = this.handleInput.bind(this);
     this.props.fetchOrg();
     this.props.fetchBoards();
   }
+
   handleInput = (input) => {
     if(input.key == 'Enter'){
       alert('addboard now')
@@ -53,6 +54,16 @@ this.handleInput = this.handleInput.bind(this);
               <BoardList boards={boards} />
               {this.renderInput()}
             </BoardGrid>
+            <button
+              onClick={() =>
+                this.props.addBoard(
+                  "5c3fafdf44ae364f70407ec6",
+                  "DEM BOYZ"
+                )
+              }
+            >
+              Button
+            </button>
 
             <AddBoardButton onClick={() => this.setState({
                   addBoardInputShown: !this.state.addBoardInputShown
