@@ -39,7 +39,7 @@ const jwtOptions = {
    //Does userID exist in our database?
    //If yes, call 'done'
    //If not, call done without user object
-   User.findOne({id: payload.sub}, function (err, user) {
+   User.findOne({_id: payload.sub}, function (err, user) {
     if (err) { return done(err, false) }
     if (user) {
       done(null, user)
