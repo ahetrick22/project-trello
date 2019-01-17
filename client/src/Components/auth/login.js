@@ -10,7 +10,7 @@ import { fetchLogin } from "../../Actions/index";
 
 const Title = styled.div`
     padding-top: 50px;
-    padding-left: 555px
+    padding-left: 555px;
     font-size: 20px;`
 
 
