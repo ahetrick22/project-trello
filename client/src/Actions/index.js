@@ -4,10 +4,10 @@ import {
   FETCH_BOARD,
   LOGIN,
   FETCH_CARD_INFO,
-//  FETCH_LISTS,
-//  ADD_LIST
+  //  FETCH_LISTS,
+  //  ADD_LIST
   ADD_BOARD,
-  ADD_CARD,
+  ADD_CARD
 } from './types';
 
 const email = localStorage.getItem('email');
@@ -22,13 +22,13 @@ export const fetchLogin = (email, password) => dispatch => {
     }),
     mode: 'cors',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     }
   })
     .then(res => res.json())
     .then(response => {
       dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
-      localStorage.setItem('token',response.token);
+      localStorage.setItem('token', response.token);
       localStorage.setItem('email', response.email);
     })
     .catch(error => console.error('Error:', error));
@@ -38,9 +38,9 @@ export const signout = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('email');
 
-  return{
+  return {
     type: LOGIN,
-    payload:''
+    payload: ''
   };
 };
 
@@ -53,24 +53,26 @@ export const fetchRegister = (email, password) => dispatch => {
     }),
     mode: 'cors',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json'
     }
   })
     .then(res => res.json())
     .then(response => {
-
       console.log(response);
       dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
-      localStorage.setItem('token',response.token);
+      localStorage.setItem('token', response.token);
       localStorage.setItem('email', response.email);
-
     })
     .catch(error => console.error('Error:', error));
 };
 
-
 export const fetchOrg = orgID => dispatch => {
-  fetch(`/organizations/${orgID}`)
+  fetch(`/organizations/${orgID}`, {
+    headers: {
+      email: email,
+      Authorization: `bearer ${token}`
+    }
+  })
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_ORG, payload: data });
@@ -81,7 +83,14 @@ export const fetchOrg = orgID => dispatch => {
 };
 
 export const fetchBoards = () => dispatch => {
-  fetch(`/boards`)
+
+  fetch(`/boards`, {
+    headers: {
+      email: email,
+      Authorization: `bearer ${token}`
+    }
+  })
+
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_BOARDS, payload: data });
@@ -92,15 +101,16 @@ export const fetchBoards = () => dispatch => {
 };
 
 export const fetchBoard = boardID => dispatch => {
-  fetch(`/board/${boardID}`, {headers: {
+  fetch(`/boards/${boardID}`, {
+    headers: {
       email: email,
-      "Authorization": `bearer ${token}`
+      Authorization: `bearer ${token}`
     }
   })
     .then(res => {
       const resStatus = res.status;
       console.log(resStatus);
-      return res.json()
+      return res.json();
     })
     .then(data => {
       dispatch({ type: FETCH_BOARD, payload: data });
@@ -115,8 +125,8 @@ export const fetchCard = cardID => dispatch => {
   const email = localStorage.getItem('email');
   fetch(`/card/${cardID}`, {
     headers: {
-      "email": email,
-      "token": `bearer ${token}`
+      email: email,
+      Authorization: `bearer ${token}`
     }
   })
     .then(res => res.json())
@@ -129,36 +139,41 @@ export const fetchCard = cardID => dispatch => {
 };
 
 export const addBoard = (organizationId, boardName) => dispatch => {
-
-  console.log(organizationId, boardName)
-   fetch(`/organizations/${organizationId}`,{
-    method:'POST',
-    body:JSON.stringify({
-      name:boardName
-    }), headers: {
-      "Content-Type": "application/json"}
-  }).then(response => response.json())
-  .then(data => {
-    console.log(data)
-    dispatch({type:ADD_BOARD,payload:data.boards})
+  console.log(organizationId, boardName);
+  fetch(`/organizations/${organizationId}`, {
+    method: 'POST',
+    body: JSON.stringify({
+      name: boardName
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      email: email,
+      Authorization: `bearer ${token}`
+    }
   })
-}
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      dispatch({ type: ADD_BOARD, payload: data.boards });
+    });
+};
 
 export const addCard = (listId, cardName) => dispatch => {
-  console.log("Add Card")
-  fetch(`/list/${listId}`,{
+  console.log('Add Card');
+  fetch(`/list/${listId}`, {
     method: 'POST',
     body: JSON.stringify({
       title: cardName
-    }), headers: {
-      "Content-Type": "application/json"
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      email: email,
+      Authorization: `bearer ${token}`
     }
-  }).then(response => response.json())
-  .then(data => dispatch({type:ADD_CARD, payload:data}))
-
-}
-
-
+  })
+    .then(response => response.json())
+    .then(data => dispatch({ type: ADD_CARD, payload: data }));
+};
 
 export const addList = (boardId, listName) => dispatch => {
   console.log(boardId, listName);
@@ -168,7 +183,9 @@ export const addList = (boardId, listName) => dispatch => {
       name: listName
     }),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      email: email,
+      Authorization: `bearer ${token}`
     }
   })
     .then(response => response.json())
