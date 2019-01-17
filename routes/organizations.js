@@ -10,8 +10,10 @@ router.get('/organizations', (req, res) => {
 });
 
 //ADD A BOARD TO AN ORGANIZATION
+
 router.post('/organizations/:id', (req, res) => {
     //make sure it's a valid mongo ID and won't trigger a cast error
+
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching organization
     Organization.findById(req.params.id, (err, organization) => {
