@@ -7,7 +7,7 @@ const Board = require ('../models/board');
 const Card = require ('../models/card');
 const Comment = require ('../models/comment');
 
-router.get('/generate-dummy-data', async (req, res) => {
+router.get('/api/generate-dummy-data', async (req, res) => {
   //1 organization
   const org1 = new Organization({
     name: 'Project Shift',

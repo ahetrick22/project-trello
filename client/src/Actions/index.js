@@ -14,7 +14,7 @@ const email = localStorage.getItem('email');
 const token = localStorage.getItem('token');
 
 export const fetchLogin = (email, password) => dispatch => {
-  fetch('/login', {
+  fetch('/api/login', {
     method: 'POST',
     body: JSON.stringify({
       email,
@@ -45,7 +45,7 @@ export const signout = () => {
 };
 
 export const fetchRegister = (email, password) => dispatch => {
-  fetch('/register', {
+  fetch('/api/register', {
     method: 'POST',
     body: JSON.stringify({
       email,
@@ -67,7 +67,7 @@ export const fetchRegister = (email, password) => dispatch => {
 };
 
 export const fetchOrg = orgID => dispatch => {
-  fetch(`/organizations/${orgID}`, {
+  fetch(`/api/organizations/${orgID}`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
@@ -84,7 +84,7 @@ export const fetchOrg = orgID => dispatch => {
 
 export const fetchBoards = () => dispatch => {
 
-  fetch(`/boards`, {
+  fetch(`/api/boards`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
@@ -123,7 +123,7 @@ export const fetchBoard = boardID => dispatch => {
 export const fetchCard = cardID => dispatch => {
   const token = localStorage.getItem('token');
   const email = localStorage.getItem('email');
-  fetch(`/card/${cardID}`, {
+  fetch(`/api/card/${cardID}`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
@@ -140,7 +140,7 @@ export const fetchCard = cardID => dispatch => {
 
 export const addBoard = (organizationId, boardName) => dispatch => {
   console.log(organizationId, boardName);
-  fetch(`/organizations/${organizationId}`, {
+  fetch(`/api/organizations/${organizationId}`, {
     method: 'POST',
     body: JSON.stringify({
       name: boardName
@@ -160,7 +160,7 @@ export const addBoard = (organizationId, boardName) => dispatch => {
 
 export const addCard = (listId, cardName) => dispatch => {
   console.log('Add Card');
-  fetch(`/list/${listId}`, {
+  fetch(`/api/list/${listId}`, {
     method: 'POST',
     body: JSON.stringify({
       title: cardName
@@ -180,7 +180,7 @@ export const addCard = (listId, cardName) => dispatch => {
 
 export const addList = (boardId, listName) => dispatch => {
   console.log(boardId, listName);
-  fetch(`/board/${boardId}/list`, {
+  fetch(`/api/board/${boardId}/list`, {
     method: 'POST',
     body: JSON.stringify({
       name: listName
