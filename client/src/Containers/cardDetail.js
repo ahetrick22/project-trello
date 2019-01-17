@@ -8,22 +8,36 @@ import { FaArchive } from 'react-icons/fa';
 class CardDetail extends Component {
   constructor(props) {
     super(props);
+
     console.log("Props: ", this.props);
+    
     this.state = {
-      card: {
-        comments: [],
-        title: '',
-        list: {
-          name: ''
-        },
-        description: '',
-        label: { 
-          value: 'green',
-        }
+      board: {
+        lists: [{
+          name: '',
+          cards: [{
+            title: '',
+            description: '',
+            label: {
+              value: 'green'
+            }
+          }]
+        }]
       },
+      // card: {
+      //   comments: [],
+      //   title: '',
+      //   list: {
+      //     name: ''
+      //   },
+      //   description: '',
+      //   label: { 
+      //     value: 'green',
+      //   }
+      // },
       editTitle: false,
       editDesc: false,
-     
+
     };
   }
 
@@ -62,14 +76,14 @@ class CardDetail extends Component {
   updateCardLabel = e => {
     let label = { ...this.state.card.label };
     label.value = e.target.value;
-    this.setState({label});
+    this.setState({ label });
   }
 
-  createListItems (){
+  createListItems() {
     let items = [];
     //get card.list.val, find matching list.name
-    
-    for (let i=0; i< this.props.maxValue; i++) {
+
+    for (let i = 0; i < this.props.maxValue; i++) {
       items.push(<option key={i} value={i}>{i}</option>);
       //create options dynamically based on which props are passed to parent
     }
@@ -79,9 +93,9 @@ class CardDetail extends Component {
 
   onDropDownList = e => {
     console.log("the list item is: ", e.target.value);
-    // let list = {...this.state.card.list};
-    // list.name = e.target.value;
-    // this.setState({list});
+    let list = {...this.state.card.list};
+    list.name = e.target.value;
+    this.setState({list});
   }
 
   render() {
@@ -108,40 +122,40 @@ class CardDetail extends Component {
                 }
               />
             ) : (
-              // Else render header w/ title
-              <h1
-                style={{ display: 'inline' }}
-                onDoubleClick={() => this.setState({ editTitle: true })}
-              >
-                {/* Truncate title if longer than 50 chars */}
-                {this.state.card.title.length > 50
-                  ? `${this.state.card.title.slice(0, 50)}...`
-                  : this.state.card.title}
-              </h1>
-            )}
+                // Else render header w/ title
+                <h1
+                  style={{ display: 'inline' }}
+                  onDoubleClick={() => this.setState({ editTitle: true })}
+                >
+                  {/* Truncate title if longer than 50 chars */}
+                  {this.state.card.title.length > 50
+                    ? `${this.state.card.title.slice(0, 50)}...`
+                    : this.state.card.title}
+                </h1>
+              )}
             <br />
-            <div className='cardList'> 
+            <div className='cardList'>
               <span>List:</span>
-                  <input type="select" onChange={this.onDropDownList} label='Multiple Select' multiple>{this.createListItems()}
-                  </input>
+              <input type="select" onChange={this.onDropDownList} label='Multiple Select' multiple>{this.createListItems()}
+              </input>
               {/* <select name="list" id="list" value={this.state.card.list.name.value}  onChange= {this.onDropDownList}>
                 <option value={card.list}>{card.list}</option>
                 {/* <option value={this.board.list.name}>{card.list.name}</option> */}
               {/* </select> */} */}
             </div>
-              <br></br>
+            <br></br>
 
-              <div className="card-label">
-                <span>Label:</span>
-                <select className="label" id="label" value={this.state.card.label.value} onChange={this.updateCardLabel}>  
-                  <option value="red" style={{backgroundColor:'red', color: 'white'}}>Red</option>
-                  <option value="orange" style={{ backgroundColor: 'orange', color: 'white' }}>Orange</option>
-                  <option value="yellow" style={{ backgroundColor: 'yellow', color: 'black' }}>Yellow</option>
-                  <option value="green" style={{ backgroundColor: 'green', color: 'white' }}>Green</option>
-                  <option value="blue" style={{ backgroundColor: 'blue', color: 'white' }}>Blue</option>
-                  <option value="purple" style={{ backgroundColor: 'purple', color: 'white' }}>Purple</option>
-                  </select>
-              </div>
+            <div className="card-label">
+              <span>Label:</span>
+              <select className="label" id="label" value={this.state.card.label.value} onChange={this.updateCardLabel}>
+                <option value="red" style={{ backgroundColor: 'red', color: 'white' }}>Red</option>
+                <option value="orange" style={{ backgroundColor: 'orange', color: 'white' }}>Orange</option>
+                <option value="yellow" style={{ backgroundColor: 'yellow', color: 'black' }}>Yellow</option>
+                <option value="green" style={{ backgroundColor: 'green', color: 'white' }}>Green</option>
+                <option value="blue" style={{ backgroundColor: 'blue', color: 'white' }}>Blue</option>
+                <option value="purple" style={{ backgroundColor: 'purple', color: 'white' }}>Purple</option>
+              </select>
+            </div>
           </div>
           <div className="card-description" style={{ padding: '1em' }}>
             <img
@@ -168,20 +182,20 @@ class CardDetail extends Component {
                 </button>
               </Fragment>
             ) : (
-              // Else, render p w/ desc
-              <p onDoubleClick={() => this.setState({ editDesc: true })}>
-                {/* If there's a card description */}
-                {card.description
-                  ? // If the length is over 200 chars
+                // Else, render p w/ desc
+                <p onDoubleClick={() => this.setState({ editDesc: true })}>
+                  {/* If there's a card description */}
+                  {card.description
+                    ? // If the length is over 200 chars
                     card.description.length > 200
-                    ? // Truncate desc
+                      ? // Truncate desc
                       `${card.description.slice(0, 200)}...`
-                    : // Else, show desc
+                      : // Else, show desc
                       card.description
-                  : // If there's no card desc
+                    : // If there's no card desc
                     'Add a description here...'}
-              </p>
-            )}
+                </p>
+              )}
           </div>
           <div className="add-card-comment" style={{ padding: '1em' }}>
             <img
