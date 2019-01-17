@@ -10,10 +10,10 @@ export const boardsReducer = (state = [], action) => {
   switch (type) {
     case FETCH_BOARDS:
       //TODO: get data from server
-      return [...state, ...payload];
+      return [...payload];
     case ADD_BOARD:
-      console.log(payload)
-      return state = payload;
+      console.log(payload);
+      return (state = payload);
     default:
       return state;
   }

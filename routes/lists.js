@@ -4,7 +4,7 @@ const Card = require('../models/card');
 const List = require('../models/list');
 const Board = require('../models/board');
 
-router.post('/list/:id/card', (req, res) => {
+router.post('/list/:id', (req, res) => {
 
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     List.findById(req.params.id, (err, list) => {
@@ -16,10 +16,11 @@ router.post('/list/:id/card', (req, res) => {
       } else {
         let newCard = new Card({
             title: req.body.title,
-            list: req.body.list,
+            list: req.params.id,
             label: req.body.label,
             description: req.body.description,
             comments: [],
+            archived: req.body.archived,
             activity: []
         });
         
@@ -59,6 +60,15 @@ router.put('/list/:id', (req, res) => {
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
         let updateObject = {};
         if(req.body.name) {
+            updateObject.name = req.body.name
+        }
+
+        if(req.body.archived) {
+            updateObject.archived = req.body.archived
+        }
+        //make sure the correct body was sent
+        if (Object.keys(updateObject).length === 0) {
+            res.send(400, "Body must have the proper parameters");
             updateObject.name = req.body.name;
         }
         //make sure the correct body was sent
@@ -90,10 +100,8 @@ router.put('/list/:id', (req, res) => {
             }
         })
     } else {
-        res.send(400, 'Send a valid object ID as a parameter');
+        res.end(400, 'Send a valid object ID as a parameter');
       }
     })
 
-
-            
 module.exports = router;

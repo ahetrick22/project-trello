@@ -109,37 +109,43 @@ router.get('/generate-dummy-data', async (req, res) => {
   const list1 = new List({
     name: 'Do the things',
     board: board1,
-    cards: []
+    cards: [],
+    archived: false
   })
 
   const list2 = new List({
     name: 'Eat snacks',
     board: board1,
-    cards: []
+    cards: [],
+    archived: false
   })
   
   const list3 = new List({
     name: 'Finish things',
     board: board2,
-    cards: []
+    cards: [],
+    archived: false
   })
 
   const list4 = new List({
     name: 'I am a list',
     board: board2,
-    cards: []
+    cards: [],
+    archived: false
   })
 
   const list5 = new List({
     name: 'Do ALL the things',
     board: board3,
-    cards: []
+    cards: [],
+    archived: false
   })
 
   const list6 = new List({
     name: 'Have awesome demos',
     board: board3,
-    cards: []
+    cards: [],
+    archived: false
   })
 
   //12 cards (2 per list)
@@ -149,7 +155,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: 'orange',
     description: 'blah blah blah',
     comments: [],
-    activity: 'I got moved'
+    activity: 'I got moved',
+    archived: false
   })
 
   const card2 = new Card({
@@ -158,7 +165,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: 'red',
     description: 'Fun things',
     comments: [],
-    activity: 'I got updated'
+    activity: 'I got updated',
+    archived: false
   })
 
   const card3 = new Card({
@@ -167,7 +175,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '',
     description: 'test test test',
     comments: [],
-    activity: ''
+    activity: '',
+    archived: false
   })
 
   const card4 = new Card({
@@ -176,7 +185,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: 'yellow',
     description: 'More lorem ipsum',
     comments: [],
-    activity: 'Random gibberish'
+    activity: 'Random gibberish',
+    archived: false
   })
 
   const card5 = new Card({
@@ -185,7 +195,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: 'purple',
     description: '',
     comments: [],
-    activity: 'Cool things'
+    activity: 'Cool things',
+    archived: false
   })
   const card6 = new Card({
     title: 'Sample text',
@@ -193,7 +204,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '#444444',
     description: '',
     comments: [],
-    activity: 'I got restored from the archive'
+    activity: 'I got restored from the archive',
+    archived: false
   })
   const card7 = new Card({
     title: 'File things',
@@ -201,7 +213,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '#29F263',
     description: 'I am a fun task',
     comments: [],
-    activity: 'I got updated'
+    activity: 'I got updated',
+    archived: false
   })
   const card8 = new Card({
     title: 'Organize stuff',
@@ -209,7 +222,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '#8620E2',
     description: '',
     comments: [],
-    activity: 'I got moved'
+    activity: 'I got moved',
+    archived: false
   })
   const card9 = new Card({
     title: 'Doing things',
@@ -217,7 +231,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: 'FF11FF',
     description: '',
     comments: [],
-    activity: 'More things'
+    activity: 'More things',
+    archived: false
   })
   const card10 = new Card({
     title: 'Sample sample sample',
@@ -225,7 +240,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '#003388',
     description: '',
     comments: [],
-    activity: 'I got moved too'
+    activity: 'I got moved too',
+    archived: false
   })
   const card11 = new Card({
     title: 'Card card card card',
@@ -233,7 +249,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '#A45BBB',
     description: '',
     comments: [],
-    activity: ''
+    activity: '',
+    archived: false
   })
   const card12 = new Card({
     title: 'Sampling more things',
@@ -241,7 +258,8 @@ router.get('/generate-dummy-data', async (req, res) => {
     label: '',
     description: '',
     comments: [],
-    activity: ''
+    activity: '',
+    archived: false
   })
 
   //12 comments (1 per card)
@@ -295,26 +313,29 @@ router.get('/generate-dummy-data', async (req, res) => {
 
   const comment9 = new Comment({
     text: 'Testing, 1-2-3',
-    user: user9,
+    user: user1,
     card: card9
   })
 
   const comment10 = new Comment({
     text: 'Some sample text',
-    user: user10,
+    user: user2,
     card: card10
+    
   })
 
   const comment11 = new Comment({
     text: 'More sample text',
     user: user1,
     card: card11
+   
   })
 
   const comment12 = new Comment({
     text: 'Hi there',
     user: user2,
     card: card12
+
   })
 
   org1.users.push(user1);
