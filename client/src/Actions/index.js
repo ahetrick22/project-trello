@@ -101,7 +101,7 @@ export const fetchBoards = () => dispatch => {
 };
 
 export const fetchBoard = boardID => dispatch => {
-  fetch(`/boards/${boardID}`, {
+  fetch(`/api/boards/${boardID}`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
