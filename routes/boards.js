@@ -87,7 +87,7 @@ router.post('/board/:id/list', (req, res) => {
       } else {
         let newList = new List({
           name: req.body.name,
-          board: req.body.id,
+          board: req.params.id,
           cards: []
         });
 

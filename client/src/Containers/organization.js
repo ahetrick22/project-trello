@@ -15,14 +15,19 @@ class Organization extends Component {
     //() => this.props.addBoard(organization._id,'123')
     this.renderInput = this.renderInput.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.addOrCancel = this.addOrCancel.bind(this);
   }
   componentDidMount() {
     this.props.fetchBoards();
   }
 
   handleInput = input => {
-    if (input.key === 'Enter') {
-      alert('addboard now');
+    if (input.key == 'Enter') {
+      this.props.addBoard(
+        this.props.organization._id,
+        this.state.addBoardInput
+      );
+      this.setState({ addBoardInputShown: false, addBoardInput: '' });
     }
   };
   renderInput = () => {
@@ -30,12 +35,21 @@ class Organization extends Component {
       return (
         <EmptyBoardToAdd>
           <input
+            autoFocus
             value={this.state.addBoardInput}
             onKeyPress={e => this.handleInput(e)}
             onChange={e => this.setState({ addBoardInput: e.target.value })}
           />
         </EmptyBoardToAdd>
       );
+    }
+  };
+
+  addOrCancel = () => {
+    if (this.state.addBoardInputShown) {
+      return 'Cancel';
+    } else {
+      return 'New Board';
     }
   };
 
@@ -114,17 +128,27 @@ const AddBoardButton = styled.button`
 
 const EmptyBoardToAdd = styled.div`
   cursor: pointer;
-  background-color: ${COLORS.primary}
+  background-color: ${COLORS.primary};
+  font-family: ${TYPEFACE};
+
   color: ${COLORS.tertiary};
   height: 100px;
   line-height: 100px;
   width: 170px;
   text-decoration: none;
-  font-weight: 350;
+
   border-radius: 25px;
   &:hover {
     transform: scale(1.06);
     transition-duration: 300ms;
+  }
+  input {
+    height: 30%;
+    background-color: white;
+    margin: 0 5px 0 5px;
+    width: 75%;
+    font-weight: 500;
+    font-size: 1.2em;
   }
 `;
 

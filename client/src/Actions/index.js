@@ -4,7 +4,9 @@ import {
   FETCH_BOARD,
   LOGIN,
   FETCH_CARD_INFO,
-  ADD_BOARD
+  FETCH_LISTS,
+  ADD_BOARD,
+  ADD_LIST
 } from './types';
 
 export const fetchLogin = (email, password) => dispatch => {
@@ -81,9 +83,23 @@ export const addBoard = (organizationId, boardName) => dispatch => {
     headers: {
       'Content-Type': 'application/json'
     }
+  });
+};
+
+export const addList = (boardId, listName) => dispatch => {
+  console.log(boardId, listName);
+  fetch(`/board/${boardId}/list`, {
+    method: 'POST',
+    body: JSON.stringify({
+      name: listName
+    }),
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
     .then(response => response.json())
     .then(data => {
-      dispatch({ type: ADD_BOARD, payload: data.boards });
+      console.log('returning data from server add list post: ', data);
+      dispatch({ type: ADD_BOARD, payload: data });
     });
 };
