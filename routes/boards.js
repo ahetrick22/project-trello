@@ -148,36 +148,4 @@ router.put('/board/:id', (req, res) => {
   }
 })
 
-//Updating a board's properties
-router.put('/board/:id', (req, res) => {
-  if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-    let updateObj = {};
-    if (req.body.name) {
-      updateObj.name = req.body.name
-    }
-    if (Object.keys(updateObj).length === 0) {
-      res.send(400, 'Body must have proper parameters')
-    }
-    let { id } = req.params;
-    Board.findByIdAndUpdate(id, updateObj, (err, board) => {
-      if (err) throw err;
-      if (!board) {
-        res.send(404, 'no board matching this id');
-      } else {
-        Board.findById(id).populate({
-          path: 'lists',
-          populate: {
-            path: 'cards'
-          }
-        }).exec((err, fullBoard) => {
-          if (err) throw err;
-          res.send(JSON.stringify(fullBoard));
-        })
-      }
-    })
-  } else {
-    res.send(400, 'Invalid parameters for request')
-  }
-})
-
 module.exports = router;
