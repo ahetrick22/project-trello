@@ -5,7 +5,8 @@ import {
   LOGIN,
   FETCH_CARD_INFO,
   FETCH_LISTS,
-  ADD_BOARD
+  ADD_BOARD,
+  ADD_CARD
 } from './types';
 import users from '../hard-coded-data/users.json';
 import lists from '../hard-coded-data/lists.json';
@@ -86,7 +87,7 @@ export const addBoard = (organizationId, boardName) => dispatch => {
    fetch(`/organizations/${organizationId}`,{
     method:'POST',
     body:JSON.stringify({
-      name:boardName
+      title:boardName
     }), headers: {
       "Content-Type": "application/json"}
   }).then(response => response.json())
@@ -94,6 +95,20 @@ export const addBoard = (organizationId, boardName) => dispatch => {
     console.log(data)
     dispatch({type:ADD_BOARD,payload:data.boards})
   })
+}
+
+export const addCard = (listId, cardName) => dispatch => {
+  console.log("Add Card")
+  fetch(`/list/${listId}`,{
+    method: 'POST',
+    body: JSON.stringify({
+      name: cardName
+    }), headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(response => response.json())
+  .then(data => dispatch({type:ADD_CARD}))
+
 }
 
 

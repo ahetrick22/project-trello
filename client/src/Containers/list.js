@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import styled from 'styled-components';
 import Card from './card';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
@@ -28,31 +28,24 @@ const CardList = styled.div`
 
 class List extends React.Component {
    render() {
-      return (
-         <Draggable draggableId={this.props.column.id} index={this.props.index}>
-            { (provided) => (
-               <Container
-                  {...provided.draggableProps}
-                  ref={provided.innerRef}
-               >
-                  <Title {...provided.dragHandleProps}>{this.props.column.title}</Title>
-                  <Droppable droppableId={this.props.column.id} type='card'>
-                     { (provided, snapshot) => (
-                        <CardList
-                           ref = {provided.innerRef}
-                           {...provided.droppableProps}
-                           isDraggingOver = {snapshot.isDraggingOver}
-                        >
-                           {this.props.cards.map((card, index) => <Card key={card.id} card={card} index={index} />)}
-                           {provided.placeholder}
-                        </CardList>
-                     )}
-                  
-                  </Droppable>
-               </Container>
-            )}
-         </Draggable>
-      )
+      return <Fragment>
+          <Draggable draggableId={this.props.column.id} index={this.props.index}>
+            {provided => <Container {...provided.draggableProps} ref={provided.innerRef}>
+                <Title {...provided.dragHandleProps}>
+                  {this.props.column.title}
+                </Title>
+                <Droppable droppableId={this.props.column.id} type="card">
+                  {(provided, snapshot) => <CardList ref={provided.innerRef} {...provided.droppableProps} isDraggingOver={snapshot.isDraggingOver}>
+                      {this.props.cards.map((card, index) => (
+                        <Card key={card.id} card={card} index={index} />
+                      ))}
+                      {provided.placeholder}
+                    </CardList>}
+                </Droppable>
+              </Container>}
+          </Draggable>
+         <button onClick={() => this.props.addCard(this.props.column.id,"yo")}>Test</button>
+        </Fragment>;
    }
 }
 
