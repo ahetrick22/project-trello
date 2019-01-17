@@ -20,7 +20,7 @@ export const FETCH_CARD_INFO = 'FETCH_CARD_INFO';
 
 export const FETCH_LISTS = 'FETCH_LISTS';
 
-export const ADD_BOARD = "ADD_BOARD";
+export const ADD_BOARD = 'ADD_BOARD';
 
 export const REGISTER = 'REGISTER';
 
@@ -28,4 +28,6 @@ export const ADD_CARD = 'ADD_CARD';
 
 export const ADD_LIST = 'ADD_LIST';
 
-
+// for auth reducer
+export const AUTH_USER = 'AUTH_USER';
+export const AUTH_ERROR = 'AUTH_ERROR';

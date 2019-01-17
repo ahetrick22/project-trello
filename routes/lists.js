@@ -3,8 +3,12 @@ const bodyParser = require('body-parser');
 const Card = require('../models/card');
 const List = require('../models/list');
 const Board = require('../models/board');
+const User = require('../models/user')
+const passportService = require('../services/passport');
+const passport = require('passport');
+const requireAuth = passport.authenticate('jwt', { session: false });
 
-router.post('/list/:id', (req, res) => {
+router.post('/list/:id', requireAuth, (req, res) => {
 
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     List.findById(req.params.id, (err, list) => {
@@ -16,11 +20,11 @@ router.post('/list/:id', (req, res) => {
       } else {
         let newCard = new Card({
             title: req.body.title,
-            list: req.params.id,
+            list: req.params._id,
             label: req.body.label,
             description: req.body.description,
             comments: [],
-            archived: req.body.archived,
+            archived: false,
             activity: []
         });
         

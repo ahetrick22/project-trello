@@ -100,19 +100,16 @@ class login extends Component {
                   />
                 </div>
                 <div className="container-login100-form-btn">
-                  <div className="wrap-login100-form-btn">
-                    <div className="login100-form-bgbtn" />
-
-
                     <button className="login100-form-btn" onClick={() => this.onSubmit()}>
                       Login
 						    	  </button>
-                    <button className="login100-form-btn" onClick={() => this.onRegister()}>
+                </div>
+                    <br />
+                    <button className="register100-form-btn" onClick={() => this.onRegister()}>
                       Register
                     </button>
-                  </div>
-                </div>
               </div>
+              <p className="guestLogin"><a href='/organizations'>Login As Guest</a></p>
             </div>
           </div>
         </div>
@@ -397,9 +394,9 @@ const LoginCss = styled('div')`
   .btn-show-pass {
     font-size: 15px;
     color: #999999;
-
-    display: -webkit-box;
-    display: -webkit-flex;
+    
+    /* display: -webkit-box; */
+    /* display: -webkit-flex; */
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
@@ -416,7 +413,7 @@ const LoginCss = styled('div')`
     transition: all 0.4s;
   }
 
-  .btn-show-pass:hover {
+  /* .btn-show-pass:hover {
     color: #6a7dfe;
     color: -webkit-linear-gradient(left, #21d4fd, #b721ff);
     color: -o-linear-gradient(left, #21d4fd, #b721ff);
@@ -430,7 +427,7 @@ const LoginCss = styled('div')`
     color: -o-linear-gradient(left, #21d4fd, #b721ff);
     color: -moz-linear-gradient(left, #21d4fd, #b721ff);
     color: linear-gradient(left, #21d4fd, #b721ff);
-  }
+  } */
 
   /*------------------------------------------------------------------
 [ Button ]*/
@@ -455,38 +452,14 @@ const LoginCss = styled('div')`
     margin: 0 auto;
   }
 
-  .login100-form-bgbtn {
-    position: absolute;
-    z-index: -1;
-    width: 300%;
-    height: 100%;
-    background: #a64bf4;
-    background: -webkit-linear-gradient(
-      right,
-      #21d4fd,
-      #b721ff,
-      #21d4fd,
-      #b721ff
-    );
-    background: -o-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
-    background: -moz-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
-    background: linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b721ff);
-    top: 0;
-    left: -100%;
-
-    -webkit-transition: all 0.4s;
-    -o-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s;
-  }
-
   .login100-form-btn {
     font-family: Cambria;
     font-size: 15px;
-    color: #fff;
-    line-height: 1.2;
+    background-color: #4BBF6B;
+    color: white;
+    line-height: 1.6;
     text-transform: uppercase;
-
+    box-shadow: 1px 1px 15px #999;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
@@ -497,6 +470,36 @@ const LoginCss = styled('div')`
     padding: 0 20px;
     width: 100%;
     height: 50px;
+    border-radius: 10%;
+  }
+
+    .register100-form-btn {
+    font-family: Cambria;
+    font-size: 15px;
+    background-color: #4BBF6B;
+    color: white;
+    line-height: 1.6;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 15px #999;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    height: 50px;
+    border-radius: 10%;
+  }
+
+  .guestLogin {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 15px;
+    justify-content: center;
+    padding-left: 94px;
+    padding-top: 30px;
   }
 
   .wrap-login100-form-btn:hover .login100-form-bgbtn {

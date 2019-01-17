@@ -3,6 +3,11 @@ const Card = require('../models/card');
 const List = require('../models/list');
 const Board = require('../models/board');
 
+const User = require('../models/user')
+const passportService = require('../services/passport');
+const passport = require('passport');
+const requireAuth = passport.authenticate('jwt', { session: false });
+
 router.get('/card/:id', (req, res) => {
   //make sure it's a valid ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {

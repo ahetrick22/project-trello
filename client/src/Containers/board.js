@@ -6,11 +6,7 @@ import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { StyledButton } from '../Components/styledButton';
 //import { COLORS, TYPEFACE } from '../css/StyleGuide';
-import { updateSameList } from '../api';
-
-const Container = styled.div`
-  display: flex;
-`;
+import { updateSameList, updatedList, updateDifferentList } from '../api';
 
 class Board extends Component {
   constructor(props) {
@@ -18,7 +14,8 @@ class Board extends Component {
     this.state = {
       cards: {},
       listOrder: [],
-      lists: {}
+      lists: {},
+      hello: ''
     };
   }
 
@@ -49,6 +46,8 @@ class Board extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    updatedList(this);
+
     if (this.props.board !== nextProps.board) {
       var board = nextProps.board;
 
@@ -134,18 +133,14 @@ class Board extends Component {
       const newCardIds = Array.from(startList.cardIds);
       // remove the card from the card id list from where it was removed
       newCardIds.splice(source.index, 1);
-      console.log('source', source);
-      console.log(newCardIds);
       // insert the card into the card id list
       newCardIds.splice(destination.index, 0, draggableId);
-      console.log('destination index', destination.index);
       const sameListSocketObj = {
         listId: startList.id,
         cardId: draggableId,
         sourceIndex: source.index,
         destinationIndex: destination.index
       };
-      updateSameList(sameListSocketObj);
 
       const newList = {
         ...startList,
@@ -160,7 +155,7 @@ class Board extends Component {
         }
       };
 
-      this.setState(newState);
+      updateSameList(sameListSocketObj, newState);
       return;
     }
 
@@ -178,6 +173,14 @@ class Board extends Component {
       ...finishList,
       cardIds: finishCardIds
     };
+    const differentListSocketObj = {
+      startListId: startList.id,
+      finishListId: finishList.id,
+      cardId: draggableId,
+      sourceIndex: source.index,
+      destinationIndex: destination.index
+    };
+    console.log(differentListSocketObj);
 
     const newState = {
       ...this.state,
@@ -188,7 +191,7 @@ class Board extends Component {
       }
     };
 
-    this.setState(newState);
+    updateDifferentList(differentListSocketObj, newState);
 
     // call server endpoint to let know that a reorder has occurred
   };
@@ -258,13 +261,18 @@ class Board extends Component {
   }
 }
 
+const Container = styled.div`
+  display: flex;
+`;
+
 const NewListArea = styled('div')`
   margin: 8px;
   padding: 8px;
   border: 1px solid lightgrey;
   background-color: white;
-  border-radius: 2px;
+  border-radius: 8px;
   width: 220px;
+  box-shadow: 1px 1px 8px #999;
 `;
 
 const InfoBar = styled('div')`
@@ -279,6 +287,9 @@ const InfoBar = styled('div')`
 const BoardArea = styled('div')`
   display: flex;
   flex-direction: row;
+  overflow-x: scroll;
+  overflow-y: auto;
+  flex-wrap: nowrap;
 `;
 
 function mapStateToProps({ selectedBoard, boards }) {
