@@ -113,7 +113,7 @@ class login extends Component {
                       Register
                     </button>
               </div>
-              <p className="guestLogin"><a href='/organizations/5c3fcbc79eec6715e0ad555d'>Login As Guest</a></p>
+              <p className="guestLogin"><a href='/orgs/5c3fcbc79eec6715e0ad555d'>Login As Guest</a></p>
             </div>
           </div>
         </div>
