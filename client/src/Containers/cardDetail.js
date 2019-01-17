@@ -88,6 +88,7 @@ class CardDetail extends Component {
             <select name="list" id="list" defaultValue={card.list}>
               <option value={card.list}>{card.list}</option>
             </select>
+            <br></br>
             <span>Label:</span>
             <select name="label" id="label" defaultValue={card.label}>
               <option value={card.label}>{card.label}</option>
