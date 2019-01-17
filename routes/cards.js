@@ -1,12 +1,11 @@
 const router = require('express').Router();
 const Card = require('../models/card');
+const List = require('../models/list');
+const Board = require('../models/board');
 
 router.get('/card/:id', (req, res) => {
-
-   //make sure it's a valid ID and won't trigger a cast error
-   console.log('card route');
-   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
-
+  //make sure it's a valid ID and won't trigger a cast error
+  if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching card
     Card.findById(req.params.id, (err, card) => {
       if (err) throw err;
@@ -15,12 +14,22 @@ router.get('/card/:id', (req, res) => {
         res.send(404, 'No card with that id');
         //otherwise, populate the card with its comments and send it
       } else {
-        Card.findById(req.params.id, (err, fullCard) =>
-          fullCard.populate('comments', () => {
-            if (err) throw err;
-            res.send(JSON.stringify(fullCard));
-          })
-        );
+        List.findById(card.list._id, (err, fullList) => {
+          Board.findById(fullList.board._id)
+            .populate({
+              path: 'lists',
+              populate: {
+                path: 'cards',
+                populate: {
+                  path: 'comments'
+                }
+              }
+            })
+            .exec((err, fullBoard) => {
+              if (err) throw err;
+              res.send(JSON.stringify(fullBoard));
+            });
+        });
       }
     });
     //if the object ID wasn't in the correct format
@@ -28,6 +37,33 @@ router.get('/card/:id', (req, res) => {
     res.send(400, 'Send a valid object ID as a parameter');
   }
 });
+// router.get('/card/:id', (req, res) => {
+
+//    //make sure it's a valid ID and won't trigger a cast error
+//    console.log('card route');
+//    if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+
+//     //then find the matching card
+//     Card.findById(req.params.id, (err, card) => {
+//       if (err) throw err;
+//       //if no card at that id, then tell the user
+//       if (!card) {
+//         res.send(404, 'No card with that id');
+//         //otherwise, populate the card with its comments and send it
+//       } else {
+//         Card.findById(req.params.id, (err, fullCard) =>
+//           fullCard.populate('comments', () => {
+//             if (err) throw err;
+//             res.send(JSON.stringify(fullCard));
+//           })
+//         );
+//       }
+//     });
+//     //if the object ID wasn't in the correct format
+//   } else {
+//     res.send(400, 'Send a valid object ID as a parameter');
+//   }
+// });
 
 router.put('/card/:id', (req, res) => {
   //check to see which params come in the body
