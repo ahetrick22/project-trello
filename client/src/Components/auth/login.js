@@ -51,7 +51,9 @@ class login extends Component {
   render() {
     if(this.props.user.authenticated){
      return (
+
 <Redirect to='/org' /> 
+
      )      
     } else {
 
@@ -113,7 +115,9 @@ class login extends Component {
                       Register
                     </button>
               </div>
+
               <p className="guestLogin"><a href='/org'>Login As Guest</a></p>
+
             </div>
           </div>
         </div>

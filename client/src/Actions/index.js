@@ -101,7 +101,7 @@ export const fetchBoards = () => dispatch => {
 };
 
 export const fetchBoard = boardID => dispatch => {
-  fetch(`/boards/${boardID}`, {
+  fetch(`/api/boards/${boardID}`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
@@ -172,7 +172,10 @@ export const addCard = (listId, cardName) => dispatch => {
     }
   })
     .then(response => response.json())
-    .then(data => dispatch({ type: ADD_CARD, payload: data }));
+    .then(data => {
+      console.log('response from addCard: Data= ', data)
+      dispatch({ type: ADD_BOARD, payload: data })
+    });
 };
 
 export const addList = (boardId, listName) => dispatch => {
