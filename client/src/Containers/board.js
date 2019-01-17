@@ -8,9 +8,6 @@ import { StyledButton } from '../Components/styledButton';
 //import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { updateSameList } from '../api';
 
-const Container = styled.div`
-  display: flex;
-`;
 
 class Board extends Component {
   constructor(props) {
@@ -258,13 +255,18 @@ class Board extends Component {
   }
 }
 
+const Container = styled.div`
+  display: flex;
+`;
+
 const NewListArea = styled('div')`
   margin: 8px;
   padding: 8px;
   border: 1px solid lightgrey;
   background-color: white;
-  border-radius: 2px;
+  border-radius: 8px;
   width: 220px;
+  box-shadow: 1px 1px 8px #999;
 `;
 
 const InfoBar = styled('div')`
@@ -279,6 +281,9 @@ const InfoBar = styled('div')`
 const BoardArea = styled('div')`
   display: flex;
   flex-direction: row;
+  overflow-x: scroll;
+  overflow-y: auto;
+  flex-wrap: nowrap;
 `;
 
 function mapStateToProps({ selectedBoard, boards }) {
