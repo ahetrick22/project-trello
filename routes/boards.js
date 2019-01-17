@@ -78,7 +78,7 @@ router.post('/api/board/:id/list', requireAuth, (req, res) => {
       if (!board) {
         res.send(404, 'No board with that id');
       }
-      if (req.body.name && req.body.id) {
+      if (req.body.name && req.params.id) {
         let newList = new List({
         name: req.body.name,
         board: req.body.id,
