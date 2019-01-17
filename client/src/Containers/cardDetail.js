@@ -10,9 +10,20 @@ class CardDetail extends Component {
     super(props);
 
     this.state = {
-      card: {},
+      card: {
+        comments: [],
+        title: '',
+        list: {
+          name: ''
+        },
+        description: '',
+        label: { 
+          value: 'green',
+        }
+      },
       editTitle: false,
-      editDesc: false
+      editDesc: false,
+     
     };
   }
 
@@ -48,6 +59,31 @@ class CardDetail extends Component {
     this.setState({ card });
   };
 
+  updateCardLabel = e => {
+    let label = { ...this.state.card.label };
+    label.value = e.target.value;
+    this.setState({label});
+  }
+
+  createListItems (){
+    let items = [];
+    //get card.list.val, find matching list.name
+    console.log("Props: ", this.props);
+    for (let i=0; i< this.props.maxValue; i++) {
+      items.push(<option key={i} value={i}>{i}</option>);
+      //create options dynamically based on which props are passed to parent
+    }
+    return;
+  }
+
+
+  onDropDownList = e => {
+    console.log("the list item is: ", e.target.value);
+    // let list = {...this.state.card.list};
+    // list.name = e.target.value;
+    // this.setState({list});
+  }
+
   render() {
     const { card, editTitle, editDesc } = this.state;
 
@@ -78,24 +114,34 @@ class CardDetail extends Component {
                 onDoubleClick={() => this.setState({ editTitle: true })}
               >
                 {/* Truncate title if longer than 50 chars */}
-                {card.title.length > 50
-                  ? `${card.title.slice(0, 50)}...`
-                  : card.title}
+                {this.state.card.title.length > 50
+                  ? `${this.state.card.title.slice(0, 50)}...`
+                  : this.state.card.title}
               </h1>
             )}
             <br />
-            <span>List:</span>
-            <select name="list" id="list" defaultValue={card.list}>
-              <option value={card.list}>{card.list}</option>
-            </select>
-            <span>Label:</span>
-            <select name="label" id="label" defaultValue={card.label}>
-              <option value={card.label}>{card.label}</option>
-              <option value="green">Green</option>
-              <option value="blue">Blue</option>
-              <option value="red">Red</option>
-              <option value="purple">Purple</option>
-            </select>
+            <div className='cardList'> 
+              <span>List:</span>
+                  <input type="select" onChange={this.onDropDownList} label='Multiple Select' multiple>{this.createListItems()}
+                  </input>
+              {/* <select name="list" id="list" value={this.state.card.list.name.value}  onChange= {this.onDropDownList}>
+                <option value={card.list}>{card.list}</option>
+                {/* <option value={this.board.list.name}>{card.list.name}</option> */}
+              {/* </select> */} */}
+            </div>
+              <br></br>
+
+              <div className="card-label">
+                <span>Label:</span>
+                <select className="label" id="label" value={this.state.card.label.value} onChange={this.updateCardLabel}>  
+                  <option value="red" style={{backgroundColor:'red', color: 'white'}}>Red</option>
+                  <option value="orange" style={{ backgroundColor: 'orange', color: 'white' }}>Orange</option>
+                  <option value="yellow" style={{ backgroundColor: 'yellow', color: 'black' }}>Yellow</option>
+                  <option value="green" style={{ backgroundColor: 'green', color: 'white' }}>Green</option>
+                  <option value="blue" style={{ backgroundColor: 'blue', color: 'white' }}>Blue</option>
+                  <option value="purple" style={{ backgroundColor: 'purple', color: 'white' }}>Purple</option>
+                  </select>
+              </div>
           </div>
           <div className="card-description" style={{ padding: '1em' }}>
             <img
