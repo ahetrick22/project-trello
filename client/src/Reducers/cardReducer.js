@@ -9,7 +9,11 @@ export const cardReducer = (state = {}, action) => {
 
   switch (type) {
     case FETCH_CARD_INFO:
-      return { ...payload };
+    let {data, id} = payload
+    let allCards = data.lists.map(lists => lists.cards).flat()
+    let selected = allCards.find(cards => cards._id === id)
+    console.log(selected)
+      return { ...selected };
     default:
       return state;
   }
