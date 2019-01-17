@@ -31,3 +31,5 @@ export const ADD_LIST = 'ADD_LIST';
 // for auth reducer
 export const AUTH_USER = 'AUTH_USER';
 export const AUTH_ERROR = 'AUTH_ERROR';
+
+export const GET_DATA = 'GET_DATA'

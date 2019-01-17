@@ -20,7 +20,7 @@ class Organization extends Component {
 
   }
   componentDidMount() {
-    this.props.fetchBoards();
+    this.props.getAllData();
   }
 
 
@@ -63,6 +63,7 @@ class Organization extends Component {
   render() {
 
     const { boards } = this.props;
+    console.log(this.props)
 
 
     if (Object.keys(boards).length === 0) {
@@ -72,7 +73,7 @@ class Organization extends Component {
       return (
         <div className="org-home" style={{ fontFamily: TYPEFACE }}>
           <OrgInfo>
-            <h1>{boards[0].organization.name}</h1>
+            <h1>{this.props.organization.name}</h1>
           </OrgInfo>
           <OrgBoards>
             <h1>Boards</h1>
@@ -170,8 +171,8 @@ const EmptyBoardToAdd = styled.div`
   }
 `;
 
-function mapStateToProps({ boards }) {
-  return { boards };
+function mapStateToProps({ boards, organization }) {
+  return { boards, organization };
 }
 
 export default connect(
