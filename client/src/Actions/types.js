@@ -19,3 +19,5 @@ export const FETCH_CARDS = 'FETCH_CARDS';
 export const FETCH_CARD_INFO = 'FETCH_CARD_INFO';
 
 export const FETCH_LISTS = 'FETCH_LISTS';
+
+export const ADD_BOARD = "ADD_BOARD"

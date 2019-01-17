@@ -4,19 +4,20 @@ import {
   FETCH_BOARD,
   LOGIN,
   FETCH_CARD_INFO,
-  FETCH_LISTS
+  FETCH_LISTS,
+  ADD_BOARD
 } from './types';
 import users from '../hard-coded-data/users.json';
 import lists from '../hard-coded-data/lists.json';
 
 export const fetchLogin = (email, password) => dispatch => {
-  console.log('fetchLOGIN');
   fetch('/login', {
     method: 'POST',
     body: {
       email,
       password
     },
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
     }
@@ -82,10 +83,17 @@ export const fetchCard = cardID => dispatch => {
 
 export const addBoard = (organizationId, boardName) => dispatch => {
   console.log(organizationId, boardName)
-  fetch(`organizations/${organizationId}/board`,{
+   fetch(`/organizations/${organizationId}`,{
     method:'POST',
-    body:{
+    body:JSON.stringify({
       name:boardName
-    }
-  }).then(r => console.log(r))
+    }), headers: {
+      "Content-Type": "application/json"}
+  }).then(response => response.json())
+  .then(data => {
+    console.log(data)
+    dispatch({type:ADD_BOARD,payload:data.boards})
+  })
 }
+
+
