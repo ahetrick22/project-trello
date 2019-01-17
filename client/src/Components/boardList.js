@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 //import styled from 'styled-components';
 import BoardItem from './boardItem';
 
-const BoardList = ({ boards }) => {
+const BoardList = ({ boards,selectBoard}) => {
   return <Fragment>
       
         {boards.map((board, index) => (

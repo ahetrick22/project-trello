@@ -18,6 +18,9 @@ class Board extends Component {
       lists: {},
       hello: ''
     };
+    const { boardID } = this.props.match.params;
+    this.props.selectBoard(boardID);
+    console.log(this.props)
   }
 
   handleNewListClickEvent = () => {
@@ -40,11 +43,6 @@ class Board extends Component {
       document.getElementById('newListArea').style.visibility = 'hidden';
     }
   };
-
-  componentDidMount() {
-    const { boardID } = this.props.match.params;
-    this.props.fetchBoard(boardID);
-  }
 
   componentWillReceiveProps(nextProps) {
     updatedList(this);

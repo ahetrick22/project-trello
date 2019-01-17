@@ -19,15 +19,12 @@ class Organization extends Component {
     this.addOrCancel = this.addOrCancel.bind(this);
 
   }
-  componentDidMount() {
-    this.props.getAllData();
-  }
 
 
   handleInput = input => {
     if (input.key === 'Enter') {
       this.props.addBoard(
-        this.props.boards[0].organization._id,
+        this.props.organization._id,
         this.state.addBoardInput
       );
       console.log(this.props)

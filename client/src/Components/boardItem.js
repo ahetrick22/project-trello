@@ -3,17 +3,18 @@ import styled from 'styled-components';
 import { COLORS } from '../css/StyleGuide';
 import { Link } from 'react-router-dom';
 
-const BoardItem = ({ board }) => {
-  return (
-    <StyledBoardItem href={`/boards/${board._id}`} className="board">
-      {board.name}
-    </StyledBoardItem>
-  );
+
+const BoardItem = ({ board ,selectBoard}) => {
+  return <Link to={`/boards/${board._id}`}>
+      <StyledBoardItem className="board">
+        {board.name}
+      </StyledBoardItem>
+    </Link>;
 };
 
 export default BoardItem;
 
-const StyledBoardItem = styled.a`
+const StyledBoardItem = styled.div`
   cursor: pointer;
   background-color: ${COLORS.primary};
   color: ${COLORS.tertiary};

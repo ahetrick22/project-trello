@@ -8,7 +8,8 @@ import {
   //  ADD_LIST
   ADD_BOARD,
   ADD_CARD,
-  GET_DATA
+  GET_DATA,
+  SELECT_BOARD
 } from './types';
 
 const email = localStorage.getItem('email');
@@ -199,4 +200,9 @@ export const getAllData = () => async dispatch => {
   let promise = await fetch('/boards')
   let data = await promise.json();
   dispatch({type:GET_DATA,payload:data})
+}
+
+export const selectBoard = (boardID) => dispatch => {
+  dispatch({type:SELECT_BOARD,payload:{id:boardID,selected:null}})
+
 }
