@@ -5,8 +5,9 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { StyledButton } from '../Components/styledButton';
-//import { COLORS, TYPEFACE } from '../css/StyleGuide';
+import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { updateSameList, updatedList, updateDifferentList } from '../api';
+
 
 class Board extends Component {
   constructor(props) {
@@ -51,7 +52,6 @@ class Board extends Component {
     updatedList(this);
 
     if (this.props.board !== nextProps.board) {
-      
       var board = nextProps.board;
 
       //Build up this newData object for setState
@@ -116,15 +116,22 @@ class Board extends Component {
     if (type === 'column') {
       const newListOrder = Array.from(this.state.listOrder);
       newListOrder.splice(source.index, 1);
-      console.log('after source', newListOrder);
       newListOrder.splice(destination.index, 0, draggableId);
-      console.log('after destination', newListOrder);
+
+      const newListPositionSocketObj = {
+        listId: draggableId,
+        sourceIndex: source.index,
+        destinationIndex: destination.index
+      };
+
 
       const newState = {
         ...this.state,
         listOrder: newListOrder
       };
 
+      newListOrderEvent(newListPositionSocketObj, newState);
+      console.log(newListPositionSocketObj)
       this.setState(newState);
       return;
     }
@@ -160,7 +167,7 @@ class Board extends Component {
       };
 
       updateSameList(sameListSocketObj, newState);
-      
+
       //need setState
       this.setState(newState);
       return;
@@ -207,14 +214,13 @@ class Board extends Component {
     return (
       <Fragment>
         <InfoBar>
-          <h1>{this.props.board.name}</h1>
-          <h2>Project Shift</h2>
+          <h3>{this.props.board.name} | Project Shift</h3>
           <StyledButton onClick={this.handleNewListClickEvent}>
-            +New List
+            Add List
           </StyledButton>
         </InfoBar>
 
-        <BoardArea>
+        <BoardArea className="board-area">
           <DragDropContext onDragEnd={this.onDragEnd}>
             {!this.state.listOrder ? (
               <p>'...Loading'</p>
@@ -275,27 +281,27 @@ const Container = styled.div`
 const NewListArea = styled('div')`
   margin: 8px;
   padding: 8px;
-  border: 1px solid lightgrey;
-  background-color: white;
+  background-color: ${COLORS.secondary};
   border-radius: 8px;
   width: 220px;
   box-shadow: 1px 1px 8px #999;
 `;
 
 const InfoBar = styled('div')`
-  height: 75px;
-  border: 1px solid black;
+  background: ${COLORS.secondary}
+  height: 50px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  padding: 0 25px
 `;
 
 const BoardArea = styled('div')`
+  background: ${COLORS.primary}
+  // min-height: 83vh;
+  padding: 1em;
   display: flex;
   flex-direction: row;
-  overflow-x: scroll;
-  overflow-y: auto;
+  overflow-x: auto;
   flex-wrap: nowrap;
 `;
 
