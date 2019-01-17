@@ -27,7 +27,6 @@ class Board extends Component {
    }
    handleNewListClickEvent() {
       var newListAreaElement = document.getElementById('newListArea');
-      console.log('New List Clicked');
       if (newListAreaElement.style.visibility === 'hidden') {
          newListAreaElement.style.visibility = 'visible';
          document.getElementById('new-list-title').focus()
@@ -37,12 +36,16 @@ class Board extends Component {
    }
 
    handleSubmitEvent() {
-      var input = document.getElementById('new-list-title').value;
-      console.log(input);
-      if (input) {
+      var input = document.getElementById('new-list-title');
+      if (input.value) {
          //send to server
+         this.props.addList(
+            this.props.match.params.boardID,
+            input.value
+          )
          //reset value of input to null, and css visibility to hidden
-         input = "";
+         input.value = "";
+         document.getElementById('newListArea').style.visibility = 'hidden';
       }
    }
 
@@ -204,8 +207,6 @@ class Board extends Component {
 
 
    render() {
-    //  const { board } = this.props.boards;
-    console.log(this.state.lists);
       return (
          <Fragment>
           <InfoBar>        
