@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Board = require('../models/board');
 const List = require('../models/list');
+const Organization = require('../models/organization');
 
 const User = require('../models/user')
 const passportService = require('../services/passport');
@@ -8,13 +9,30 @@ const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 
 
+const masterQuery = (orgId) => {
+  return Organization.findById(orgId).populate({
+    path: 'boards', 
+    populate: {
+      path: 'lists', 
+      populate: {
+        path: 'cards', 
+        populate: {
+          path: 'comments'
+        }
+      }
+    }
+  });
+}
+
+
 //get all boards
 router.get('/boards', (req, res) => {
-  Board.find({})
-    .populate({path: 'organization'})
-    .exec((err, boards) => {
-    if (err) throw err;
-    res.send(JSON.stringify(boards));
+  Board.find({}, (err, boards) => {
+    const query = masterQuery(boards[0].organization._id);
+    query.exec((err, org) => {
+      if (err) throw err;
+      res.send(JSON.stringify(org));
+    })
   });
 });
 
