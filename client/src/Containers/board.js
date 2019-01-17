@@ -6,7 +6,12 @@ import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { StyledButton } from '../Components/styledButton';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
-import { updateSameList, updatedList, updateDifferentList } from '../api';
+import {
+  updateSameList,
+  updatedList,
+  updateDifferentList,
+  newListOrderEvent
+} from "../api";
 
 
 class Board extends Component {

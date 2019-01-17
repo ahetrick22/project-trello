@@ -86,6 +86,7 @@ class CardDetail extends Component {
 
   render() {
     const { card, editTitle, editDesc } = this.state;
+    console.log(this.state)
 
     if (Object.keys(card).length === 0) {
       return <div>Loading...</div>;
