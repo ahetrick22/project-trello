@@ -9,7 +9,7 @@ export const cardReducer = (state = {}, action) => {
 
   switch (type) {
     case FETCH_CARD_INFO:
-      return { ...state, ...payload };
+      return { ...payload };
     default:
       return state;
   }

@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../css/StyleGuide';
+import { Link } from 'react-router-dom';
 
 const BoardItem = ({ board }) => {
   return (
-    <StyledBoardItem href={`/boards/${board._id}`} className="board">
+    <StyledBoardItem to={`/boards/${board._id}`} className="board">
       {board.name}
     </StyledBoardItem>
   );
@@ -12,7 +13,7 @@ const BoardItem = ({ board }) => {
 
 export default BoardItem;
 
-const StyledBoardItem = styled.a` 
+const StyledBoardItem = styled(Link)`
   cursor: pointer;
   background-color: ${COLORS.primary};
   color: ${COLORS.tertiary};
