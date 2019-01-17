@@ -114,7 +114,7 @@ export const addBoard = (organizationId, boardName) => dispatch => {
    fetch(`/organizations/${organizationId}`,{
     method:'POST',
     body:JSON.stringify({
-      title:boardName
+      name:boardName
     }), headers: {
       "Content-Type": "application/json"}
   }).then(response => response.json())
