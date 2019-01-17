@@ -41,7 +41,7 @@ export const fetchOrg = orgID => dispatch => {
 };
 
 export const fetchBoards = () => dispatch => {
-  fetch(`/boards`)
+  fetch(`http://localhost:7000/boards`)
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_BOARDS, payload: data });
