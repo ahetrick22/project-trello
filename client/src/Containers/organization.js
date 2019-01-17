@@ -20,7 +20,7 @@ class Organization extends Component {
 
   }
   componentDidMount() {
-    this.props.fetchBoards();
+    this.props.fetchBoards(this.props.match.params.orgID);
   }
 
 
@@ -65,9 +65,16 @@ class Organization extends Component {
     const { boards } = this.props;
 
 
-    if (Object.keys(boards).length === 0) {
-      return <div>Loading...</div>;
-    } else {
+    if(this.props.boards === null) {
+
+      return <h1>Loading...</h1>
+    } 
+
+    else if (Object.keys(boards).length === 0) {
+      return <h1>Sorry, no boards found for that organizaion</h1>;
+    }
+
+    else {
 
       return (
         <div className="org-home" style={{ fontFamily: TYPEFACE }}>

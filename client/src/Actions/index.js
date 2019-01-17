@@ -80,8 +80,9 @@ export const fetchOrg = orgID => dispatch => {
     });
 };
 
-export const fetchBoards = () => dispatch => {
-  fetch(`http://localhost:7000/boards`)
+export const fetchBoards = (orgId) => dispatch => {
+  console.log(orgId)
+  fetch(`/boards/${orgId}`)
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_BOARDS, payload: data });

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Board = require('../models/board');
 const List = require('../models/list');
+const Organization = require('../models/organization')
 
 const User = require('../models/user')
 const passportService = require('../services/passport');
@@ -8,15 +9,25 @@ const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 
 
-//get all boards
-router.get('/boards', (req, res) => {
-  Board.find({})
-    .populate({path: 'organization'})
-    .exec((err, boards) => {
-    if (err) throw err;
-    res.send(JSON.stringify(boards));
-  });
-});
+//get all boards for an org
+router.get('/boards/:orgId', (req, res) => {
+  //check that the org is valid
+  let { orgId } = req.params
+  console.log(orgId)
+  Organization.findById(orgId, (error, organization) => {
+    if (!organization) {
+      return res.send([])
+    } else {
+
+      Board.find({})
+        .populate({ path: 'organization' })
+        .exec((err, boards) => {
+          if (err) throw err;
+          res.send(JSON.stringify(boards));
+        });
+    };
+  })
+})
 
 //get all boards of a specific user
 router.get('/boards/:userId', (req, res) => {
