@@ -12,7 +12,8 @@ class List extends React.Component {
       super(props)
       this.state= {
          listInputHidden:true,
-         listInput:''
+         listInput:'',
+         editName: false,
       }
 
       this.renderListInputField = this.renderListInputField.bind(this)
@@ -52,6 +53,7 @@ class List extends React.Component {
          <Fragment>
             <Draggable draggableId={this.props.column.id} index={this.props.index}>
                {provided => <Container {...provided.draggableProps} ref={provided.innerRef}>
+               {/* when double click the list title, allow user to edit name */}
                   <Title {...provided.dragHandleProps}>
                      {this.props.column.title}
                      { 

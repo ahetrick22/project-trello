@@ -10,6 +10,7 @@ export const StyledButton = styled.button`
     font-family:${TYPEFACE};
     color:${COLORS.tertiary};
     background-color:${COLORS.addButtons};
+    cursor: pointer;
 
     `  
 
