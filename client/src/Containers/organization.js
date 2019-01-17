@@ -20,7 +20,7 @@ class Organization extends Component {
 
   }
   componentDidMount() {
-    this.props.fetchOrg()
+    this.props.fetchOrg();
     //this fetchboards currently will only ever return one org boards - NO args
     this.props.fetchBoards();
   }

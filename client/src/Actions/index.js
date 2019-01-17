@@ -66,38 +66,30 @@ export const fetchRegister = (email, password) => dispatch => {
     .catch(error => console.error('Error:', error));
 };
 
-export const fetchOrg = orgID => dispatch => {
-  fetch(`/api/organizations/${orgID}`, {
+export const fetchOrg = orgID => async dispatch => {
+  let promise = await fetch(`/api/organizations`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
     }
   })
-    .then(res => res.json())
-    .then(data => {
-      dispatch({ type: FETCH_ORG, payload: data });
-    })
-    .catch(err => {
-      if (err) throw err;
-    });
+  let data = await promise.json()
+  console.log(data)
+  dispatch({ type: FETCH_ORG, payload: data });
+
 };
 
-export const fetchBoards = () => dispatch => {
+export const fetchBoards = () => async dispatch => {
 
-  fetch(`/api/boards`, {
+
+  let promise = await fetch(`/api/boards`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
     }
   })
-
-    .then(res => res.json())
-    .then(data => {
-      dispatch({ type: FETCH_BOARDS, payload: data });
-    })
-    .catch(err => {
-      if (err) throw err;
-    });
+  let data = await promise.json()
+  dispatch({ type: FETCH_BOARDS, payload: data });
 };
 
 export const fetchBoard = boardID => dispatch => {

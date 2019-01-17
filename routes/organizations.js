@@ -5,13 +5,13 @@ const passportService = require('../services/passport');
 const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 
-router.get('/api/organizations/:id', requireAuth, (req, res) => {
+router.get('/api/organizations', requireAuth, (req, res) => {
   
-  Organization.find({}, (err, organizations) => {
+  Organization.findOne({}, (err, organizations) => {
     if(!organizations) {
       return res.send({})
     } else {
-    res.send(JSON.stringify(organizations[0]));
+    res.send(organizations);
     }
   });
 });
