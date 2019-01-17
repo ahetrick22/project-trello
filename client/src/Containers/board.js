@@ -42,6 +42,8 @@ class Board extends Component {
 
   componentDidMount() {
     const { boardID } = this.props.match.params;
+    console.log(boardID);
+    console.log(this.props);
     this.props.fetchBoard(boardID);
   }
 
@@ -49,6 +51,7 @@ class Board extends Component {
     updatedList(this);
 
     if (this.props.board !== nextProps.board) {
+      
       var board = nextProps.board;
 
       //Build up this newData object for setState
@@ -109,6 +112,7 @@ class Board extends Component {
       return;
     }
 
+    // Move a list from one position to another
     if (type === 'column') {
       const newListOrder = Array.from(this.state.listOrder);
       newListOrder.splice(source.index, 1);
@@ -128,7 +132,7 @@ class Board extends Component {
     const startList = this.state.lists[source.droppableId];
     const finishList = this.state.lists[destination.droppableId];
 
-    // Moving positions within the list
+    // Moving card within a list
     if (startList === finishList) {
       const newCardIds = Array.from(startList.cardIds);
       // remove the card from the card id list from where it was removed
@@ -156,10 +160,13 @@ class Board extends Component {
       };
 
       updateSameList(sameListSocketObj, newState);
+      
+      //need setState
+      this.setState(newState);
       return;
     }
 
-    // Moving from one list to another
+    // Moving a card from one list to another
     const startCardIds = Array.from(startList.cardIds);
     startCardIds.splice(source.index, 1);
     const newStart = {
@@ -192,8 +199,8 @@ class Board extends Component {
     };
 
     updateDifferentList(differentListSocketObj, newState);
-
-    // call server endpoint to let know that a reorder has occurred
+    //need setState
+    this.setState(newState);
   };
 
   render() {
