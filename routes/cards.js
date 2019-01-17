@@ -2,8 +2,11 @@ const router = require('express').Router();
 const Card = require('../models/card');
 
 router.get('/card/:id', (req, res) => {
-  //make sure it's a valid ID and won't trigger a cast error
-  if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+
+   //make sure it's a valid ID and won't trigger a cast error
+   console.log('card route');
+   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+
     //then find the matching card
     Card.findById(req.params.id, (err, card) => {
       if (err) throw err;

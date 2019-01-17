@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { compose } from 'redux';
+
+import React, { Component } from "react";
+import styled from "styled-components";
+import { compose } from "redux";
+import { Redirect } from "react-router";
 import { Link } from 'react-router-dom';
 import * as actions from '../../Actions';
 import { connect } from 'react-redux';
@@ -33,13 +35,24 @@ class login extends Component {
     };
   }
 
-  handleSubmit = () => {
-    this.props.fetchLogin((this.state.email, this.state.password), () => {
-      this.props.history.push('/orgs/5c3d0a12c905af1b29c57f06');
-    });
+
+  onSubmit = () => {
+    this.props.fetchLogin(this.state.email, this.state.password);
   };
 
+  onRegister = () => {
+    this.props.fetchRegister(this.state.email, this.state.password);
+
+  }
+
   render() {
+    const { handleSubmit } = this.props;
+    if(this.props.user.authenticated){
+     return (
+<Redirect to='/orgs/5c3fcb35c0f4e115d564ac83' /> 
+     )      
+    } else {
+
     return (
       <LoginCss>
         <div className="limiter">
@@ -92,11 +105,12 @@ class login extends Component {
                   <div className="wrap-login100-form-btn">
                     <div className="login100-form-bgbtn" />
 
-                    <button
-                      className="login100-form-btn"
-                      onClick={this.handleSubmit}
-                    >
+
+                    <button className="login100-form-btn" onClick={() => this.onSubmit()}>
                       Login
+						    	  </button>
+                    <button className="login100-form-btn" onClick={() => this.onRegister()}>
+                      Register
                     </button>
                   </div>
                 </div>
@@ -107,6 +121,7 @@ class login extends Component {
       </LoginCss>
     );
   }
+}
 }
 
 const LoginCss = styled('div')`
@@ -569,7 +584,9 @@ const LoginCss = styled('div')`
   }
 `;
 
+
 const mapStateToProps = ({ user }) => {
+
   return {
     user
   };

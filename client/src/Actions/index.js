@@ -6,32 +6,56 @@ import {
   FETCH_CARD_INFO,
   FETCH_LISTS,
   ADD_BOARD,
-
-  ADD_CARD
-
+  REGISTER,
+  ADD_CARD,
   ADD_LIST
-
 } from './types';
 
 export const fetchLogin = (email, password) => dispatch => {
   fetch('/login', {
     method: 'POST',
-    body: {
+    body: JSON.stringify({
       email,
       password
-    },
+    }),
     mode: 'cors',
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     }
   })
-    .then(res => console.log(res))
+    .then(res => res.json())
     .then(response => {
-      dispatch({ type: LOGIN, payload: response.data }); //depends on what the server returns
-      localStorage.setItem({ token: response.data.token });
+      dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
+      localStorage.setItem('token',response.token);
+      localStorage.setItem('email', response.email);
     })
     .catch(error => console.error('Error:', error));
 };
+
+export const fetchRegister = (email, password) => dispatch => {
+  fetch('/register', {
+    method: 'POST',
+    body: JSON.stringify({
+      email,
+      password
+    }),
+    mode: 'cors',
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(res => res.json())
+    .then(response => {
+
+      console.log(response);
+      dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
+      localStorage.setItem('token',response.token);
+      localStorage.setItem('email', response.email);
+
+    })
+    .catch(error => console.error('Error:', error));
+};
+
 
 export const fetchOrg = orgID => dispatch => {
   fetch(`/organizations/${orgID}`)
@@ -67,7 +91,14 @@ export const fetchBoard = boardID => dispatch => {
 };
 
 export const fetchCard = cardID => dispatch => {
-  fetch(`/card/${cardID}`)
+  const token = localStorage.getItem('token');
+  const email = localStorage.getItem('email');
+  fetch(`/card/${cardID}`, {
+    headers: {
+      "email": email,
+      "token": `bearer ${token}`
+    }
+  })
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_CARD_INFO, payload: data });
