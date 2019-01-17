@@ -86,7 +86,7 @@ export const fetchOrg = orgID => dispatch => {
 };
 
 export const fetchBoards = () => dispatch => {
-  fetch(`boards`, {
+  fetch(`/boards`, {
     headers: {
     "email": email,
     "Authorization": `bearer ${token}`
