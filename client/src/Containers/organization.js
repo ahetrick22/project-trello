@@ -27,9 +27,10 @@ class Organization extends Component {
   handleInput = input => {
     if (input.key == 'Enter') {
       this.props.addBoard(
-        this.props.organization._id,
+        this.props.boards[0].organization._id,
         this.state.addBoardInput
       );
+      console.log(this.props)
       this.setState({ addBoardInputShown: false, addBoardInput: '' });
     }
   };
@@ -79,13 +80,6 @@ class Organization extends Component {
               <BoardList boards={boards} />
               {this.renderInput()}
             </BoardGrid>
-            <button
-              onClick={() =>
-                this.props.addBoard('5c3fafdf44ae364f70407ec6', 'DEM BOYZ')
-              }
-            >
-              Button
-            </button>
 
             <AddBoardButton
               onClick={() =>
@@ -94,7 +88,7 @@ class Organization extends Component {
                 })
               }
             >
-              Add Board
+              {this.addOrCancel()}
             </AddBoardButton>
           </OrgBoards>
         </div>
