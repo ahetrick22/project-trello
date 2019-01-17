@@ -12,13 +12,13 @@ import users from '../hard-coded-data/users.json';
 import lists from '../hard-coded-data/lists.json';
 
 export const fetchLogin = (email, password) => dispatch => {
-  console.log('fetchLOGIN');
   fetch('/login', {
     method: 'POST',
     body: {
       email,
       password
     },
+    mode: 'cors',
     headers: {
       'Content-Type': 'application/json'
     }
@@ -96,6 +96,7 @@ export const addBoard = (organizationId, boardName) => dispatch => {
   })
 }
 
+
 export const addList = (boardId, listName) => dispatch => {
   console.log(boardId, listName);
   fetch(`/board/${boardId}/list`,{
@@ -110,3 +111,4 @@ export const addList = (boardId, listName) => dispatch => {
     dispatch({type:ADD_BOARD,payload:data})
   })
 }
+

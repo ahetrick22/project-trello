@@ -7,7 +7,8 @@ const CardSchema = new Schema({
   label: String,
   description: String,
   comments: [{ type: Schema.Types.ObjectId, ref: 'comment'}],
-  activity: [String]
+  activity: [String],
+  archived: Boolean
 })
 
 const Card = mongoose.model('card', CardSchema);
