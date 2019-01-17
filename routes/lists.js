@@ -16,7 +16,7 @@ router.post('/list/:id/card', (req, res) => {
       } else {
         let newCard = new Card({
             title: req.body.title,
-            list: req.body.list,
+            list: req.params.id,
             label: req.body.label,
             description: req.body.description,
             comments: [],

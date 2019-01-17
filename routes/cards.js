@@ -44,12 +44,24 @@ router.put('/card/:id', (req, res) => {
       if (req.body.archived) {
         updateObject.archived = req.body.archived;
       }
+
+      if (req.body.list) {
+          updateObject.list = req.body.list;
+      }
+
+    //   if (req.body.activity) {
+          
+    //   }
       
       if (Object.keys(updateObject).length === 0) {
           res.send(400, "Body must have parameters matching parameters");
       }
 
       let { id } = req.params;
+      User.find({ email : req.headers.email }, (err, user) => {
+          if (err) throw err;
+          
+      })
       Card.findByIdAndUpdate(id, updateObject,(err, card) => {
           if(err) throw err;
           if (!card) {
