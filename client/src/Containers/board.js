@@ -21,7 +21,7 @@ class Board extends Component {
       cards: {},
       listOrder: [],
       lists: {},
-      hello: ''
+      hello: '',
     };
   }
 
@@ -211,11 +211,27 @@ class Board extends Component {
     this.setState(newState);
   };
 
+  //change board name
+// ChangeBoardName() {
+//   <BoardNameInputField>
+//     <input 
+//       value={this.props.board.name}
+//       autoFocus={true}
+//       onChange={(e) => this.setState({boardInput: e.target.value})} 
+//     />
+//   </BoardNameInputField>
+// }
+
   render() {
     return (
       <Fragment>
         <InfoBar>
+<<<<<<< HEAD
           <h3>{this.props.board.name} | Project Shift</h3>
+=======
+          {/* <h1 onDoubleClick={this.ChangeBoardName}>{this.props.board.name}</h1> */}
+          <h2>Project Shift</h2>
+>>>>>>> 6c7fde06009e3507aacec15455776eb61b02cd7e
           <StyledButton onClick={this.handleNewListClickEvent}>
             Add List
           </StyledButton>
