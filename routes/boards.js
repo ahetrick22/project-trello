@@ -19,7 +19,7 @@ router.get('/boards', (req, res) => {
 });
 
 //get all boards of a specific user
-router.get('/boards/:userId', (req, res) => {
+router.get('/boarda/:userId', (req, res) => {
   if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
     User.findById(req.params.userId, (err, user) => {
       if (err) throw err;
@@ -46,7 +46,7 @@ router.get('/boards/:userId', (req, res) => {
 });
 
 //get a specific board
-router.get('/board/:id', requireAuth, (req, res) => {
+router.get('/boardsa/:id', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching board
