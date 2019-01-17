@@ -6,15 +6,16 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 
 class Organization extends Component {
-  constructor(props){
+  constructor(props) {
     super();
-    this.state= {
-      addBoardInputShown:false,
-      addBoardInput:''
+    this.state = {
+      addBoardInputShown: false,
+      addBoardInput: ''
     }
-//() => this.props.addBoard(organization._id,'123')
-this.renderInput = this.renderInput.bind(this);
-this.handleInput = this.handleInput.bind(this);
+    //() => this.props.addBoard(organization._id,'123')
+    this.renderInput = this.renderInput.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.addOrCancel = this.addOrCancel.bind(this)
   }
   componentDidMount() {
     this.props.fetchOrg();
@@ -22,56 +23,54 @@ this.handleInput = this.handleInput.bind(this);
   }
 
   handleInput = (input) => {
-    if(input.key == 'Enter'){
-      alert('addboard now')
+    if (input.key == 'Enter') {
+      this.props.addBoard(this.props.organization._id, this.state.addBoardInput)
+      this.setState({ addBoardInputShown: false, addBoardInput: '' })
     }
   }
-   renderInput = () => {
+  renderInput = () => {
     if (this.state.addBoardInputShown) {
       return (
         <EmptyBoardToAdd>
-        <input value={this.state.addBoardInput} 
-        onKeyPress={(e) => this.handleInput(e)} 
+          <input autoFocus value={this.state.addBoardInput}
+            onKeyPress={(e) => this.handleInput(e)}
             onChange={(e) => this.setState({ addBoardInput: e.target.value })}></input></EmptyBoardToAdd>
       )
     }
   }
 
+  addOrCancel = () => {
+    if (this.state.addBoardInputShown) {
+      return ('Cancel')
+    } else {
+      return ('New Board')
+    }
+  }
+
   render() {
-    
+
     const { organization, boards } = this.props;
 
     if (Object.keys(organization).length === 0 && boards.length === 0) {
       return <div>Loading...</div>;
     } else {
       return <div className="org-home" style={{ fontFamily: TYPEFACE }}>
-          <OrgInfo>
-            <h1>{organization.name}</h1>
-          </OrgInfo>
-          <OrgBoards>
-            <h1>Boards</h1>
-            <BoardGrid>
-              <BoardList boards={boards} />
-              {this.renderInput()}
-            </BoardGrid>
-            <button
-              onClick={() =>
-                this.props.addBoard(
-                  "5c3fafdf44ae364f70407ec6",
-                  "DEM BOYZ"
-                )
-              }
-            >
-              Button
-            </button>
-
-            <AddBoardButton onClick={() => this.setState({
-                  addBoardInputShown: !this.state.addBoardInputShown
-                })}>
-              Add Board
-            </AddBoardButton>
-          </OrgBoards>
-        </div>;
+        <OrgInfo>
+          <h1>{organization.name}</h1>
+        </OrgInfo>
+        <OrgBoards>
+          <h1>Boards</h1>
+          <BoardGrid>
+            <BoardList boards={boards} />
+            {this.renderInput()}
+          </BoardGrid>
+          <AddBoardButton onClick={() => this.setState({
+            addBoardInputShown: !this.state.addBoardInputShown
+          })}>
+            {this.addOrCancel()}
+          </AddBoardButton>
+        </OrgBoards>
+      </div>;
     }
   }
 }
@@ -110,19 +109,29 @@ const AddBoardButton = styled.button`
 
 const EmptyBoardToAdd = styled.div`
   cursor: pointer;
-  background-color: ${COLORS.primary}
+  background-color: ${COLORS.primary};
+  font-family: ${TYPEFACE};
+
   color: ${COLORS.tertiary};
   height: 100px;
   line-height: 100px;
   width: 170px;
   text-decoration: none;
-  font-weight: 350;
+
   border-radius: 25px;
   &:hover {
     transform: scale(1.06);
     transition-duration: 300ms;
   }
-`
+  input {
+    height: 30%;
+    background-color: white;
+    margin: 0 5px 0 5px;
+    width: 75%;
+    font-weight: 500;
+    font-size: 1.2em;
+  }
+`;
 
 function mapStateToProps({ organization, boards }) {
   return { organization, boards };
