@@ -48,8 +48,6 @@ class Board extends Component {
 
   componentDidMount() {
     const { boardID } = this.props.match.params;
-    console.log(boardID);
-    console.log(this.props);
     this.props.fetchBoard(boardID);
   }
 
@@ -136,7 +134,6 @@ class Board extends Component {
       };
 
       newListOrderEvent(newListPositionSocketObj, newState);
-      console.log(newListPositionSocketObj)
       this.setState(newState);
       return;
     }
@@ -199,7 +196,6 @@ class Board extends Component {
       sourceIndex: source.index,
       destinationIndex: destination.index
     };
-    console.log(differentListSocketObj);
 
     const newState = {
       ...this.state,
