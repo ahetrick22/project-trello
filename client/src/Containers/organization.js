@@ -6,15 +6,15 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 
 class Organization extends Component {
-  constructor(props){
+  constructor(props) {
     super();
-    this.state= {
-      addBoardInputShown:false,
-      addBoardInput:''
+    this.state = {
+      addBoardInputShown: false,
+      addBoardInput: ''
     }
-//() => this.props.addBoard(organization._id,'123')
-this.renderInput = this.renderInput.bind(this);
-this.handleInput = this.handleInput.bind(this);
+    //() => this.props.addBoard(organization._id,'123')
+    this.renderInput = this.renderInput.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
   componentDidMount() {
     this.props.fetchOrg();
@@ -22,56 +22,56 @@ this.handleInput = this.handleInput.bind(this);
   }
 
   handleInput = (input) => {
-    if(input.key == 'Enter'){
+    if (input.key == 'Enter') {
       alert('addboard now')
     }
   }
-   renderInput = () => {
+  renderInput = () => {
     if (this.state.addBoardInputShown) {
       return (
         <EmptyBoardToAdd>
-        <input value={this.state.addBoardInput} 
-        onKeyPress={(e) => this.handleInput(e)} 
+          <input value={this.state.addBoardInput}
+            onKeyPress={(e) => this.handleInput(e)}
             onChange={(e) => this.setState({ addBoardInput: e.target.value })}></input></EmptyBoardToAdd>
       )
     }
   }
 
   render() {
-    
+
     const { organization, boards } = this.props;
 
     if (Object.keys(organization).length === 0 && boards.length === 0) {
       return <div>Loading...</div>;
     } else {
       return <div className="org-home" style={{ fontFamily: TYPEFACE }}>
-          <OrgInfo>
-            <h1>{organization.name}</h1>
-          </OrgInfo>
-          <OrgBoards>
-            <h1>Boards</h1>
-            <BoardGrid>
-              <BoardList boards={boards} />
-              {this.renderInput()}
-            </BoardGrid>
-            <button
-              onClick={() =>
-                this.props.addBoard(
-                  "5c3fafdf44ae364f70407ec6",
-                  "DEM BOYZ"
-                )
-              }
-            >
-              Button
+        <OrgInfo>
+          <h1>{organization.name}</h1>
+        </OrgInfo>
+        <OrgBoards>
+          <h1>Boards</h1>
+          <BoardGrid>
+            <BoardList boards={boards} />
+            {this.renderInput()}
+          </BoardGrid>
+          <button
+            onClick={() =>
+              this.props.addBoard(
+                "5c3fafdf44ae364f70407ec6",
+                "DEM BOYZ"
+              )
+            }
+          >
+            Button
             </button>
 
-            <AddBoardButton onClick={() => this.setState({
-                  addBoardInputShown: !this.state.addBoardInputShown
-                })}>
-              Add Board
+          <AddBoardButton onClick={() => this.setState({
+            addBoardInputShown: !this.state.addBoardInputShown
+          })}>
+            Add Board
             </AddBoardButton>
-          </OrgBoards>
-        </div>;
+        </OrgBoards>
+      </div>;
     }
   }
 }
@@ -106,6 +106,7 @@ const AddBoardButton = styled.button`
   background-color: ${COLORS.addButtons};
   color: ${COLORS.tertiary};
   border-radius: 10px;
+  cursor: pointer;
 `;
 
 const EmptyBoardToAdd = styled.div`
