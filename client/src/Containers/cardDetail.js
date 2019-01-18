@@ -122,7 +122,7 @@ class CardDetail extends Component {
 
               <div className="card-label">
                 <span>Label:</span>
-                <select className="label" id="label"  onChange={this.updateCardLabel}>  
+                <select className="label" id="label" onChange={this.updateCardLabel}>  
                   <option value="red" style={{backgroundColor:'red', color: 'white'}}>Red</option>
                   <option value="orange" style={{ backgroundColor: 'orange', color: 'white' }}>Orange</option>
                   <option value="yellow" style={{ backgroundColor: 'yellow', color: 'black' }}>Yellow</option>
