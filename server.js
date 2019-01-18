@@ -2,7 +2,7 @@ const express = require('express');
 const app = require('express')();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-var cors = require('cors');
+const cors = require('cors');
 const keys = require('./config/keys');
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
@@ -21,8 +21,6 @@ app.use(
 app.use(cors());
 
 app.use((req, res, next) => {
-  res.append('Access-Control-Allow-Origin', ['*']);
-  res.append('Access-Control-Allow-Methods', ['*']);
   res.append('Access-Control-Allow-Headers', ['*']);
   res.append('Content-Type','application/json');
   next();
