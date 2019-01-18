@@ -96,7 +96,7 @@ export const fetchBoard = boardID => dispatch => {
     }
   })
     .then(res => {
-      const resStatus = res.status;
+      // const resStatus = res.status;
 
       return res.json();
     })
@@ -168,11 +168,11 @@ export const addList = (boardId, listName) => dispatch => {
     body: JSON.stringify({
       name: listName
     }),
-    headers: JSON.stringify({
+    headers: {
       'Content-Type': 'application/json',
       email: email,
       Authorization: `bearer ${token}`
-    })
+    }
   })
     .then(response => response.json())
     .then(data => {
@@ -199,7 +199,7 @@ export const updateList = (listID, listName) => dispatch => {
 };
 
 export const updateCard = (cardId, propsToUpdate) => dispatch => {
-  console.log('props to update', propsToUpdate)
+  console.log('props to update', propsToUpdate);
   fetch(`/api/card/${cardId}`, {
     method: 'PUT',
     headers: {
@@ -209,10 +209,11 @@ export const updateCard = (cardId, propsToUpdate) => dispatch => {
     },
     body: JSON.stringify(propsToUpdate)
   })
-  .then(response => response.json())
-  .then(data => {
-    dispatch({ type: FETCH_CARD_INFO, payload: {data,id:cardId} });  })
-}
+    .then(response => response.json())
+    .then(data => {
+      dispatch({ type: FETCH_CARD_INFO, payload: { data, id: cardId } });
+    });
+};
 
 export const updateBoard = (boardId, boardName) => dispatch => {
   fetch(`/api/boards/${boardId}`, {

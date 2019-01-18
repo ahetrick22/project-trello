@@ -1,7 +1,6 @@
-import React, { } from 'react'
-import styled from 'styled-components'
-import {COLORS, TYPEFACE} from '../css/StyleGuide'
-
+// import React, { } from 'react'
+import styled from 'styled-components';
+import { COLORS, TYPEFACE } from '../css/StyleGuide';
 
 // export const StyledButton = styled.button`
 //   border-radius: 5px;
@@ -19,7 +18,7 @@ export const StyledButton = styled.button`
   border: 1px solid ${COLORS.addButtons};
   margin: 0 0 0 auto;
   cursor: pointer;
-  color: #ffffff;
+  color: ${COLORS.tertiary};
   font-family: ${TYPEFACE};
   font-size: 14px;
   padding: 5px 20px;

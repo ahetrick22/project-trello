@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import Login from './auth/login';
