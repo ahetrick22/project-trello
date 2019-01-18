@@ -20,15 +20,9 @@ class Board extends Component {
       cards: {},
       listOrder: [],
       lists: {},
-
-      boardName: "",
-      editBoardName: false
-
-  
-
+      boardName: '',
+      editBoardName: false,
     };
-
-
   }
 
 
@@ -223,7 +217,12 @@ class Board extends Component {
     console.log('props: ', this.props);
     //as click "Enter"
     if (e.key === 'Enter') {
-      this.props.updateBoard(this.props.board.name, this.state.boardName);
+      console.log( 'id:',this.props.board._id)
+      console.log('board.name:', this.props.board.name)
+      console.log('boardName:', this.state.boardName)
+      console.log('e', e.target.value)
+     
+      this.props.updateBoard(this.props.board._id, this.state.boardName);
       this.setState({ editBoardName: false });
     } else {
       return;
@@ -243,8 +242,10 @@ class Board extends Component {
               value={boardName}
               onChange={e => this.setState({ boardName: e.target.value })}
               onKeyPress={e => this.updateBoardName(e)}
+
             />
           ) : (
+
             // Else render header with Board name
             <h3 onDoubleClick={() => this.setState({ editBoardName: true })}>
               {this.props.board.name} | Project Shift

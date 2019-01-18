@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Redirect } from "react-router";
+import { Redirect, withRouter } from "react-router";
 //import { Link } from 'react-router-dom';
 import * as actions from '../../Actions';
 import { connect } from 'react-redux';
@@ -38,18 +38,23 @@ class login extends Component {
 
   onSubmit = () => {
     this.props.fetchLogin(this.state.email, this.state.password);
-    this.props.fetchLogin('test@gmail.com', 'test');
+    this.props.history.push('/org')
+    window.location.reload()
     
   };
 
   
   onRegister = () => {
     this.props.fetchRegister(this.state.email, this.state.password);
+    this.props.history.push('/org')
+    window.location.reload();
 
   }
-
   render() {
+    console.log(this.props);
+
     if(this.props.user.authenticated){
+    
      return (
 
 <Redirect to='/org' /> 
@@ -278,7 +283,7 @@ const LoginCss = styled('div')`
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
-    padding: 77px 55px 33px 55px;
+    padding: 76px 55px 33px 55px;
 
     box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
@@ -289,6 +294,10 @@ const LoginCss = styled('div')`
 
   /*------------------------------------------------------------------
 [ Form ]*/
+
+  .welcome.login100-form-title{
+    padding-bottom: 45px;
+  }
 
   .login100-form {
     width: 100%;
@@ -478,7 +487,13 @@ const LoginCss = styled('div')`
     padding: 0 20px;
     width: 100%;
     height: 50px;
-    border-radius: 20%;
+    border-radius: 40px;
+    :active {
+    transform: translateY(4px);
+    }
+    :hover {
+    background-color: #3e8e41 
+    }
   }
 
     .register100-form-btn {
@@ -499,7 +514,13 @@ const LoginCss = styled('div')`
     padding: 0 20px;
     width: 100%;
     height: 50px;
-    border-radius: 20%;
+    border-radius: 40px;
+    :hover {
+    background-color: #3e8e41 
+    }
+    :active {
+    transform: translateY(4px);
+    }
   }
 
   .guestLogin {
@@ -601,7 +622,7 @@ const mapStateToProps = ({ user }) => {
   };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   actions
-)(login);
+)(login));
