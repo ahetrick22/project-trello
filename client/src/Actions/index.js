@@ -62,8 +62,7 @@ export const fetchRegister = (email, password) => dispatch => {
     .then(response => {
       console.log(response);
       dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
-      localStorage.setItem('token', response.token);
-      localStorage.setItem('email', response.email);
+
     })
     .catch(() => dispatch({ type: LOGIN_ERR, data: {} }));
 };

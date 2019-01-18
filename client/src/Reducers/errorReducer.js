@@ -1,4 +1,4 @@
-import {FETCH_ERR, LOGIN_ERR} from '../Actions/types'
+import {FETCH_ERR, LOGIN_ERR, LOGIN} from '../Actions/types'
 
 export const errorReducer = (state = '' , action) => {
 
@@ -8,6 +8,8 @@ export const errorReducer = (state = '' , action) => {
      case LOGIN_ERR:
      localStorage.clear()
      return state = 'login'
+     case LOGIN:
+     return state = '';
     default:
       return state
   }
