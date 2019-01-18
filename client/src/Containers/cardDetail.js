@@ -34,56 +34,56 @@ class CardDetail extends Component {
     //needs to hit an update card action instead
   };
 
+  // *********** UPDATE CARD TITLE ************ //
   updateLocalCardStateTitle = e => {
-    let card = { ...this.state.card };
+    const card = { ...this.state.card };
     card.title = e.target.value;
     this.setState({ card });
   };
 
+  updateCardTitle = () => {
+    const { card } = this.state;
+    this.props.updateCard(card._id, { title: card.title });
+  };
+
+  // *********** UPDATE CARD DESC ************ //
   updateLocalCardStateDesc = e => {
     let card = { ...this.state.card };
     card.description = e.target.value;
     this.setState({ card });
   };
 
-  updateLocalCardStateLabel = e => {
-    let card = { ...this.state.card };
-    card.label = e.target.value;
-    this.setState({ card });
-  };
-
-  updateServerCard = (prop, val) => {
+  updateCardDesc = () => {
     const { card } = this.state;
-    //needs to hit an update card action instead
-    this.props.updateCard(card._id, {
-      [prop]: val ? val : card[prop]
-    });
+    this.props.updateCard(card._id, { description: card.description });
   };
 
+  // *********** UPDATE CARD LABEL ************ //
   updateCardLabel = e => {
-    this.props.updateCard(this.props.selectedCard.selected._id, {
-      label: e.target.value
-    });
-    //needs to hit an update card action instead
-    // let label = { ...this.state.card.label };
-    // label.value = e.target.value;
-    // this.setState({ label });
+    const { card } = this.state;
+    this.props.updateCard(card._id, { label: e.target.value });
   };
 
-  createListItems = () => {
-    let items = [];
-    //get card.list.val, find matching list.name
-
-    for (let i = 0; i < this.props.maxValue; i++) {
-      items.push(
-        <option key={i} value={i}>
-          {i}
-        </option>
-      );
-      //create options dynamically based on which props are passed to parent
-    }
-    return;
+  // *********** UPDATE CARD LABEL ************ //
+  updateCardList = e => {
+    const { card } = this.state;
+    this.props.updateCard(card._id, { list: e.target.value });
   };
+
+  // createListItems = () => {
+  //   let items = [];
+  //   //get card.list.val, find matching list.name
+
+  //   for (let i = 0; i < this.props.maxValue; i++) {
+  //     items.push(
+  //       <option key={i} value={i}>
+  //         {i}
+  //       </option>
+  //     );
+  //     //create options dynamically based on which props are passed to parent
+  //   }
+  //   return;
+  // };
 
   onDropDownList = e => {
     //needs to hit an update list route instead
@@ -106,12 +106,12 @@ class CardDetail extends Component {
     if (Object.keys(card).length === 0) {
       return <div>Loading...</div>;
     } else {
-      const { selectedCard } = this.props;
+      const { selectedCard } = this.props; // Board
 
       return (
         <div className="modal">
           <CardModal className={showHideClassName}>
-            <Link to={`/boards/${card._id}`}>
+            <Link to={`/boards/${this.props.selectedCard._id}`}>
               <CloseButton onClick={() => this.props.handleClose()}>
                 X
               </CloseButton>
@@ -126,9 +126,12 @@ class CardDetail extends Component {
                   type="text"
                   value={card.title}
                   onChange={this.updateLocalCardStateTitle}
-                  onKeyPress={e =>
-                    e.key === 'Enter' ? this.updateServerCard('title') : null
-                  }
+                  onKeyPress={e => {
+                    if (e.key === 'Enter') {
+                      this.updateCardTitle();
+                      this.setState({ editTitle: false });
+                    }
+                  }}
                 />
               ) : (
                 // Else render header w/ title
@@ -145,18 +148,20 @@ class CardDetail extends Component {
               <br />
               <div className="cardList">
                 <span>List:</span>
-                <input
-                  type="select"
-                  onChange={this.onDropDownList}
-                  label="Multiple Select"
-                  multiple
+                <select
+                  className="list"
+                  id="list"
+                  onChange={this.updateCardList}
+                  defaultValue={selectedCard.lists.find(
+                    list => list._id === card.list
+                  )}
                 >
-                  {this.createListItems()}
-                </input>
-                {/* <select name="list" id="list" value={this.state.card.list.name.value}  onChange= {this.onDropDownList}>
-                <option value={card.list}>{card.list}</option>
-                {/* <option value={this.board.list.name}>{card.list.name}</option> */}
-                {/* </select> */}
+                  {selectedCard.lists.map((list, index) => (
+                    <option value={list._id} key={index}>
+                      {list.name}
+                    </option>
+                  ))}
+                </select>
               </div>
               <br />
 
@@ -165,7 +170,7 @@ class CardDetail extends Component {
                 <select
                   className="label"
                   id="label"
-                  onChange={e => this.updateServerCard('label', e.target.val)}
+                  onChange={this.updateCardLabel}
                   defaultValue={card.label}
                 >
                   <option
@@ -218,18 +223,18 @@ class CardDetail extends Component {
               {editDesc ? (
                 <Fragment>
                   {/* Render textarea w/ desc */}
-                  <textarea
+                  <TextInput
                     autoFocus
-                    name="description"
-                    cols="30"
-                    rows="5"
+                    type="text"
                     value={card.description}
-                    onChange={this.updateCardDesc}
+                    onChange={this.updateLocalCardStateDesc}
+                    onKeyPress={e => {
+                      if (e.key === 'Enter') {
+                        this.updateCardDesc();
+                        this.setState({ editDesc: false });
+                      }
+                    }}
                   />
-                  <br />
-                  <button onClick={() => this.setState({ editDesc: false })}>
-                    Save
-                  </button>
                 </Fragment>
               ) : (
                 // Else, render p w/ desc
