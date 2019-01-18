@@ -73,6 +73,7 @@ class CardDetail extends Component {
   }
 
   render() {
+    console.log('props in render',this.props)
     if (Object.keys(this.props.selectedCard).length === 0) {
       return <div>Loading...</div>;
     } 
