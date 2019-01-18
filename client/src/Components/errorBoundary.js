@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
+import {Redirect, withRouter} from 'react-router-dom'
 import * as actions from "../Actions";
 import { connect } from "react-redux";
 
@@ -17,6 +17,7 @@ class ErrorBoundary extends Component {
     // You can also log error messages to an error reporting service here
   
   render() {
+
     console.log(this.state.error)
     if (this.props.error) {
       console.log("handled")
@@ -35,7 +36,7 @@ function mapStateToProps({ error }) {
   return { error };
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   actions
-)(ErrorBoundary);
+)(ErrorBoundary));
