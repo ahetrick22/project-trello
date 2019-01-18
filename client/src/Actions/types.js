@@ -7,6 +7,7 @@ typos, errors, etc.
 
 //login
 export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT'
 //for the org reducer
 export const FETCH_BOARDS = 'FETCH_BOARDS';
 
