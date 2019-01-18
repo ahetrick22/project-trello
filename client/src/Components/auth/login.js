@@ -278,7 +278,7 @@ const LoginCss = styled('div')`
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
-    padding: 77px 55px 33px 55px;
+    padding: 76px 55px 33px 55px;
 
     box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
@@ -289,6 +289,10 @@ const LoginCss = styled('div')`
 
   /*------------------------------------------------------------------
 [ Form ]*/
+
+  .welcome.login100-form-title{
+    padding-bottom: 45px;
+  }
 
   .login100-form {
     width: 100%;
@@ -478,7 +482,7 @@ const LoginCss = styled('div')`
     padding: 0 20px;
     width: 100%;
     height: 50px;
-    border-radius: 20%;
+    border-radius: 40%;
   }
 
     .register100-form-btn {
@@ -499,7 +503,7 @@ const LoginCss = styled('div')`
     padding: 0 20px;
     width: 100%;
     height: 50px;
-    border-radius: 20%;
+    border-radius: 40%;
   }
 
   .guestLogin {
