@@ -31,10 +31,10 @@ class ErrorBoundary extends Component {
         <ErrorModal>
           <ErrorModalHeader> 
             <p>We're sorry; it looks like something went wrong loading your data.</p>
-            <CloseButton>&times;</CloseButton> 
+            {/* <CloseButton>&times;</CloseButton>  */}
           </ErrorModalHeader>
           <ErrorModalContent>           
-            <p>You can try and refreshing the page, or return home and try again</p>
+            <p>Please refresh the page or return home and try again</p>
           </ErrorModalContent>
           <ErrorModalFooter></ErrorModalFooter>
         </ErrorModal>
@@ -51,37 +51,38 @@ function mapStateToProps({ error }) {
 const ErrorModal = styled.div`
   display: inline-block; 
   position: fixed; /* Stay in place */
+  left: 25%;
+  top: 25%;
   z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 50%; /* Full width */
-  height: 50%; /* Full height */
-  // overflow: auto; /* Enable scroll if needed */
+  margin: 0 auto;
+  width: 50%; 
+  height: 25%; 
+  border: 3px solid red;
   background-color: ${COLORS.secondary}; 
-  `;
+`;
 
 const ErrorModalContent = styled.div`
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 1em;
   font-family: ${TYPEFACE};
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  border: 1px solid red;
+  width: 80%; 
 `;
 
 const ErrorModalHeader = styled.div`
   padding: 2px 16px;
-  background-color: #5cb85c;
+  background-color: red;
   color: white;
 `;
 
 const ErrorModalFooter = styled.div`
   padding: 2px 16px;
-  background-color: #5cb85c;
+  background-color: red;
 `;
 
 const CloseButton = styled.div`
-  color: #aaa;
+  color: black;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -89,11 +90,12 @@ const CloseButton = styled.div`
     cursor: pointer;
   }
   &:focus {
-    color: black;
+    color: white;
     text-decoration: none;
     cursor: pointer;
   }
 `;
+
 
 export default withRouter(connect(
   mapStateToProps,
@@ -115,4 +117,5 @@ export default withRouter(connect(
 //   margin: 2em auto ;
 //   border-radius: 5%;
 // `;
+
 
