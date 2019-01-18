@@ -32,7 +32,7 @@ export const fetchLogin = (email, password) => dispatch => {
       localStorage.setItem('token', response.token);
       localStorage.setItem('email', response.email);
     })
-    .catch(() => dispatch({type:FETCH_ERR, data:{}}));
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const signout = () => {
@@ -68,34 +68,33 @@ export const fetchRegister = (email, password) => dispatch => {
 
 export const fetchOrg = orgID => async dispatch => {
   try {
-  let promise = await fetch(`/api/organizations`, {
-    headers: {
-      email: email,
-      Authorization: `bearer ${token}`
-    }
-  });
-  let data = await promise.json();
-  dispatch({ type: FETCH_ORG, payload: data });
-} catch {
-  dispatch({type:FETCH_ERR, payload:{}})
-}
-
+    let promise = await fetch(`/api/organizations`, {
+      headers: {
+        email: email,
+        Authorization: `bearer ${token}`
+      }
+    });
+    let data = await promise.json();
+    dispatch({ type: FETCH_ORG, payload: data });
+  } catch {
+    dispatch({ type: FETCH_ERR, payload: {} });
+  }
 };
 
 export const fetchBoards = () => async dispatch => {
-  try{
-  let promise = await fetch(`/api/boards`, {
-    headers: {
-      email: email,
-      Authorization: `bearer ${token}`
-    }
-  });
+  try {
+    let promise = await fetch(`/api/boards`, {
+      headers: {
+        email: email,
+        Authorization: `bearer ${token}`
+      }
+    });
 
-  let data = await promise.json();
-  dispatch({ type: FETCH_BOARDS, payload: data });
-} catch{
-  dispatch({type:FETCH_ERR, payload:{}})
-}
+    let data = await promise.json();
+    dispatch({ type: FETCH_BOARDS, payload: data });
+  } catch {
+    dispatch({ type: FETCH_ERR, payload: {} });
+  }
 };
 
 export const fetchBoard = boardID => dispatch => {
@@ -147,7 +146,8 @@ export const addBoard = (organizationId, boardName) => dispatch => {
     .then(response => response.json())
     .then(data => {
       dispatch({ type: ADD_BOARD, payload: data.boards });
-    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
+    })
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const addCard = (listId, cardName) => dispatch => {
@@ -165,7 +165,8 @@ export const addCard = (listId, cardName) => dispatch => {
     .then(response => response.json())
     .then(data => {
       dispatch({ type: ADD_BOARD, payload: data });
-    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
+    })
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const addList = (boardId, listName) => dispatch => {
@@ -183,7 +184,8 @@ export const addList = (boardId, listName) => dispatch => {
     .then(response => response.json())
     .then(data => {
       dispatch({ type: ADD_BOARD, payload: data });
-    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
+    })
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const updateList = (listID, listName) => dispatch => {
@@ -201,11 +203,11 @@ export const updateList = (listID, listName) => dispatch => {
     .then(response => response.json())
     .then(data => {
       dispatch({ type: ADD_BOARD, payload: data });
-    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
+    })
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const updateCard = (cardId, propsToUpdate) => dispatch => {
-  console.log('props to update', propsToUpdate);
   fetch(`/api/card/${cardId}`, {
     method: 'PUT',
     headers: {
