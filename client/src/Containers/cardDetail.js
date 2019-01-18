@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { FaArchive } from 'react-icons/fa';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 class CardDetail extends Component {
   constructor(props) {
@@ -17,10 +17,16 @@ class CardDetail extends Component {
     
   }
 
+
   componentDidMount = () => {
-    const { cardID } = this.props.match.params;
+  console.log(this.props)
+  const { cardID } = this.props.props.match.params;
+
+  if (cardID || this.props.match.path !== "/boards/:boardID") {
+
     this.props.fetchCard(cardID);
-    }
+  }
+  }
 
   archiveCard = card => {
 
@@ -71,6 +77,8 @@ class CardDetail extends Component {
   }
 
   render() {
+
+    const showHideClassName = this.props.show ? "modal display-block" : "modal display-none"
     console.log('props in render',this.props)
     if (Object.keys(this.props.selectedCard).length === 0) {
       return <div>Loading...</div>;
@@ -80,8 +88,9 @@ class CardDetail extends Component {
       console.log(selectedCard);
       const card = selectedCard.selected;
       return (
-        <CardModal className="modal">
-          <Link to={`/boards/${this.props.selectedCard._id}`}><CloseButton>X</CloseButton></Link>
+        <div className="modal">
+        <CardModal className={showHideClassName}>
+          <Link to={`/boards/${this.props.selectedCard._id}`}><CloseButton onClick={() => this.props.handleClose()}>X</CloseButton></Link>
           <div className="card-header" style={{ padding: '1em' }}>
             <img src={require('../assets/card.svg')} alt="trello card icon" />
             {/* If user is editing title */}
@@ -122,7 +131,7 @@ class CardDetail extends Component {
 
               <div className="card-label">
                 <span>Label:</span>
-                <select className="label" id="label"  onChange={this.updateCardLabel}>  
+                <select className="label" id="label" onChange={this.updateCardLabel}>  
                   <option value="red" style={{backgroundColor:'red', color: 'white'}}>Red</option>
                   <option value="orange" style={{ backgroundColor: 'orange', color: 'white' }}>Orange</option>
                   <option value="yellow" style={{ backgroundColor: 'yellow', color: 'black' }}>Yellow</option>
@@ -208,7 +217,7 @@ class CardDetail extends Component {
               Archive
             </ArchiveButton>
           </div>
-        </CardModal>
+          </CardModal></div>
       );
     }
   }
@@ -219,19 +228,19 @@ const mapStateToProps = ({ selectedCard }) => {
   return { selectedCard };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   actions
-)(CardDetail);
+)(CardDetail));
 
 const CardModal = styled.div`
   position: relative;
   padding: 1em;
   background: ${COLORS.secondary};
-  font-family: ${TYPEFACE}
+  font-family: ${TYPEFACE};
   width: 50%;
   margin: 2em auto ;
-  border-radius: 5%
+  border-radius: 5%;
 `;
 
 const TextInput = styled.input`
@@ -250,9 +259,9 @@ const ArchiveButton = styled.button`
 `;
 
 const CloseButton = styled.button`
-  color: ${COLORS.archiveButton}
+  color: ${COLORS.archiveButton};
   font-size: 3em;
-  font-weight: 600
+  font-weight: 600;
   position: absolute;
   top: 10px;
   right: 20px;

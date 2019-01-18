@@ -14,6 +14,7 @@ import Login from './Components/auth/login';
 import Organization from './Containers/organization';
 import Board from './Containers/board';
 import CardDetail from './Containers/cardDetail';
+import ErrorBoundary from './Components/errorBoundary';
 
 const store = createStore(rootReducer, {}, applyMiddleware(thunk, logger));
 
@@ -22,16 +23,18 @@ render(
     <Router>
       <App>
         <NavBar />
-        <Switch>
-          <Redirect exact path from='/' to='/login' />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/org" component={Organization} />
-          <Route exact path="/boards/:boardID" component={Board} />
-
-          <Route exact path="/cards/:cardID" component={CardDetail} />
+        <ErrorBoundary>
+          <Switch>
+            <Redirect exact path from="/" to="/login" />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/org" component={Organization} />
+            <Route exact path="/boards/:boardID" component={Board} />
+            <Route exact path="/cards/:cardID" component={Board} />
         </Switch>
+        </ErrorBoundary>
+
       </App>
     </Router>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

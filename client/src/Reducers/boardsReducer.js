@@ -12,7 +12,6 @@ export const boardsReducer = (state = [], action) => {
       //TODO: get data from server
       return [...payload];
     case ADD_BOARD:
-      console.log(payload);
       return (state = payload);
     default:
       return state;

@@ -52,15 +52,19 @@ class Organization extends Component {
       return 'Add Board';
     }
   };
-
+  //fasdfasdfasasdsfdsafddddfdfsd
   render() {
     const { boards, organization } = this.props;
 
     if (organization === null) {
       return <div>Loading...</div>;
-    } else if (!organization._id) {
-      return <div>No organization found</div>;
-    } else {
+
+    }
+    else if (!organization._id) {
+      return <div>No organization found</div>
+    } 
+    else {
+
       return (
         <div className="org-home" style={{ fontFamily: TYPEFACE }}>
           <OrgInfo>
@@ -95,6 +99,7 @@ const OrgInfo = styled('div')`
   height: 30vh;
   line-height: 30vh;
   background-color: ${COLORS.secondary};
+  border: 5px outset;
 `;
 
 const OrgBoards = styled('div')`
@@ -109,7 +114,8 @@ const BoardGrid = styled('div')`
   overflow: auto;
   flex-wrap: wrap;
   padding: 2em 0;
-  padding-left: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
   width: 100%;
   text-align: 20%;
 `;
