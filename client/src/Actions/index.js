@@ -6,8 +6,9 @@ import {
   FETCH_CARD_INFO,
   //  FETCH_LISTS,
   //  ADD_LIST
-  ADD_BOARD
-  // ADD_CARD
+  ADD_BOARD,
+  // ADD_CARD,
+  FETCH_ERR
 } from './types';
 
 const email = localStorage.getItem('email');
@@ -31,7 +32,7 @@ export const fetchLogin = (email, password) => dispatch => {
       localStorage.setItem('token', response.token);
       localStorage.setItem('email', response.email);
     })
-    .catch(error => console.error('Error:', error));
+    .catch(() => dispatch({type:FETCH_ERR, data:{}}));
 };
 
 export const signout = () => {
@@ -63,10 +64,11 @@ export const fetchRegister = (email, password) => dispatch => {
       localStorage.setItem('token', response.token);
       localStorage.setItem('email', response.email);
     })
-    .catch(error => console.error('Error:', error));
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const fetchOrg = orgID => async dispatch => {
+  try {
   let promise = await fetch(`/api/organizations`, {
     headers: {
       email: email,
@@ -77,10 +79,16 @@ export const fetchOrg = orgID => async dispatch => {
   console.log(data)
   dispatch({ type: FETCH_ORG, payload: data });
 
+} catch {
+  dispatch({type:FETCH_ERR, payload:{}})
+}
+
+
 };
 
 
 export const fetchBoards = () => async dispatch => {
+  try{
   let promise = await fetch(`/api/boards`, {
     headers: {
       email: email,
@@ -90,6 +98,9 @@ export const fetchBoards = () => async dispatch => {
 
   let data = await promise.json()
   dispatch({ type: FETCH_BOARDS, payload: data });
+} catch{
+  dispatch({type:FETCH_ERR, payload:{}})
+}
 };
 
 export const fetchBoard = boardID => dispatch => {
@@ -100,16 +111,16 @@ export const fetchBoard = boardID => dispatch => {
     }
   })
     .then(res => {
+
       const resStatus = res.status;
       console.log(resStatus);
+
       return res.json();
     })
     .then(data => {
       dispatch({ type: FETCH_BOARD, payload: data });
     })
-    .catch(err => {
-      if (err) throw err;
-    });
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const fetchCard = cardID => dispatch => {
@@ -126,9 +137,7 @@ export const fetchCard = cardID => dispatch => {
       console.log('fetch card data',data)
       dispatch({ type: FETCH_CARD_INFO, payload: {data,id:cardID} });
     })
-    .catch(err => {
-      if (err) throw err;
-    });
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const addBoard = (organizationId, boardName) => dispatch => {
@@ -148,7 +157,7 @@ export const addBoard = (organizationId, boardName) => dispatch => {
     .then(data => {
       console.log(data);
       dispatch({ type: ADD_BOARD, payload: data.boards });
-    });
+    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
 };
 
 export const addCard = (listId, cardName) => dispatch => {
@@ -168,7 +177,7 @@ export const addCard = (listId, cardName) => dispatch => {
     .then(data => {
       console.log('response from addCard: Data= ', data);
       dispatch({ type: ADD_BOARD, payload: data });
-    });
+    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
 };
 
 export const addList = (boardId, listName) => dispatch => {
@@ -188,7 +197,7 @@ export const addList = (boardId, listName) => dispatch => {
     .then(data => {
       console.log('returning data from server add list post: ', data);
       dispatch({ type: ADD_BOARD, payload: data });
-    });
+    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
 };
 
 export const updateList = (listID, listName) => dispatch => {
@@ -206,10 +215,26 @@ export const updateList = (listID, listName) => dispatch => {
     .then(response => response.json())
     .then(data => {
       dispatch({ type: ADD_BOARD, payload: data });
+    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
+};
+
+export const updateCard = (cardId, propsToUpdate) => dispatch => {
+  console.log('props to update', propsToUpdate);
+  fetch(`/api/card/${cardId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      email: email,
+      Authorization: `bearer ${token}`
+    },
+    body: JSON.stringify(propsToUpdate)
+  })
+    .then(response => response.json())
+    .then(data => {
+      dispatch({ type: FETCH_CARD_INFO, payload: { data, id: cardId } });
     });
 };
 
-//edit board name
 export const updateBoard = (boardId, boardName) => dispatch => {
   fetch(`/api/board/${boardId}`, {
     method: 'PUT',

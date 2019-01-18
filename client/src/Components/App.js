@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import Login from './auth/login';
@@ -10,10 +10,11 @@ class App extends React.Component {
     let { authenticated } = this.props.user;
     if (authenticated) {
       return (
-        <div className="app" style={{ boxSizing: 'border-box' }}>
-          {this.props.children}
-        </div>
-      );
+          <div className="app" style={{ boxSizing: "border-box" }}>
+            {this.props.children}
+          </div>
+      )
+
     } else {
       return (
         <Fragment>

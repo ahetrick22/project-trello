@@ -26,6 +26,7 @@ export default class Card extends React.Component {
               {...provided.dragHandleProps}
               ref={provided.innerRef}
               isDragging={snapshot.isDragging}
+              onClick={() => this.props.showModal()}
             >
               {this.props.card.content}
             </Container>
