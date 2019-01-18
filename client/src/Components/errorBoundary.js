@@ -25,7 +25,7 @@ class ErrorBoundary extends Component {
   // You can also log error messages to an error reporting service here
 
   render() {
-    if (this.props.error) {
+    if (this.props.error === 'fetch') {
     console.log(this.props);
       return (
         <ErrorModal>
@@ -39,6 +39,18 @@ class ErrorBoundary extends Component {
           <ErrorModalFooter></ErrorModalFooter>
         </ErrorModal>
       )
+    }
+    else if(this.props.error === 'login'){
+      return (
+        <ErrorModal>
+          <ErrorModalHeader>
+            <p>Invalid login, the email may be in use, please try another email</p>
+          </ErrorModalHeader>
+
+          <ErrorModalFooter></ErrorModalFooter>
+        </ErrorModal>
+      )
+
     }
     else {
       return this.props.children

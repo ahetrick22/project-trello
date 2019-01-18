@@ -34,4 +34,6 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 
 //errors
 
-export const FETCH_ERR = 'FETCH_ERR'
+export const FETCH_ERR = 'FETCH_ERR';
+
+export const LOGIN_ERR = 'LOGIN_ERR';
