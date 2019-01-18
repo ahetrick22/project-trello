@@ -482,7 +482,13 @@ const LoginCss = styled('div')`
     padding: 0 20px;
     width: 100%;
     height: 50px;
-    border-radius: 40%;
+    border-radius: 40px;
+    :active {
+    transform: translateY(4px);
+    }
+    :hover {
+    background-color: #3e8e41 
+    }
   }
 
     .register100-form-btn {
@@ -503,7 +509,13 @@ const LoginCss = styled('div')`
     padding: 0 20px;
     width: 100%;
     height: 50px;
-    border-radius: 40%;
+    border-radius: 40px;
+    :hover {
+    background-color: #3e8e41 
+    }
+    :active {
+    transform: translateY(4px);
+    }
   }
 
   .guestLogin {
