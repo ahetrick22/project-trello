@@ -1,8 +1,6 @@
 const express = require('express');
 const app = require('express')();
 const mongoose = require('mongoose');
-const updateIfCurrentPlugin = require('mongoose-update-if-current').updateIfCurrentPlugin;
-mongoose.plugin(updateIfCurrentPlugin);
 const bodyParser = require('body-parser');
 var cors = require('cors');
 const keys = require('./config/keys');

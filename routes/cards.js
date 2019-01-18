@@ -46,7 +46,6 @@ router.get('/api/card/:id', requireAuth, (req, res) => {
   }
 });
 
-//don't mess with this
 router.put('/api/card/:id', requireAuth, (req, res) => {
   //check to see which params come in the body
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
