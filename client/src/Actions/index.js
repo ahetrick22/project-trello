@@ -84,7 +84,6 @@ export const fetchOrg = orgID => async dispatch => {
   }
 };
 
-
 export const fetchBoards = () => async dispatch => {
   try {
     let promise = await fetch(`/api/boards`, {
@@ -109,7 +108,6 @@ export const fetchBoard = boardID => dispatch => {
     }
   })
     .then(res => {
-
       const resStatus = res.status;
       console.log(resStatus);
 
@@ -132,8 +130,8 @@ export const fetchCard = cardID => dispatch => {
   })
     .then(res => res.json())
     .then(data => {
-      console.log('fetch card data',data)
-      dispatch({ type: FETCH_CARD_INFO, payload: {data,id:cardID} });
+      console.log('fetch card data', data);
+      dispatch({ type: FETCH_CARD_INFO, payload: { data, id: cardID } });
     })
     .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
@@ -219,6 +217,7 @@ export const updateList = (listID, listName) => dispatch => {
 };
 
 export const updateCard = (cardId, propsToUpdate) => dispatch => {
+  console.log('THINGS', cardId, propsToUpdate);
   fetch(`/api/card/${cardId}`, {
     method: 'PUT',
     headers: {

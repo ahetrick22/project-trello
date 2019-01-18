@@ -1,10 +1,9 @@
-import React, { Component } from 'react'
-import {Redirect, withRouter} from 'react-router-dom'
-import * as actions from "../Actions";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { Redirect, withRouter } from 'react-router-dom';
+import * as actions from '../Actions';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
-
 
 class ErrorBoundary extends Component {
   // constructor(props) {
@@ -14,28 +13,27 @@ class ErrorBoundary extends Component {
   //   console.log('this.props.error', this.props.error);
   // }
 
-  componentWillReceiveProps() {
-
-    }
-  
 
   // You can also log error messages to an error reporting service here
 
   render() {
+
     if (this.props.error === 'fetch') {
       //this sometimes fixes but will get stuck in an infinite loop so be careful
       // window.location.reload();
     console.log(this.props);
       return (
         <ErrorModal>
-          <ErrorModalHeader> 
-            <p>We're sorry; it looks like something went wrong loading your data.</p>
+          <ErrorModalHeader>
+            <p>
+              We're sorry; it looks like something went wrong loading your data.
+            </p>
             {/* <CloseButton>&times;</CloseButton>  */}
           </ErrorModalHeader>
-          <ErrorModalContent>           
+          <ErrorModalContent>
             <p>Please refresh the page or return home and try again</p>
           </ErrorModalContent>
-          <ErrorModalFooter></ErrorModalFooter>
+          <ErrorModalFooter />
         </ErrorModal>
       )
     }
@@ -48,16 +46,16 @@ function mapStateToProps({ error }) {
   return { error };
 }
 const ErrorModal = styled.div`
-  display: inline-block; 
+  display: inline-block;
   position: fixed; /* Stay in place */
   left: 25%;
   top: 25%;
   z-index: 1; /* Sit on top */
   margin: 0 auto;
-  width: 50%; 
-  height: 25%; 
+  width: 50%;
+  height: 25%;
   border: 3px solid red;
-  background-color: ${COLORS.secondary}; 
+  background-color: ${COLORS.secondary};
 `;
 
 const ErrorModalContent = styled.div`
@@ -66,7 +64,7 @@ const ErrorModalContent = styled.div`
   padding: 1em;
   font-family: ${TYPEFACE};
   border: 1px solid red;
-  width: 80%; 
+  width: 80%;
 `;
 
 const ErrorModalHeader = styled.div`
@@ -95,26 +93,9 @@ const CloseButton = styled.div`
   }
 `;
 
-
-export default withRouter(connect(
-  mapStateToProps,
-  actions
-)(ErrorBoundary))
-
-
-
-
-
-
-// display: none; 
-//   position: relative;
-//   z-index: 1,  // sit on top
-//   padding: 1em;
-//   background: ${COLORS.secondary};
-//   font-family: ${TYPEFACE};
-//   width: 50%;
-//   margin: 2em auto ;
-//   border-radius: 5%;
-// `;
-
-
+export default withRouter(
+  connect(
+    mapStateToProps,
+    actions
+  )(ErrorBoundary)
+);
