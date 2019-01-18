@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import Login from './auth/login';
@@ -18,6 +18,7 @@ class App extends React.Component {
     } else {
       return (
         <Fragment>
+          <Redirect to='/login' />
           <NavBar />
           <h1>You have been redirected because you aren't currently logged in >:(</h1>
           <Login />

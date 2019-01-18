@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Redirect } from "react-router";
+import { Redirect, withRouter } from "react-router";
 //import { Link } from 'react-router-dom';
 import * as actions from '../../Actions';
 import { connect } from 'react-redux';
@@ -38,18 +38,23 @@ class login extends Component {
 
   onSubmit = () => {
     this.props.fetchLogin(this.state.email, this.state.password);
-    this.props.fetchLogin('test@gmail.com', 'test');
+    this.props.history.push('/org')
+    window.location.reload()
     
   };
 
   
   onRegister = () => {
     this.props.fetchRegister(this.state.email, this.state.password);
+    this.props.history.push('/org')
+    window.location.reload();
 
   }
-
   render() {
+    console.log(this.props);
+
     if(this.props.user.authenticated){
+    
      return (
 
 <Redirect to='/org' /> 
@@ -617,7 +622,7 @@ const mapStateToProps = ({ user }) => {
   };
 };
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   actions
-)(login);
+)(login));
