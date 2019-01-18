@@ -9,6 +9,8 @@ const INITIAL_STATE = {
 export const loginReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case LOGIN:
+            localStorage.setItem('token', action.payload.token);
+            localStorage.setItem('email', action.payload.email);
             return {
                 ...state, authenticated: action.payload.token,
                 email: action.payload.email
