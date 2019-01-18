@@ -57,44 +57,32 @@ class CardDetail extends Component {
     this.props.updateCard(card._id, { description: card.description });
   };
 
-  updateLocalCardStateLabel = e => {
-    let card = { ...this.state.card };
-    card.label = e.target.value;
-    this.setState({ card });
-  };
-
-  updateServerCard = (e, prop, val) => {
-    const { card } = this.state;
-    //needs to hit an update card action instead
-    this.props.updateCard(card._id, {
-      [prop]: val ? val : card[prop]
-    });
-  };
-
+  // *********** UPDATE CARD LABEL ************ //
   updateCardLabel = e => {
-    this.props.updateCard(this.props.selectedCard.selected._id, {
-      label: e.target.value
-    });
-    //needs to hit an update card action instead
-    // let label = { ...this.state.card.label };
-    // label.value = e.target.value;
-    // this.setState({ label });
+    const { card } = this.state;
+    this.props.updateCard(card._id, { label: e.target.value });
   };
 
-  createListItems = () => {
-    let items = [];
-    //get card.list.val, find matching list.name
-
-    for (let i = 0; i < this.props.maxValue; i++) {
-      items.push(
-        <option key={i} value={i}>
-          {i}
-        </option>
-      );
-      //create options dynamically based on which props are passed to parent
-    }
-    return;
+  // *********** UPDATE CARD LABEL ************ //
+  updateCardList = e => {
+    const { card } = this.state;
+    this.props.updateCard(card._id, { list: e.target.value });
   };
+
+  // createListItems = () => {
+  //   let items = [];
+  //   //get card.list.val, find matching list.name
+
+  //   for (let i = 0; i < this.props.maxValue; i++) {
+  //     items.push(
+  //       <option key={i} value={i}>
+  //         {i}
+  //       </option>
+  //     );
+  //     //create options dynamically based on which props are passed to parent
+  //   }
+  //   return;
+  // };
 
   onDropDownList = e => {
     //needs to hit an update list route instead
@@ -111,7 +99,7 @@ class CardDetail extends Component {
     if (Object.keys(card).length === 0) {
       return <div>Loading...</div>;
     } else {
-      const { selectedCard } = this.props;
+      const { selectedCard } = this.props; // Board
 
       return (
         <div className="modal">
@@ -153,18 +141,20 @@ class CardDetail extends Component {
               <br />
               <div className="cardList">
                 <span>List:</span>
-                <input
-                  type="select"
-                  onChange={this.onDropDownList}
-                  label="Multiple Select"
-                  multiple
+                <select
+                  className="list"
+                  id="list"
+                  onChange={this.updateCardList}
+                  defaultValue={selectedCard.lists.find(
+                    list => list._id === card.list
+                  )}
                 >
-                  {this.createListItems()}
-                </input>
-                {/* <select name="list" id="list" value={this.state.card.list.name.value}  onChange= {this.onDropDownList}>
-                <option value={card.list}>{card.list}</option>
-                {/* <option value={this.board.list.name}>{card.list.name}</option> */}
-                {/* </select> */}
+                  {selectedCard.lists.map((list, index) => (
+                    <option value={list._id} key={index}>
+                      {list.name}
+                    </option>
+                  ))}
+                </select>
               </div>
               <br />
 
@@ -173,7 +163,7 @@ class CardDetail extends Component {
                 <select
                   className="label"
                   id="label"
-                  onChange={e => this.updateServerCard('label', e.target.val)}
+                  onChange={this.updateCardLabel}
                   defaultValue={card.label}
                 >
                   <option
