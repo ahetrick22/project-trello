@@ -316,15 +316,15 @@ const NewListArea = styled('div')`
 `;
 
 const InfoBar = styled('div')`
-  background: ${COLORS.secondary}
+  background: ${COLORS.secondary};
   height: 50px;
   display: flex;
   align-items: center;
-  padding: 0 25px
+  padding: 0 25px;
 `;
 
 const BoardArea = styled('div')`
-  background: ${COLORS.primary}
+  background: ${COLORS.primary};
   min-height: 83vh;
   padding: 1em;
   display: flex;
