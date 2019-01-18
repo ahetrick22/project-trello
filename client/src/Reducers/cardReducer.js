@@ -10,10 +10,12 @@ export const cardReducer = (state = {}, action) => {
   switch (type) {
     case FETCH_CARD_INFO:
     let {data, id} = payload
+    console.log('data in reducer',data);
     let allCards = data.lists.map(lists => lists.cards).flat()
     let selected = allCards.find(cards => cards._id === id)
-    console.log(selected)
-      return { ...selected };
+    data.selected = selected;
+    //console.log('in card reducer', selected)
+      return { ...data };
     default:
       return state;
   }

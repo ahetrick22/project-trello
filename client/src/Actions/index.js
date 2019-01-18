@@ -123,7 +123,7 @@ export const fetchCard = cardID => dispatch => {
   })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      console.log('fetch card data',data)
       dispatch({ type: FETCH_CARD_INFO, payload: {data,id:cardID} });
     })
     .catch(err => {
