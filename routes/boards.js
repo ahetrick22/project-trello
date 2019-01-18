@@ -119,6 +119,8 @@ router.post('/api/board/:id/list', (req, res) => {
 })
   }
 
+})
+
 //Updating a board's properties
 router.put('/api/board/:id', (req, res) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -142,7 +144,7 @@ router.put('/api/board/:id', (req, res) => {
           }
         }).exec((err, fullBoard) => {
           if (err) throw err;
-          res.send(JSON.stringify(fullBoard));
+          res.end(JSON.stringify(fullBoard));
         })
       }
     })
@@ -150,6 +152,6 @@ router.put('/api/board/:id', (req, res) => {
     res.send(400, 'Invalid parameters for request')
   }
 })
-})
+
 
 module.exports = router;
