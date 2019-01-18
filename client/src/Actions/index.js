@@ -197,7 +197,7 @@ export const addList = (boardId, listName) => dispatch => {
 };
 
 export const updateList = (listID, listName) => dispatch => {
-  fetch(`/list/${listID}`, {
+  fetch(`/api/list/${listID}`, {
     method: 'PUT',
     body: JSON.stringify({
       name: listName
