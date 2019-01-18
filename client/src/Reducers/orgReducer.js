@@ -1,4 +1,4 @@
-import { FETCH_ORG } from '../Actions/types';
+import { FETCH_ORG, FETCH_ERR } from '../Actions/types';
 
 /*=====================================================
 this reducer will handle the order of boards on a given
@@ -11,8 +11,7 @@ export const orgReducer = (state = null, action) => {
     case FETCH_ORG:
       //TODO: get data from server
       return { ...state, ...payload };
-    // case FETCH_BOARDS:
-    //   return { ...state, ...payload };
+    case FETCH_ERR:
     default:
       return state;
   }

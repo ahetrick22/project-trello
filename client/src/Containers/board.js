@@ -5,7 +5,7 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { StyledButton } from '../Components/styledButton';
-import { COLORS, TYPEFACE } from '../css/StyleGuide';
+import { COLORS } from '../css/StyleGuide';
 import {
   updateSameList,
   updatedList,
@@ -219,7 +219,6 @@ class Board extends Component {
     this.setState(newState);
   };
 
-
   updateBoardName = e => {
     console.log('props: ', this.props);
     //as click "Enter"
@@ -229,9 +228,7 @@ class Board extends Component {
     } else {
       return;
     }
-  }
-
-
+  };
 
   render() {
     const { editBoardName, boardName } = this.state;
@@ -248,13 +245,14 @@ class Board extends Component {
               onKeyPress={e => this.updateBoardName(e)}
             />
           ) : (
-              // Else render header with Board name
-              <h3 onDoubleClick={() => this.setState({ editBoardName: true })}>{this.props.board.name} | Project Shift</h3>
-            )}
+            // Else render header with Board name
+            <h3 onDoubleClick={() => this.setState({ editBoardName: true })}>
+              {this.props.board.name} | Project Shift
+            </h3>
+          )}
           <StyledButton onClick={this.handleNewListClickEvent}>
             Add List
-              </StyledButton>
-
+          </StyledButton>
         </InfoBar>
 
         <BoardArea className="board-area">
@@ -326,15 +324,15 @@ const NewListArea = styled('div')`
 `;
 
 const InfoBar = styled('div')`
-  background: ${COLORS.secondary}
+  background: ${COLORS.secondary};
   height: 50px;
   display: flex;
   align-items: center;
-  padding: 0 25px
+  padding: 0 25px;
 `;
 
 const BoardArea = styled('div')`
-  background: ${COLORS.primary}
+  background: ${COLORS.primary};
   min-height: 83vh;
   padding: 1em;
   display: flex;

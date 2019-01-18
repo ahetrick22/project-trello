@@ -131,7 +131,7 @@ class CardDetail extends Component {
 
               <div className="card-label">
                 <span>Label:</span>
-                <select className="label" id="label"  onChange={this.updateCardLabel}>  
+                <select className="label" id="label" onChange={this.updateCardLabel}>  
                   <option value="red" style={{backgroundColor:'red', color: 'white'}}>Red</option>
                   <option value="orange" style={{ backgroundColor: 'orange', color: 'white' }}>Orange</option>
                   <option value="yellow" style={{ backgroundColor: 'yellow', color: 'black' }}>Yellow</option>
@@ -240,7 +240,7 @@ const CardModal = styled.div`
   font-family: ${TYPEFACE};
   width: 50%;
   margin: 2em auto ;
-  border-radius: 5%
+  border-radius: 5%;
 `;
 
 const TextInput = styled.input`
@@ -259,9 +259,9 @@ const ArchiveButton = styled.button`
 `;
 
 const CloseButton = styled.button`
-  color: ${COLORS.archiveButton}
+  color: ${COLORS.archiveButton};
   font-size: 3em;
-  font-weight: 600
+  font-weight: 600;
   position: absolute;
   top: 10px;
   right: 20px;
