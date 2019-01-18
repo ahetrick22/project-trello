@@ -48,12 +48,6 @@ class ErrorBoundary extends Component {
 function mapStateToProps({ error }) {
   return { error };
 }
-
-export default withRouter(connect(
-  mapStateToProps,
-  actions
-)(ErrorBoundary);
-
 const ErrorModal = styled.div`
   display: inline-block; 
   position: fixed; /* Stay in place */
@@ -100,6 +94,13 @@ const CloseButton = styled.div`
     cursor: pointer;
   }
 `;
+
+export default withRouter(connect(
+  mapStateToProps,
+  actions
+)(ErrorBoundary))
+
+
 
 
 
