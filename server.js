@@ -54,7 +54,8 @@ io.on('connection', client => {
     }, interval);
   });
 
-  client.on('updateSameList', ({ socketObj, newState }) => {
+  function cardMoveSameList ({ socketObj, newState }) {
+    console.log('cardMoveSameList');
     List.findById(socketObj.listId, (err, list) => {
       list.cards.splice(socketObj.sourceIndex, 1);
       list.cards.splice(socketObj.destinationIndex, 0, socketObj.cardId);
@@ -68,9 +69,10 @@ io.on('connection', client => {
           });
       });
     });
-  });
+  }
 
-  client.on('updateDifferentList', ({ socketObj, newState }) => {
+  function cardMoveDifferentList ({ socketObj, newState }) {
+    console.log('cardMoveDifferentList');
     List.findById(socketObj.startListId, (err, oldList) => {
       oldList.cards.splice(socketObj.sourceIndex, 1);
       oldList.save((err, savedOldList) => {
@@ -84,9 +86,10 @@ io.on('connection', client => {
         });
       });
     });
-  });
+  }
 
-  client.on('updateListPosition', ({socketObj, newState }) => {
+  function listMove ({ socketObj, newState }) {
+    console.log('listMove');
     List.findById(socketObj.listId, (err, list) => {
       if (err) throw err;
       Board.findById(list.board._id, (err, board) => {
@@ -99,7 +102,19 @@ io.on('connection', client => {
         })
       })
     })
-  })
+  }
+
+  client.on('updateSameList', ({ socketObj, newState }) => {
+    cardMoveSameList({ socketObj, newState });
+  });
+
+  client.on('updateDifferentList', ({ socketObj, newState }) => {
+    cardMoveDifferentList({ socketObj, newState });
+  });
+
+  client.on('updateListPosition', ({socketObj, newState }) => {
+    listMove({ socketObj, newState });
+  });
 });
 
 if (process.env.NODE_ENV === 'production') {
