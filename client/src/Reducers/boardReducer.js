@@ -6,15 +6,14 @@ that is - the list of lists on the individual board
 =====================================================*/
 export const boardReducer = (state = {}, action) => {
   let { payload, type } = action; //destructuring
-  console.log('payload in board reducer', payload)
-  if(payload) {
-    let filteredData = payload.lists.map(list => {
-      return list.cards.filter(card => card.archived === false);
-    });
-    console.log('filtered in board reducer', filteredData)
-   payload.filteredLists = filteredData;
-   console.log(payload);
-  }
+  // if(payload) {
+  //   let filteredData = payload.lists.map(list => {
+  //     return list.cards.filter(card => card.archived === false);
+  //   });
+  //   console.log('filtered in board reducer', filteredData)
+  //  payload.filteredLists = filteredData;
+  //  console.log(payload);
+  // }
    
 
     switch (type) {

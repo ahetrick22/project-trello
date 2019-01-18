@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { FaArchive } from 'react-icons/fa';
+import { Link } from 'react-router-dom'
 
 class CardDetail extends Component {
   constructor(props) {
@@ -20,12 +21,6 @@ class CardDetail extends Component {
     const { cardID } = this.props.match.params;
     this.props.fetchCard(cardID);
     }
-   
-
-  closeModal = () => {
-    // TODO: Close card modal - either use portals or redirect back to this.selectedCard._id (that is the board id)
-    //probably needs to dispatch an action to clear out the selected card
-  };
 
   archiveCard = card => {
     //needs to hit an update card action instead
@@ -83,7 +78,7 @@ class CardDetail extends Component {
       const card = selectedCard.selected;
       return (
         <CardModal className="modal">
-          <CloseButton onClick={this.closeModal}>X</CloseButton>
+          <Link to={`/boards/${this.props.selectedCard._id}`}><CloseButton>X</CloseButton></Link>
           <div className="card-header" style={{ padding: '1em' }}>
             <img src={require('../assets/card.svg')} alt="trello card icon" />
             {/* If user is editing title */}

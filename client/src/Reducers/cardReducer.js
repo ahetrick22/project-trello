@@ -12,10 +12,10 @@ export const cardReducer = (state = {}, action) => {
     let {data, id} = payload
     let allCards = data.lists.map(lists => lists.cards).flat()
     let selected = allCards.find(cards => cards._id === id)
-    let filteredData = data.lists.map(list => {
-      return list.cards.filter(card => card.archived === false);
-    });
-    data.lists = filteredData;
+    // let filteredData = data.lists.map(list => {
+    //   return list.cards.filter(card => card.archived === false);
+    // });
+    // data.lists = filteredData;
     data.selected = selected;
     console.log('data', data)
     //console.log('in card reducer', selected)
