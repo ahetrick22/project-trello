@@ -23,6 +23,8 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.props.error === 'fetch') {
+      //this sometimes fixes but will get stuck in an infinite loop so be careful
+      // window.location.reload();
     console.log(this.props);
       return (
         <ErrorModal>
