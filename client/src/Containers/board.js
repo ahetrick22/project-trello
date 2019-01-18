@@ -11,8 +11,7 @@ import {
   updatedList,
   updateDifferentList,
   newListOrderEvent
-} from "../api";
-
+} from '../api';
 
 class Board extends Component {
   constructor(props) {
@@ -21,7 +20,10 @@ class Board extends Component {
       cards: {},
       listOrder: [],
       lists: {},
-      hello: '',
+
+      boardName: "",
+      editBoardName: false,
+
     };
   }
 
@@ -127,7 +129,6 @@ class Board extends Component {
         destinationIndex: destination.index
       };
 
-
       const newState = {
         ...this.state,
         listOrder: newListOrder
@@ -212,25 +213,42 @@ class Board extends Component {
     this.setState(newState);
   };
 
-  //change board name
-// ChangeBoardName() {
-//   <BoardNameInputField>
-//     <input 
-//       value={this.props.board.name}
-//       autoFocus={true}
-//       onChange={(e) => this.setState({boardInput: e.target.value})} 
-//     />
-//   </BoardNameInputField>
-// }
+
+  updateBoardName = e => {
+    console.log('props: ', this.props);
+    //as click "Enter"
+    if (e.key === 'Enter') {
+      this.props.updateBoard(this.props.board.name, this.state.boardName);
+      this.setState({ editBoardName: false });
+    } else {
+      return;
+    }
+  }
+
+
 
   render() {
+    const { editBoardName, boardName } = this.state;
     return (
       <Fragment>
         <InfoBar>
-          <h3>{this.props.board.name} | Project Shift</h3>
+          {editBoardName ? (
+            //On Double click, open input field for Board Name
+            <TextInput
+              autoFocus
+              type="text"
+              value={boardName}
+              onChange={e => this.setState({ boardName: e.target.value })}
+              onKeyPress={e => this.updateBoardName(e)}
+            />
+          ) : (
+              // Else render header with Board name
+              <h3 onDoubleClick={() => this.setState({ editBoardName: true })}>{this.props.board.name} | Project Shift</h3>
+            )}
           <StyledButton onClick={this.handleNewListClickEvent}>
             Add List
-          </StyledButton>
+              </StyledButton>
+
         </InfoBar>
 
         <BoardArea className="board-area">
@@ -238,36 +256,36 @@ class Board extends Component {
             {!this.state.listOrder ? (
               <p>'...Loading'</p>
             ) : (
-              <Droppable
-                droppableId="all-lists"
-                direction="horizontal"
-                type="column"
-              >
-                {provided => (
-                  <Container
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    {this.state.listOrder.map((listId, index) => {
-                      const list = this.state.lists[listId];
-                      const cards = list.cardIds.map(
-                        taskId => this.state.cards[taskId]
-                      );
+                <Droppable
+                  droppableId="all-lists"
+                  direction="horizontal"
+                  type="column"
+                >
+                  {provided => (
+                    <Container
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {this.state.listOrder.map((listId, index) => {
+                        const list = this.state.lists[listId];
+                        const cards = list.cardIds.map(
+                          taskId => this.state.cards[taskId]
+                        );
 
-                      return (
-                        <List
-                          key={list.id}
-                          column={list}
-                          cards={cards}
-                          index={index}
-                        />
-                      );
-                    })}
-                    {provided.placeholder}
-                  </Container>
-                )}
-              </Droppable>
-            )}
+                        return (
+                          <List
+                            key={list.id}
+                            column={list}
+                            cards={cards}
+                            index={index}
+                          />
+                        );
+                      })}
+                      {provided.placeholder}
+                    </Container>
+                  )}
+                </Droppable>
+              )}
           </DragDropContext>
           <NewListArea id="newListArea" style={{ visibility: 'hidden' }}>
             <h3>New list name</h3>
@@ -310,12 +328,17 @@ const InfoBar = styled('div')`
 
 const BoardArea = styled('div')`
   background: ${COLORS.primary}
-  // min-height: 83vh;
+  min-height: 83vh;
   padding: 1em;
   display: flex;
   flex-direction: row;
   overflow-x: auto;
   flex-wrap: nowrap;
+`;
+
+const TextInput = styled.input`
+  height: 30px;
+  font-size: 20px;
 `;
 
 function mapStateToProps({ selectedBoard, boards }) {

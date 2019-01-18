@@ -11,28 +11,21 @@ class Organization extends Component {
     this.state = {
       addBoardInputShown: false,
       addBoardInput: ''
-
     };
-    //() => this.props.addBoard(organization._id,'123')
-    this.renderInput = this.renderInput.bind(this);
-    this.handleInput = this.handleInput.bind(this);
-    this.addOrCancel = this.addOrCancel.bind(this);
-
   }
+
   componentDidMount() {
     this.props.fetchOrg();
     //this fetchboards currently will only ever return one org boards - NO args
     this.props.fetchBoards();
   }
 
-
   handleInput = input => {
     if (input.key === 'Enter') {
       this.props.addBoard(
-        this.props.boards[0].organization._id,
+        this.props.organization._id,
         this.state.addBoardInput
       );
-      console.log(this.props)
       this.setState({ addBoardInputShown: false, addBoardInput: '' });
     }
   };
@@ -41,7 +34,6 @@ class Organization extends Component {
     if (this.state.addBoardInputShown) {
       return (
         <EmptyBoardToAdd>
-
           <input
             autoFocus
             value={this.state.addBoardInput}
@@ -50,7 +42,6 @@ class Organization extends Component {
           />
         </EmptyBoardToAdd>
       );
-
     }
   };
 
@@ -58,16 +49,14 @@ class Organization extends Component {
     if (this.state.addBoardInputShown) {
       return 'Cancel';
     } else {
-      return 'New Board';
+      return 'Add Board';
     }
   };
   //fasdfasdfasasdsfdsafddddfdfsd
   render() {
-
     const { boards, organization } = this.props;
-    console.log(this.props)
 
-    if(organization === null) {
+    if (organization === null) {
       return <div>Loading...</div>;
 
     }
@@ -100,7 +89,6 @@ class Organization extends Component {
           </OrgBoards>
         </div>
       );
-
     }
   }
 }
@@ -115,29 +103,25 @@ const OrgInfo = styled('div')`
 
 const OrgBoards = styled('div')`
   text-align: center;
-  height: 60vh;
   padding: 2em 0;
-  
 `;
 
 const BoardGrid = styled('div')`
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  overflow-x: scroll;
-  overflow-y: auto;
+  justify-content: space-around;
+  overflow: auto;
   flex-wrap: wrap;
   padding: 2em 0;
   padding-left: 10px;
   width: 100%;
   text-align: 20%;
-  
-`
+`;
 
 const AddBoardButton = styled.button`
   justify-content: center;
   font-size: 1em;
-  margin-top: 3em;
+  margin-top: 2em;
   height: 50px;
   width: 100px;
   background-color: ${COLORS.addButtons};
@@ -147,21 +131,17 @@ const AddBoardButton = styled.button`
   box-shadow: 1px 1px 15px #999;
 
   cursor: pointer;
-
 `;
 
 const EmptyBoardToAdd = styled.div`
   cursor: pointer;
   background-color: ${COLORS.primary};
   font-family: ${TYPEFACE};
-
   color: ${COLORS.tertiary};
   height: 100px;
   line-height: 100px;
-  width: 300px;
+  width: 170px;
   text-decoration: none;
-  min-width: 200px;
-
   border-radius: 25px;
   &:hover {
     transform: scale(1.06);

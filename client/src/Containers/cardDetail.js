@@ -23,14 +23,16 @@ class CardDetail extends Component {
     }
 
   archiveCard = card => {
+
     //needs to hit an update card action instead
   };
 
   updateCardTitle = e => {
+    this.props.updateCard(this.props.selectedCard.selected._id, {title: e.target.value});
     //needs to hit an update card action instead
-    let card = { ...this.state.card };
-    card.title = e.target.value;
-    this.setState({ card });
+    //let card = { ...this.state.card };
+    //card.title = e.target.value;
+    //this.setState({ card });
   };
 
   updateCardDesc = e => {
@@ -41,10 +43,11 @@ class CardDetail extends Component {
   };
 
   updateCardLabel = e => {
+    this.props.updateCard(this.props.selectedCard.selected._id, {label: e.target.value});
     //needs to hit an update card action instead
-    let label = { ...this.state.card.label };
-    label.value = e.target.value;
-    this.setState({ label });
+    // let label = { ...this.state.card.label };
+    // label.value = e.target.value;
+    // this.setState({ label });
   };
 
   createListItems = () => {
