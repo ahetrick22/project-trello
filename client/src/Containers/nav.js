@@ -15,8 +15,8 @@ const NavDiv = styled.div`
   justify-content: space-between;
   background-color: ${COLORS.primary};
   align-items: center;
-  font-size: 1.5em;
-  height: 100%;
+  font-size: 1.3em;
+  height: 60px;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -25,7 +25,7 @@ const NavDiv = styled.div`
 const LeftButtons = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  padding: 0 10px;
   font-size: 1.5em;
 `;
 
@@ -33,7 +33,7 @@ const RightButtons = styled.div`
   font-size: 1.5em;
   display: flex;
   flex-direction: row;
-  padding: 10px;
+  padding: 0 10px;
   color: ${COLORS.tertiary};
 `;
 
@@ -54,31 +54,32 @@ const Linker = styled.div`
 export class NavBar extends Component {
   handleSignOut = () => {
     this.props.signout();
-    console.log(this.props);
   };
 
   render() {
-    return <NavDiv>
+    return (
+      <NavDiv>
         <LeftButtons>
           <Linker>
-          <Link to='/org'>
-            <p>
-              <FaHome />
-            </p>
-          </Link>
+            <Link to="/org">
+              <p>
+                <FaHome />
+              </p>
+            </Link>
           </Linker>
         </LeftButtons>
         <h2>Prello</h2>
         <RightButtons>
           <Linker>
-            <Link to="/login">
+            <Link to="/">
               <p onClick={this.handleSignOut}>
                 <FaSignOutAlt />
               </p>
             </Link>
           </Linker>
         </RightButtons>
-      </NavDiv>;
+      </NavDiv>
+    );
   }
 }
 

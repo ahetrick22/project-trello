@@ -9,7 +9,6 @@ export const orgReducer = (state = null, action) => {
 
   switch (type) {
     case FETCH_ORG:
-    console.log(payload)
       //TODO: get data from server
       return { ...state, ...payload };
     // case FETCH_BOARDS:
