@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { COLORS } from '../css/StyleGuide';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 const BoardItem = ({ board }) => {
   return (
