@@ -46,6 +46,7 @@ router.get('/api/card/:id', (req, res) => {
   }
 });
 
+//don't mess with this
 router.put('/api/card/:id', (req, res) => {
   //check to see which params come in the body
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -55,7 +56,7 @@ router.put('/api/card/:id', (req, res) => {
     User.findOne({email : req.headers.email}, (err, user) => {
         if (err) throw err;
         if (!user) {
-            res.send(404, 'No user with that id')
+            return res.send(404, 'No user with that id')
         } else {
             activityObj.user = user._id;
             activityObj.text = user.email
@@ -83,35 +84,45 @@ router.put('/api/card/:id', (req, res) => {
         }
         activityObj.text += ' unarchived the card.'
       }
-
       if (req.body.list) {
           updateObject.list = req.body.list;
           activityObj.text += ` moved this card to ${req.body.list}.`
       }
-        
       if (Object.keys(updateObject).length === 0) {
-          res.send(400, "Body must have parameters matching parameters");
+          return res.send(400, "Body must have parameters matching parameters");
     }
-    
       let { id } = req.params;
       Card.findByIdAndUpdate(id, updateObject,(err, card) => {
           if(err) throw err;
           card.activity.push(activityObj)
           if (!card) {
-              res.send(404, 'no card with that id');
-          } else {
-              Card.findById(id).populate({
-                  path: 'comments'
-              }).exec((err, fullCard) => {
-                  if(err) throw err;
-                  res.send(JSON.stringify(fullCard));
-              })
-          }
+              return res.send(404, 'no card with that id');
+            } else {
+              List.findById(card.list._id, (err, fullList) => {
+                Board.findById(fullList.board._id)
+                  .populate({
+                    path: 'lists',
+                    populate: {
+                      path: 'cards',
+                      populate: {
+                        path: 'comments',
+                        populate: {
+                          path: 'user'
+                        }
+                      }
+                    }
+                  })
+                  .exec((err, fullBoard) => {
+                    if (err) throw err;
+                    res.send(JSON.stringify(fullBoard));
+                  });
+              });
+            }
       })
     }
     })
   } else {
-      res.send(400, 'Send a valid object ID as a parameter');
+      return res.send(400, 'Send a valid object ID as a parameter');
     }
   })
 
