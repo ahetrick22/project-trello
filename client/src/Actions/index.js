@@ -215,14 +215,9 @@ export const updateBoard = (boardId, boardName) => dispatch => {
     method: 'PUT',
     body: JSON.stringify({
       name: boardName
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-      email: email,
-      Authorization: `bearer ${token}`
-    }
+    })
   })
-    .then(response => response.json())
+    .then(response => console.log(response))
     .then(data => {
       dispatch({ type: ADD_BOARD, payload: data });
     });

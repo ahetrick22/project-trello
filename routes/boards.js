@@ -117,6 +117,7 @@ router.post('/api/board/:id/list', (req, res) => {
 
 //Updating a board's properties
 router.put('/api/board/:id', (req, res) => {
+  console.log('check');
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     let updateObj = {};
     if (req.body.name) {

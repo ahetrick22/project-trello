@@ -24,6 +24,7 @@ class Board extends Component {
       editBoardName: false,
 
     };
+    this.updateBoardName = this.updateBoardName.bind(this)
   }
 
   handleNewListClickEvent = () => {
