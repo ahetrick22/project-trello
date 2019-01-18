@@ -1,8 +1,7 @@
-
-import React, { Component } from "react";
-import styled from "styled-components";
-import { Redirect, withRouter } from "react-router";
-import {COLORS, TYPEFACE} from '../../css/StyleGuide'
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Redirect, withRouter } from 'react-router';
+import { COLORS } from '../../css/StyleGuide';
 //import { Link } from 'react-router-dom';
 import * as actions from '../../Actions';
 import { connect } from 'react-redux';
@@ -36,18 +35,15 @@ class login extends Component {
     };
   }
 
-
   onSubmit = () => {
     this.props.fetchLogin(this.state.email, this.state.password);
     // this.props.history.push('/org')
-
   };
 
-  
-
   logInError = () => {
-    if(this.props.error == 'login'){
-      console.log("ERRRR")
+    if (this.props.error === 'login') {
+      console.log('ERRRR');
+
 
       return (
         <p id="login-err">Invalid Email/Password</p>
@@ -57,25 +53,20 @@ class login extends Component {
         <p id="login-err">Email in use</p>
 
       )
-    }
-  }
 
+    }
+  };
 
   onRegister = () => {
     this.props.fetchRegister(this.state.email, this.state.password);
     // this.props.history.push('/org')
-
-  }
+  };
   render() {
     console.log(this.props);
 
     if (this.props.user.authenticated) {
-
-      return (
-        <Redirect to='/org' />
-      )
+      return <Redirect to="/org" />;
     } else {
-
       return (
         <LoginCss>
           <div className="limiter">
@@ -84,9 +75,13 @@ class login extends Component {
                 <div className="login100-form validate-form">
                   <span className="welcome login100-form-title p-b-26">
                     Welcome
-                </span>
-                <span className="welcome login100-form-title p-b-26"><p>Please log in</p></span>
-                  <span className="welcome login-err login100-form-title p-b-26">{this.logInError()}</span>
+                  </span>
+                  <span className="welcome login100-form-title p-b-26">
+                    <p>Please log in</p>
+                  </span>
+                  <span className="welcome login-err login100-form-title p-b-26">
+                    {this.logInError()}
+                  </span>
                   <span className="login100-form-title p-b-48">
                     <i className="zmdi zmdi-font" />
                   </span>
@@ -127,18 +122,25 @@ class login extends Component {
                     />
                   </div>
                   <div className="container-login100-form-btn">
-                    <button className="login100-form-btn" onClick={() => this.onSubmit()}>
+                    <button
+                      className="login100-form-btn"
+                      onClick={() => this.onSubmit()}
+                    >
                       Login
-						    	  </button>
+                    </button>
                   </div>
                   <br />
-                  <button className="register100-form-btn" onClick={() => this.onRegister()}>
+                  <button
+                    className="register100-form-btn"
+                    onClick={() => this.onRegister()}
+                  >
                     Register
-                    </button>
+                  </button>
                 </div>
 
-                <p className="guestLogin"><a href='/org'>Login As Guest</a></p>
-
+                <p className="guestLogin">
+                  <a href="/org">Login As Guest</a>
+                </p>
               </div>
             </div>
           </div>
@@ -148,14 +150,14 @@ class login extends Component {
   }
 }
 
-const ERR_MSG = styled('div')`
-  p {
-  color: 'green';
-  font-family: ${TYPEFACE};
-  font-size:10.3em;
-  font-weight: 500;
-  }
-`;
+// const ERR_MSG = styled('div')`
+//   p {
+//   color: 'green';
+//   font-family: ${TYPEFACE};
+//   font-size:10.3em;
+//   font-weight: 500;
+//   }
+// `;
 
 const LoginCss = styled('div')`
   h1,
@@ -320,7 +322,7 @@ const LoginCss = styled('div')`
   /*------------------------------------------------------------------
 [ Form ]*/
 
-  .welcome.login100-form-title{
+  .welcome.login100-form-title {
     padding-bottom: 45px;
   }
 
@@ -436,7 +438,7 @@ const LoginCss = styled('div')`
   .btn-show-pass {
     font-size: 15px;
     color: #999999;
-    
+
     /* display: -webkit-box; */
     /* display: -webkit-flex; */
     display: -moz-box;
@@ -497,7 +499,7 @@ const LoginCss = styled('div')`
   .login100-form-btn {
     font-family: Cambria;
     font-size: 15px;
-    background-color: #4BBF6B;
+    background-color: ${COLORS.primary};
     color: white;
     line-height: 1.6;
     text-transform: uppercase;
@@ -514,17 +516,17 @@ const LoginCss = styled('div')`
     height: 50px;
     border-radius: 40px;
     :active {
-    transform: translateY(4px);
+      transform: translateY(4px);
     }
     :hover {
-    background-color: #3e8e41 
+      background-color: #3e8e41;
     }
   }
 
-    .register100-form-btn {
+  .register100-form-btn {
     font-family: Cambria;
     font-size: 15px;
-    background-color: #4BBF6B;
+    background-color: ${COLORS.primary};
     color: white;
     line-height: 1.6;
     text-transform: uppercase;
@@ -541,10 +543,10 @@ const LoginCss = styled('div')`
     height: 50px;
     border-radius: 40px;
     :hover {
-    background-color: #3e8e41 
+      background-color: #3e8e41;
     }
     :active {
-    transform: translateY(4px);
+      transform: translateY(4px);
     }
   }
 
@@ -639,16 +641,16 @@ const LoginCss = styled('div')`
   }
 `;
 
-
-const mapStateToProps = ({ user,error }) => {
-
+const mapStateToProps = ({ user, error }) => {
   return {
     user,
     error
   };
 };
 
-export default withRouter(connect(
-  mapStateToProps,
-  actions
-)(login));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    actions
+  )(login)
+);
