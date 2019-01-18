@@ -110,7 +110,8 @@ const BoardGrid = styled('div')`
   overflow: auto;
   flex-wrap: wrap;
   padding: 2em 0;
-  padding-left: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
   width: 100%;
   text-align: 20%;
 `;
