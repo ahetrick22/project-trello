@@ -95,6 +95,7 @@ const OrgInfo = styled('div')`
   height: 30vh;
   line-height: 30vh;
   background-color: ${COLORS.secondary};
+  border: 5px outset;
 `;
 
 const OrgBoards = styled('div')`

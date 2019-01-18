@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import * as actions from '../Actions';
 
 const NavDiv = styled.div`
-  color: ${COLORS.tertiary}
+  color: ${COLORS.tertiary};
   font-family: ${TYPEFACE};
   display: flex;
   flex-direction: row;
@@ -46,7 +46,6 @@ const Linker = styled.div`
   a:hover {
     color: ${COLORS.secondary};
   }
-}
 `;
 
 //Still needs some work but is a functioning navBar

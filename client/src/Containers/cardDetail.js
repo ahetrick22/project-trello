@@ -228,10 +228,10 @@ const CardModal = styled.div`
   position: relative;
   padding: 1em;
   background: ${COLORS.secondary};
-  font-family: ${TYPEFACE}
+  font-family: ${TYPEFACE};
   width: 50%;
   margin: 2em auto ;
-  border-radius: 5%
+  border-radius: 5%;
 `;
 
 const TextInput = styled.input`
@@ -250,9 +250,9 @@ const ArchiveButton = styled.button`
 `;
 
 const CloseButton = styled.button`
-  color: ${COLORS.archiveButton}
+  color: ${COLORS.archiveButton};
   font-size: 3em;
-  font-weight: 600
+  font-weight: 600;
   position: absolute;
   top: 10px;
   right: 20px;
