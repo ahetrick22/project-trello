@@ -32,7 +32,7 @@ export const fetchLogin = (email, password) => dispatch => {
       localStorage.setItem('token', response.token);
       localStorage.setItem('email', response.email);
     })
-    .catch(error => console.error('Error:', error));
+    .catch(() => dispatch({type:FETCH_ERR, data:{}}));
 };
 
 export const signout = () => {
@@ -64,7 +64,7 @@ export const fetchRegister = (email, password) => dispatch => {
       localStorage.setItem('token', response.token);
       localStorage.setItem('email', response.email);
     })
-    .catch(error => console.error('Error:', error));
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const fetchOrg = orgID => async dispatch => {
@@ -116,9 +116,7 @@ export const fetchBoard = boardID => dispatch => {
     .then(data => {
       dispatch({ type: FETCH_BOARD, payload: data });
     })
-    .catch(err => {
-      if (err) throw err;
-    });
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const fetchCard = cardID => dispatch => {
@@ -135,9 +133,7 @@ export const fetchCard = cardID => dispatch => {
       console.log('fetch card data',data)
       dispatch({ type: FETCH_CARD_INFO, payload: {data,id:cardID} });
     })
-    .catch(err => {
-      if (err) throw err;
-    });
+    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const addBoard = (organizationId, boardName) => dispatch => {
@@ -157,7 +153,7 @@ export const addBoard = (organizationId, boardName) => dispatch => {
     .then(data => {
       console.log(data);
       dispatch({ type: ADD_BOARD, payload: data.boards });
-    });
+    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
 };
 
 export const addCard = (listId, cardName) => dispatch => {
@@ -177,7 +173,7 @@ export const addCard = (listId, cardName) => dispatch => {
     .then(data => {
       console.log('response from addCard: Data= ', data);
       dispatch({ type: ADD_BOARD, payload: data });
-    });
+    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
 };
 
 export const addList = (boardId, listName) => dispatch => {
@@ -197,7 +193,7 @@ export const addList = (boardId, listName) => dispatch => {
     .then(data => {
       console.log('returning data from server add list post: ', data);
       dispatch({ type: ADD_BOARD, payload: data });
-    });
+    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
 };
 
 export const updateList = (listID, listName) => dispatch => {
@@ -215,5 +211,5 @@ export const updateList = (listID, listName) => dispatch => {
     .then(response => response.json())
     .then(data => {
       dispatch({ type: ADD_BOARD, payload: data });
-    });
+    }).catch(() => dispatch({ type: FETCH_ERR, data: {} }))
 };

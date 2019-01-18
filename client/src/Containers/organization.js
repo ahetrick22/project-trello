@@ -61,7 +61,7 @@ class Organization extends Component {
       return 'New Board';
     }
   };
-  //fasdfasdfasasds
+  //fasdfasdfasasdsfdsafddddfdfsd
   render() {
 
     const { boards, organization } = this.props;
@@ -69,6 +69,7 @@ class Organization extends Component {
 
     if(organization === null) {
       return <div>Loading...</div>;
+
     }
     else if (!organization._id) {
       return <div>No organization found</div>

@@ -13,7 +13,6 @@ export const orgReducer = (state = null, action) => {
       //TODO: get data from server
       return { ...state, ...payload };
     case FETCH_ERR:
-    throw new Error()
     default:
       return state;
   }
