@@ -44,7 +44,16 @@ class login extends Component {
     if (this.props.error === 'login') {
       console.log('ERRRR');
 
-      return <p id="login-err">Invalid Email/Password</p>;
+
+      return (
+        <p id="login-err">Invalid Email/Password</p>
+      )
+    } else if (this.props.error == 'email_err'){
+      return (
+        <p id="login-err">Email in use</p>
+
+      )
+
     }
   };
 

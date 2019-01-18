@@ -9,7 +9,8 @@ import {
   ADD_BOARD,
   LOGIN_ERR,
   // ADD_CARD,
-  FETCH_ERR
+  FETCH_ERR,
+  EMAIL_ERR
 } from './types';
 
 const email = localStorage.getItem('email');
@@ -62,11 +63,11 @@ export const fetchRegister = (email, password) => dispatch => {
     .then(response => {
       console.log(response);
       if(response.error){
-        dispatch({type:LOGIN_ERR,data:{}})
+        dispatch({type:EMAIL_ERR,data:{}})
       } else {
       dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
     }})
-    .catch(() => dispatch({ type: LOGIN_ERR, data: {} }));
+    .catch(() => dispatch({ type: EMAIL_ERR, data: {} }));
 };
 
 export const fetchOrg = orgID => async dispatch => {
