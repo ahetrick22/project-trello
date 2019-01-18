@@ -6,6 +6,7 @@ import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { FaHome, FaSignOutAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import * as actions from '../Actions';
+import { withRouter } from 'react-router';
 
 const NavDiv = styled.div`
   color: ${COLORS.tertiary};
@@ -60,11 +61,11 @@ export class NavBar extends Component {
       <NavDiv>
         <LeftButtons>
           <Linker>
-            <Link to="/org">
+            <a href='/org'>
               <p>
                 <FaHome />
               </p>
-            </Link>
+            </a>
           </Linker>
         </LeftButtons>
         <h2>Prello</h2>
@@ -86,7 +87,7 @@ function mapStateToProps({ organization, boards }) {
   return { organization, boards };
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   actions
-)(NavBar);
+)(NavBar));
