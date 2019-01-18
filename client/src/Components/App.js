@@ -19,6 +19,7 @@ class App extends React.Component {
       return (
         <Fragment>
           <NavBar />
+          <h1>You have been redirected because you aren't currently logged in >:(</h1>
           <Login />
         </Fragment>
       );
