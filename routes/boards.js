@@ -7,7 +7,7 @@ const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 
 //get all boards
-router.get('/api/boards', (req, res) => {
+router.get('/api/boards', requireAuth, (req, res) => {
   Board.find({}, (err, boards) => {
     if (err) throw err;
     res.send(JSON.stringify(boards));
@@ -38,7 +38,7 @@ router.get('/api/boards', (req, res) => {
 
 
 //get a specific board
-router.get('/api/boards/:id', (req, res) => {
+router.get('/api/boards/:id', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
 
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -70,7 +70,7 @@ router.get('/api/boards/:id', (req, res) => {
 })
 
 //ADD A NEW LIST to a specific board
-router.post('/api/board/:id/list', (req, res) => {
+router.post('/api/board/:id/list', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
   console.log('adding list to the server');
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
@@ -119,8 +119,10 @@ router.post('/api/board/:id/list', (req, res) => {
 })
   }
 
+})
+
 //Updating a board's properties
-router.put('/api/board/:id', (req, res) => {
+router.put('/api/board/:id', requireAuth, (req, res) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     let updateObj = {};
     if (req.body.name) {
@@ -142,7 +144,7 @@ router.put('/api/board/:id', (req, res) => {
           }
         }).exec((err, fullBoard) => {
           if (err) throw err;
-          res.send(JSON.stringify(fullBoard));
+          res.end(JSON.stringify(fullBoard));
         })
       }
     })
@@ -150,6 +152,6 @@ router.put('/api/board/:id', (req, res) => {
     res.send(400, 'Invalid parameters for request')
   }
 })
-})
+
 
 module.exports = router;

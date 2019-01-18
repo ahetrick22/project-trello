@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import {Redirect, withRouter} from 'react-router-dom'
 import * as actions from "../Actions";
 import { connect } from "react-redux";
 import styled from 'styled-components';
@@ -48,12 +48,6 @@ class ErrorBoundary extends Component {
 function mapStateToProps({ error }) {
   return { error };
 }
-
-export default connect(
-  mapStateToProps,
-  actions
-)(ErrorBoundary);
-
 const ErrorModal = styled.div`
   display: inline-block; 
   position: fixed; /* Stay in place */
@@ -101,3 +95,27 @@ const CloseButton = styled.div`
     cursor: pointer;
   }
 `;
+
+
+export default withRouter(connect(
+  mapStateToProps,
+  actions
+)(ErrorBoundary))
+
+
+
+
+
+
+// display: none; 
+//   position: relative;
+//   z-index: 1,  // sit on top
+//   padding: 1em;
+//   background: ${COLORS.secondary};
+//   font-family: ${TYPEFACE};
+//   width: 50%;
+//   margin: 2em auto ;
+//   border-radius: 5%;
+// `;
+
+
