@@ -21,7 +21,7 @@ app.use(
 app.use(cors());
 
 app.use((req, res, next) => {
-  res.append('Access-Control-Allow-Headers', ['*']);
+  res.append('Access-Control-Allow-Headers', ['Content-Type']);
   res.append('Content-Type','application/json');
   next();
 });
