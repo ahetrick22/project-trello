@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+import {Redirect, withRouter} from 'react-router-dom'
 import * as actions from "../Actions";
 import { connect } from "react-redux";
 import styled from 'styled-components';
@@ -49,7 +49,7 @@ function mapStateToProps({ error }) {
   return { error };
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   actions
 )(ErrorBoundary);
@@ -114,3 +114,4 @@ const CloseButton = styled.div`
 //   margin: 2em auto ;
 //   border-radius: 5%;
 // `;
+

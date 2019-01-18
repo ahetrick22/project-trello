@@ -8,7 +8,7 @@ const passportService = require('../services/passport');
 const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 
-router.post('/api/list/:id/card', (req, res) => {
+router.post('/api/list/:id/card', requireAuth, (req, res) => {
 
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     List.findById(req.params.id, (err, list) => {
@@ -60,7 +60,7 @@ router.post('/api/list/:id/card', (req, res) => {
 })
 
 //updates a list name or a card position within that list
-router.put('/api/list/:id', (req, res) => {
+router.put('/api/list/:id', requireAuth, (req, res) => {
     //check to see which params come in the body
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
       let updateObject = {};
