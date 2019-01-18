@@ -180,7 +180,6 @@ export const addCard = (listId, cardName) => dispatch => {
 };
 
 export const addList = (boardId, listName) => dispatch => {
-  console.log(boardId, listName);
   fetch(`/api/board/${boardId}/list`, {
     method: 'POST',
     body: JSON.stringify({

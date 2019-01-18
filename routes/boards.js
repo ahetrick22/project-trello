@@ -72,6 +72,7 @@ router.get('/api/boards/:id', (req, res) => {
 //ADD A NEW LIST to a specific board
 router.post('/api/board/:id/list', (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
+  console.log('adding list to the server');
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching board
     Board.findById(req.params.id, (err, board) => {
@@ -83,12 +84,15 @@ router.post('/api/board/:id/list', (req, res) => {
       if (req.body.name && req.params.id) {
         let newList = new List({
         name: req.body.name,
-        board: req.body.id,
+        board: req.params.id,
+        archived: false,
         cards: []
       });
 
+      console.log('newList to add: ', newList);
+
       newList.save((err, id) => {
-        if (err) return err;
+        if (err) throw err;
         let refnId = id;
         
         List.findById(refnId, (err, newList) => {
