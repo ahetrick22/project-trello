@@ -55,7 +55,7 @@ class login extends Component {
     
      return (
 
-<Redirect to='/org' /> 
+      <Redirect to='/org' /> 
 
      )      
     } else {

@@ -13,7 +13,8 @@ class CardDetail extends Component {
       card: {},
       editTitle: false,
       editDesc: false,
-      actualSelectedCard: {}
+      actualSelectedCard: {},
+      comment: ""
     };
   }
 
@@ -89,6 +90,12 @@ class CardDetail extends Component {
     let list = { ...this.state.card.list };
     list.name = e.target.value;
     this.setState({ list });
+  };
+
+  updateCardComment = e => {
+    let comment = this.state.card.comment;
+    comment = e.target.value;
+    this.setState({ comment: comment }, () => updateServerCard("comment", comment));
   };
 
   render() {
@@ -247,7 +254,13 @@ class CardDetail extends Component {
               />
               <h3 style={{ display: 'inline' }}>Add Comment</h3>
               <br />
-              <textarea name="comment" id="comment" cols="30" rows="5" />
+              <textarea                   
+                onKeyPress = {e => e.key === 'Enter' ? this.updateCardComment(e) : null} 
+                name="comment" 
+                id="comment" 
+                cols="30" 
+                rows="5" 
+              />
             </div>
             <div className="card-activity" style={{ padding: '1em' }}>
               <img
