@@ -1,29 +1,43 @@
 import React, { Component } from 'react'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import * as actions from "../Actions";
 import { connect } from "react-redux";
+import styled from 'styled-components';
+import { COLORS, TYPEFACE } from '../css/StyleGuide';
 
 
 class ErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { error: null, errorInfo: null };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { error: false, errorInfo: null };
+  //   console.log('this.state.error:', this.state.error);
+  //   console.log('this.props.error', this.props.error);
+  // }
 
-  componentWillReceiveProps(){
-  this.state.error = this.props.error;
-
-}
-    // You can also log error messages to an error reporting service here
+  componentWillReceiveProps() {
+    // this.setState({error: true})
+    // console.log('this.state.error2:', this.state.error);
+    console.log('this.props.erro2r', this.props.error);
+    
+    }
   
+
+  // You can also log error messages to an error reporting service here
+
   render() {
-    console.log(this.state.error)
     if (this.props.error) {
-      console.log("handled")
+    console.log(this.props);
       return (
-        <div>
-          We're sorry, looks like something went wrong loading your data. You can try and refreshing the page, or return home and try again
-      </div>
+        <ErrorModal>
+          <ErrorModalHeader> 
+            <p>We're sorry; it looks like something went wrong loading your data.</p>
+            <CloseButton>&times;</CloseButton> 
+          </ErrorModalHeader>
+          <ErrorModalContent>           
+            <p>You can try and refreshing the page, or return home and try again</p>
+          </ErrorModalContent>
+          <ErrorModalFooter></ErrorModalFooter>
+        </ErrorModal>
       )
     }
     else {
@@ -39,3 +53,64 @@ export default connect(
   mapStateToProps,
   actions
 )(ErrorBoundary);
+
+const ErrorModal = styled.div`
+  display: inline-block; 
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 50%; /* Full width */
+  height: 50%; /* Full height */
+  // overflow: auto; /* Enable scroll if needed */
+  background-color: ${COLORS.secondary}; 
+  `;
+
+const ErrorModalContent = styled.div`
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 1em;
+  font-family: ${TYPEFACE};
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+`;
+
+const ErrorModalHeader = styled.div`
+  padding: 2px 16px;
+  background-color: #5cb85c;
+  color: white;
+`;
+
+const ErrorModalFooter = styled.div`
+  padding: 2px 16px;
+  background-color: #5cb85c;
+`;
+
+const CloseButton = styled.div`
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+`;
+
+
+
+
+// display: none; 
+//   position: relative;
+//   z-index: 1,  // sit on top
+//   padding: 1em;
+//   background: ${COLORS.secondary};
+//   font-family: ${TYPEFACE};
+//   width: 50%;
+//   margin: 2em auto ;
+//   border-radius: 5%;
+// `;
