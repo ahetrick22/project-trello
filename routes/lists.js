@@ -8,7 +8,7 @@ const passportService = require('../services/passport');
 const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
 
-router.post('/api/list/:id', (req, res) => {
+router.post('/api/list/:id/card', (req, res) => {
 
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     List.findById(req.params.id, (err, list) => {
