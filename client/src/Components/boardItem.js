@@ -18,8 +18,7 @@ const StyledBoardItem = styled.a`
   background-color: ${COLORS.primary};
   color: ${COLORS.tertiary};
   height: 100px;
-  min-width: 200px;
-  margin: 0 5px 0 5px;
+  margin: 10px 0;
   line-height: 100px;
   width: 170px;
   text-decoration: none;
