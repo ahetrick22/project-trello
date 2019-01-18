@@ -11,19 +11,23 @@ class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      listTitle: '',
+      editTitle: false,
       listInputHidden: true,
       listInput: ''
     };
-
-    this.renderListInputField = this.renderListInputField.bind(this);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
-  renderListInputField() {
+  componentDidMount() {
+    // Set local card state to card from redux store
+    this.setState({ listTitle: this.props.column.title });
+  }
+
+  renderListInputField = () => {
     if (this.state.listInputHidden) {
       return (
         <Fragment>
-          <hr style={{ width: '90%', margin: '5px auto' }} />
+          <hr style={{ width: '90%', margin: '10px auto 5px' }} />
           <Button
             onClick={() =>
               this.setState({ listInputHidden: !this.state.listInputHidden })
@@ -56,35 +60,61 @@ class List extends React.Component {
         </CardInputField>
       );
     }
-  }
+  };
 
-  handleKeyPress(event) {
+  handleKeyPress = event => {
     if (event.key === 'Enter' && this.state.listInput) {
-      console.log('this props: ', this.props);
-
       this.setState({ listInput: '', listInputHidden: true });
 
       //addCard() needs to update the server, and returned value from the server needs to update the storeState
       this.props.addCard(this.props.column.id, this.state.listInput);
     }
-  }
+  };
+
+  updateListTitle = e => {
+    if (e.key === 'Enter') {
+      // update list
+      this.props.updateList(this.props.column.id, this.state.listTitle);
+      this.setState({ editTitle: false });
+    } else {
+      return;
+    }
+  };
 
   render() {
+    const { editTitle, listTitle } = this.state;
     const cardLength = this.props.cards.length;
     return (
       <Fragment>
         <Draggable draggableId={this.props.column.id} index={this.props.index}>
           {provided => (
             <Container {...provided.draggableProps} ref={provided.innerRef}>
-              <Title {...provided.dragHandleProps}>
-                {this.props.column.title}
+              <ListHeader>
+                {editTitle ? (
+                  // Render input with list title
+                  <TextInput
+                    autoFocus
+                    type="text"
+                    value={listTitle}
+                    onChange={e => this.setState({ listTitle: e.target.value })}
+                    onKeyPress={e => this.updateListTitle(e)}
+                  />
+                ) : (
+                  // Else render header w/ title
+                  <h3
+                    {...provided.dragHandleProps}
+                    onDoubleClick={() => this.setState({ editTitle: true })}
+                  >
+                    {this.state.listTitle}
+                  </h3>
+                )}
                 {cardLength === 1 ? (
                   <CardInfo>1 Card</CardInfo>
                 ) : (
                   <CardInfo>{cardLength} Cards</CardInfo>
                 )}
-                <hr style={{ width: '90%', margin: '5px auto' }} />
-              </Title>
+              </ListHeader>
+              <hr style={{ width: '90%', margin: '5px auto' }} />
               <Droppable droppableId={this.props.column.id} type="card">
                 {(provided, snapshot) => (
                   <CardList
@@ -148,8 +178,13 @@ const Container = styled.div`
   box-shadow: 1px 1px 8px #999;
 `;
 
-const Title = styled.h3`
+const ListHeader = styled.div`
   padding: 8px;
+`;
+
+const TextInput = styled.input`
+  height: 30px;
+  font-size: 20px;
 `;
 
 const CardList = styled.div`

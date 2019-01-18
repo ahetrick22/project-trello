@@ -136,7 +136,6 @@ class Board extends Component {
       };
 
       newListOrderEvent(newListPositionSocketObj, newState);
-      console.log(newListPositionSocketObj)
       this.setState(newState);
       return;
     }
@@ -151,6 +150,7 @@ class Board extends Component {
       newCardIds.splice(source.index, 1);
       // insert the card into the card id list
       newCardIds.splice(destination.index, 0, draggableId);
+
       const sameListSocketObj = {
         listId: startList.id,
         cardId: draggableId,
@@ -199,7 +199,6 @@ class Board extends Component {
       sourceIndex: source.index,
       destinationIndex: destination.index
     };
-    console.log(differentListSocketObj);
 
     const newState = {
       ...this.state,

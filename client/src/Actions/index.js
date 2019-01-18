@@ -6,8 +6,8 @@ import {
   FETCH_CARD_INFO,
   //  FETCH_LISTS,
   //  ADD_LIST
-  ADD_BOARD,
-  ADD_CARD
+  ADD_BOARD
+  // ADD_CARD
 } from './types';
 
 const email = localStorage.getItem('email');
@@ -83,14 +83,12 @@ export const fetchOrg = orgID => dispatch => {
 };
 
 export const fetchBoards = () => dispatch => {
-
   fetch(`/boards`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
     }
   })
-
     .then(res => res.json())
     .then(data => {
       dispatch({ type: FETCH_BOARDS, payload: data });
@@ -173,8 +171,8 @@ export const addCard = (listId, cardName) => dispatch => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log('response from addCard: Data= ', data)
-      dispatch({ type: ADD_BOARD, payload: data })
+      console.log('response from addCard: Data= ', data);
+      dispatch({ type: ADD_BOARD, payload: data });
     });
 };
 
@@ -194,6 +192,24 @@ export const addList = (boardId, listName) => dispatch => {
     .then(response => response.json())
     .then(data => {
       console.log('returning data from server add list post: ', data);
+      dispatch({ type: ADD_BOARD, payload: data });
+    });
+};
+
+export const updateList = (listID, listName) => dispatch => {
+  fetch(`/list/${listID}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      name: listName
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      email: email,
+      Authorization: `bearer ${token}`
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
       dispatch({ type: ADD_BOARD, payload: data });
     });
 };
