@@ -2,37 +2,39 @@ const router = require('express').Router();
 const Board = require('../models/board');
 const List = require('../models/list');
 const User = require('../models/user')
-const Organization = require('../models/organization');
+const passportService = require('../services/passport');
+const passport = require('passport');
+const requireAuth = passport.authenticate('jwt', { session: false });
 
 //get all boards
-router.get('/boards', (req, res) => {
+router.get('/api/boards', (req, res) => {
   Board.find({}, (err, boards) => {
     if (err) throw err;
     res.send(JSON.stringify(boards));
   });
 });
 
-//get all boards of a specific user
-router.get('/boards/:userId', (req, res) => {
-  if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
-    User.findById(req.params.userId, (err, user) => {
-      if (err) throw err;
-      if (!user) {
-        res.send(404, 'No user found with that ID. Please register before accessing boards')
-      } else {
-        User.findById(req.params.userId).populate({
-          path: 'organizations',
-          populate: { 
-            path: 'boards',
-          }
-        }).exec((err, UserBoards) => {
-          if (err) throw err;
-          res.send(JSON.stringify(UserBoards))
-        })
-      }
-    })
-  }
-})
+// //get all boards of a specific user
+// router.get('/api/boards/:userId', requireAuth, (req, res) => {
+//   if (req.params.userId.match(/^[0-9a-fA-F]{24}$/)) {
+//     User.findById(req.params.userId, (err, user) => {
+//       if (err) throw err;
+//       if (!user) {
+//         res.send(404, 'No user found with that ID. Please register before accessing boards')
+//       } else {
+//         User.findById(req.params.userId).populate({
+//           path: 'organizations',
+//           populate: { 
+//             path: 'boards',
+//           }
+//         }).exec((err, UserBoards) => {
+//           if (err) throw err;
+//           res.send(JSON.stringify(UserBoards))
+//         })
+//       }
+//     })
+//   }
+// })
 
 
 //get a specific board
@@ -55,6 +57,7 @@ router.get('/api/boards/:id', (req, res) => {
           }
         }).exec((err, fullBoard) => {
           if (err) throw err;
+          
           res.send(JSON.stringify(fullBoard));
         })
       }
@@ -66,7 +69,7 @@ router.get('/api/boards/:id', (req, res) => {
 })
 
 //ADD A NEW LIST to a specific board
-router.post('/board/:id/list', (req, res) => {
+router.post('/api/board/:id/list', (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching board
@@ -76,7 +79,7 @@ router.post('/board/:id/list', (req, res) => {
       if (!board) {
         res.send(404, 'No board with that id');
       }
-      if (req.body.name && req.body.id) {
+      if (req.body.name && req.params.id) {
         let newList = new List({
         name: req.body.name,
         board: req.body.id,
@@ -112,7 +115,7 @@ router.post('/board/:id/list', (req, res) => {
   }
 
 //Updating a board's properties
-router.put('/board/:id', (req, res) => {
+router.put('/api/board/:id', (req, res) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     let updateObj = {};
     if (req.body.name) {

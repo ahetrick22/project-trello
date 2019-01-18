@@ -1,6 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import { COLORS, TYPEFACE } from '../css/StyleGuide';
+import React, { } from 'react'
+import styled from 'styled-components'
+import {COLORS, TYPEFACE} from '../css/StyleGuide'
+
 
 // export const StyledButton = styled.button`
 //   border-radius: 5px;

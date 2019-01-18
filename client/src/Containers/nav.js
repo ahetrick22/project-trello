@@ -62,9 +62,9 @@ export class NavBar extends Component {
         <LeftButtons>
           <Linker>
           <Link to='/org'>
-            <a>
+            <p>
               <FaHome />
-            </a>
+            </p>
           </Link>
           </Linker>
         </LeftButtons>
@@ -72,9 +72,9 @@ export class NavBar extends Component {
         <RightButtons>
           <Linker>
             <Link to="/login">
-              <a href="#" onClick={this.handleSignOut}>
+              <p onClick={this.handleSignOut}>
                 <FaSignOutAlt />
-              </a>
+              </p>
             </Link>
           </Linker>
         </RightButtons>

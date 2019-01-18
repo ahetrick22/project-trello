@@ -14,7 +14,7 @@ const email = localStorage.getItem('email');
 const token = localStorage.getItem('token');
 
 export const fetchLogin = (email, password) => dispatch => {
-  fetch('/login', {
+  fetch('/api/login', {
     method: 'POST',
     body: JSON.stringify({
       email,
@@ -45,7 +45,7 @@ export const signout = () => {
 };
 
 export const fetchRegister = (email, password) => dispatch => {
-  fetch('/register', {
+  fetch('/api/register', {
     method: 'POST',
     body: JSON.stringify({
       email,
@@ -66,36 +66,30 @@ export const fetchRegister = (email, password) => dispatch => {
     .catch(error => console.error('Error:', error));
 };
 
-export const fetchOrg = orgID => dispatch => {
-  fetch(`/organizations/${orgID}`, {
+export const fetchOrg = orgID => async dispatch => {
+  let promise = await fetch(`/api/organizations`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
     }
   })
-    .then(res => res.json())
-    .then(data => {
-      dispatch({ type: FETCH_ORG, payload: data });
-    })
-    .catch(err => {
-      if (err) throw err;
-    });
+  let data = await promise.json()
+  console.log(data)
+  dispatch({ type: FETCH_ORG, payload: data });
+
 };
 
-export const fetchBoards = () => dispatch => {
-  fetch(`/boards`, {
+
+export const fetchBoards = () => async dispatch => {
+  let promise = await fetch(`/api/boards`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
     }
   })
-    .then(res => res.json())
-    .then(data => {
-      dispatch({ type: FETCH_BOARDS, payload: data });
-    })
-    .catch(err => {
-      if (err) throw err;
-    });
+
+  let data = await promise.json()
+  dispatch({ type: FETCH_BOARDS, payload: data });
 };
 
 export const fetchBoard = boardID => dispatch => {
@@ -121,7 +115,7 @@ export const fetchBoard = boardID => dispatch => {
 export const fetchCard = cardID => dispatch => {
   const token = localStorage.getItem('token');
   const email = localStorage.getItem('email');
-  fetch(`/card/${cardID}`, {
+  fetch(`/api/card/${cardID}`, {
     headers: {
       email: email,
       Authorization: `bearer ${token}`
@@ -129,7 +123,8 @@ export const fetchCard = cardID => dispatch => {
   })
     .then(res => res.json())
     .then(data => {
-      dispatch({ type: FETCH_CARD_INFO, payload: data });
+      console.log('fetch card data',data)
+      dispatch({ type: FETCH_CARD_INFO, payload: {data,id:cardID} });
     })
     .catch(err => {
       if (err) throw err;
@@ -138,7 +133,7 @@ export const fetchCard = cardID => dispatch => {
 
 export const addBoard = (organizationId, boardName) => dispatch => {
   console.log(organizationId, boardName);
-  fetch(`/organizations/${organizationId}`, {
+  fetch(`/api/organizations/${organizationId}`, {
     method: 'POST',
     body: JSON.stringify({
       name: boardName
@@ -158,7 +153,7 @@ export const addBoard = (organizationId, boardName) => dispatch => {
 
 export const addCard = (listId, cardName) => dispatch => {
   console.log('Add Card');
-  fetch(`/list/${listId}`, {
+  fetch(`/api/list/${listId}`, {
     method: 'POST',
     body: JSON.stringify({
       title: cardName
@@ -178,7 +173,7 @@ export const addCard = (listId, cardName) => dispatch => {
 
 export const addList = (boardId, listName) => dispatch => {
   console.log(boardId, listName);
-  fetch(`/board/${boardId}/list`, {
+  fetch(`/api/board/${boardId}/list`, {
     method: 'POST',
     body: JSON.stringify({
       name: listName

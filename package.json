@@ -26,6 +26,7 @@
     "jwt-simple": "^0.5.5",
     "mongoose": "^5.4.4",
     "mongoose-unique-array": "^0.3.0",
+    "mongoose-update-if-current": "^1.0.3",
     "nodemon": "^1.18.9",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
