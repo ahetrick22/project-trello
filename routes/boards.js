@@ -53,7 +53,8 @@ router.get('/api/boards/:id', (req, res) => {
         Board.findById(req.params.id).populate({
           path: 'lists',
           populate: {
-            path: 'cards'
+            path: 'cards',
+              match: { archived: false }//chain here filtering so that archived things don't return
           }
         }).exec((err, fullBoard) => {
           if (err) throw err;
