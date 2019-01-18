@@ -11,8 +11,7 @@ import {
   updatedList,
   updateDifferentList,
   newListOrderEvent
-} from "../api";
-
+} from '../api';
 
 class Board extends Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class Board extends Component {
       cards: {},
       listOrder: [],
       lists: {},
-      hello: '',
+      hello: ''
     };
   }
 
@@ -127,7 +126,6 @@ class Board extends Component {
         destinationIndex: destination.index
       };
 
-
       const newState = {
         ...this.state,
         listOrder: newListOrder
@@ -213,15 +211,15 @@ class Board extends Component {
   };
 
   //change board name
-// ChangeBoardName() {
-//   <BoardNameInputField>
-//     <input 
-//       value={this.props.board.name}
-//       autoFocus={true}
-//       onChange={(e) => this.setState({boardInput: e.target.value})} 
-//     />
-//   </BoardNameInputField>
-// }
+  // ChangeBoardName() {
+  //   <BoardNameInputField>
+  //     <input
+  //       value={this.props.board.name}
+  //       autoFocus={true}
+  //       onChange={(e) => this.setState({boardInput: e.target.value})}
+  //     />
+  //   </BoardNameInputField>
+  // }
 
   render() {
     return (
@@ -310,7 +308,7 @@ const InfoBar = styled('div')`
 
 const BoardArea = styled('div')`
   background: ${COLORS.primary}
-  // min-height: 83vh;
+  min-height: 83vh;
   padding: 1em;
   display: flex;
   flex-direction: row;
