@@ -33,16 +33,28 @@ class CardDetail extends Component {
     //needs to hit an update card action instead
   };
 
+  // *********** UPDATE CARD TITLE ************ //
   updateLocalCardStateTitle = e => {
-    let card = { ...this.state.card };
+    const card = { ...this.state.card };
     card.title = e.target.value;
     this.setState({ card });
   };
 
+  updateCardTitle = () => {
+    const { card } = this.state;
+    this.props.updateCard(card._id, { title: card.title });
+  };
+
+  // *********** UPDATE CARD DESC ************ //
   updateLocalCardStateDesc = e => {
     let card = { ...this.state.card };
     card.description = e.target.value;
     this.setState({ card });
+  };
+
+  updateCardDesc = () => {
+    const { card } = this.state;
+    this.props.updateCard(card._id, { description: card.description });
   };
 
   updateLocalCardStateLabel = e => {
@@ -51,7 +63,7 @@ class CardDetail extends Component {
     this.setState({ card });
   };
 
-  updateServerCard = (prop, val) => {
+  updateServerCard = (e, prop, val) => {
     const { card } = this.state;
     //needs to hit an update card action instead
     this.props.updateCard(card._id, {
@@ -104,7 +116,7 @@ class CardDetail extends Component {
       return (
         <div className="modal">
           <CardModal className={showHideClassName}>
-            <Link to={`/boards/${card._id}`}>
+            <Link to={`/boards/${this.props.selectedCard._id}`}>
               <CloseButton onClick={() => this.props.handleClose()}>
                 X
               </CloseButton>
@@ -119,9 +131,12 @@ class CardDetail extends Component {
                   type="text"
                   value={card.title}
                   onChange={this.updateLocalCardStateTitle}
-                  onKeyPress={e =>
-                    e.key === 'Enter' ? this.updateServerCard('title') : null
-                  }
+                  onKeyPress={e => {
+                    if (e.key === 'Enter') {
+                      this.updateCardTitle();
+                      this.setState({ editTitle: false });
+                    }
+                  }}
                 />
               ) : (
                 // Else render header w/ title
@@ -211,18 +226,18 @@ class CardDetail extends Component {
               {editDesc ? (
                 <Fragment>
                   {/* Render textarea w/ desc */}
-                  <textarea
+                  <TextInput
                     autoFocus
-                    name="description"
-                    cols="30"
-                    rows="5"
+                    type="text"
                     value={card.description}
-                    onChange={this.updateCardDesc}
+                    onChange={this.updateLocalCardStateDesc}
+                    onKeyPress={e => {
+                      if (e.key === 'Enter') {
+                        this.updateCardDesc();
+                        this.setState({ editDesc: false });
+                      }
+                    }}
                   />
-                  <br />
-                  <button onClick={() => this.setState({ editDesc: false })}>
-                    Save
-                  </button>
                 </Fragment>
               ) : (
                 // Else, render p w/ desc
