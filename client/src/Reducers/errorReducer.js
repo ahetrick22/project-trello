@@ -7,8 +7,8 @@ export const errorReducer = (state = null, action) => {
     case FETCH_ERR:
       return (state = 'fetch');
     case LOGIN_ERR:
-      localStorage.removeItem('token');
-      localStorage.removeItem('email');
+      // localStorage.removeItem('token');
+      // localStorage.removeItem('email');
      return state = 'login'
      case EMAIL_ERR:
       localStorage.removeItem('token');

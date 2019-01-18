@@ -6,19 +6,15 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 
 class ErrorBoundary extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { error: false, errorInfo: null };
-  //   console.log('this.state.error:', this.state.error);
-  //   console.log('this.props.error', this.props.error);
-  // }
+
 
   // You can also log error messages to an error reporting service here
 
   render() {
     if (this.props.error === 'fetch') {
       //this sometimes fixes but will get stuck in an infinite loop so be careful
-      // window.location.reload();
+      window.location.reload();
+
       return (
         <ErrorModal>
           <ErrorModalHeader>

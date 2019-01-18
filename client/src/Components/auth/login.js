@@ -64,7 +64,8 @@ class login extends Component {
   render() {
     console.log(this.props);
 
-    if (this.props.user.authenticated) {
+    if (this.props.user.authenticated && this.props.user !== "undefined") {
+      
       return <Redirect to="/org" />;
     } else {
       return (

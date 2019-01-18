@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 //import FlexContainer from 'react-styled-flexbox';
 import { FaHome, FaSignOutAlt } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import * as actions from '../Actions';
 import { withRouter } from 'react-router';
 
@@ -53,10 +53,25 @@ const Linker = styled.div`
 
 export class NavBar extends Component {
   handleSignOut = () => {
+    localStorage.removeItem('email');
+    localStorage.removeItem('token');
+    
     this.props.signout();
+    window.location.reload();
   };
 
+  renderSignOutButton = () => {
+    if(this.props.user.authenticated){
+      return (
+        <p onClick={this.handleSignOut}>
+          <FaSignOutAlt />
+        </p>
+      )
+    }
+  }
+
   render() {
+    if(this.props.user.authenticated){
     return (
       <NavDiv>
         <LeftButtons>
@@ -71,20 +86,21 @@ export class NavBar extends Component {
         <h2>Prello</h2>
         <RightButtons>
           <Linker>
-            <Link to="/">
-              <p onClick={this.handleSignOut}>
-                <FaSignOutAlt />
-              </p>
+          <Link to='/'>
+              {this.renderSignOutButton()}
             </Link>
           </Linker>
         </RightButtons>
       </NavDiv>
-    );
+    )}
+    else {
+      return <Redirect to="/login" />;
+    }
   }
 }
 
-function mapStateToProps({ organization, boards }) {
-  return { organization, boards };
+function mapStateToProps({ organization, boards, user }) {
+  return { organization, boards, user };
 }
 
 export default withRouter(connect(
