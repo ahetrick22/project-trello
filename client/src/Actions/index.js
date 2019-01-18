@@ -208,3 +208,22 @@ export const updateList = (listID, listName) => dispatch => {
       dispatch({ type: ADD_BOARD, payload: data });
     });
 };
+
+//edit board name
+export const updateBoard = (boardId, boardName) => dispatch => {
+  fetch(`/api/boards/${boardId}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      name: boardName
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      email: email,
+      Authorization: `bearer ${token}`
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      dispatch({ type: ADD_BOARD, payload: data });
+    });
+};
