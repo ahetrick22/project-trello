@@ -7,6 +7,7 @@ import {
   //  FETCH_LISTS,
   //  ADD_LIST
   ADD_BOARD,
+  LOGIN_ERR,
   // ADD_CARD,
   FETCH_ERR
 } from './types';
@@ -32,7 +33,7 @@ export const fetchLogin = (email, password) => dispatch => {
       localStorage.setItem('token', response.token);
       localStorage.setItem('email', response.email);
     })
-    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
+    .catch(() => dispatch({ type: LOGIN_ERR, data: {} }));
 };
 
 export const signout = () => {
@@ -64,7 +65,7 @@ export const fetchRegister = (email, password) => dispatch => {
       localStorage.setItem('token', response.token);
       localStorage.setItem('email', response.email);
     })
-    .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
+    .catch(() => dispatch({ type: LOGIN_ERR, data: {} }));
 };
 
 export const fetchOrg = orgID => async dispatch => {

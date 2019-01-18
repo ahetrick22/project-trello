@@ -39,7 +39,6 @@ class login extends Component {
   onSubmit = () => {
     this.props.fetchLogin(this.state.email, this.state.password);
     this.props.history.push('/org')
-    window.location.reload()
     
   };
 
@@ -47,7 +46,6 @@ class login extends Component {
   onRegister = () => {
     this.props.fetchRegister(this.state.email, this.state.password);
     this.props.history.push('/org')
-    window.location.reload();
 
   }
   render() {
