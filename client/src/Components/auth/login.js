@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Redirect, withRouter } from "react-router";
+import {COLORS, TYPEFACE} from '../../css/StyleGuide'
 //import { Link } from 'react-router-dom';
 import * as actions from '../../Actions';
 import { connect } from 'react-redux';
@@ -38,97 +39,118 @@ class login extends Component {
 
   onSubmit = () => {
     this.props.fetchLogin(this.state.email, this.state.password);
-    this.props.history.push('/org')
-    
+    // this.props.history.push('/org')
+
   };
 
   
+
+  logInError = () => {
+    if(this.props.error == 'login'){
+      console.log("ERRRR")
+
+      return (
+        <p id="login-err">Invalid Email/Password</p>
+      )
+    }
+  }
+
+
   onRegister = () => {
     this.props.fetchRegister(this.state.email, this.state.password);
-    this.props.history.push('/org')
+    // this.props.history.push('/org')
 
   }
   render() {
     console.log(this.props);
 
-    if(this.props.user.authenticated){
-    
-     return (
+    if (this.props.user.authenticated) {
 
-<Redirect to='/org' /> 
-
-     )      
+      return (
+        <Redirect to='/org' />
+      )
     } else {
 
-    return (
-      <LoginCss>
-        <div className="limiter">
-          <div className="container-login100">
-            <div className="wrap-login100">
-              <div className="login100-form validate-form">
-                <span className="welcome login100-form-title p-b-26">
-                  Welcome
+      return (
+        <LoginCss>
+          <div className="limiter">
+            <div className="container-login100">
+              <div className="wrap-login100">
+                <div className="login100-form validate-form">
+                  <span className="welcome login100-form-title p-b-26">
+                    Welcome
                 </span>
-                <span className="login100-form-title p-b-48">
-                  <i className="zmdi zmdi-font" />
-                </span>
-                <div
-                  className="wrap-input100 validate-input"
-                  data-validate="Valid email is: a@b.c"
-                >
-                  <input
-                    className="input100"
-                    type="text"
-                    name="email"
-                    value={this.state.email}
-                    onChange={event =>
-                      this.setState({ email: event.target.value })
-                    }
-                  />
-                  <span className="focus-input100" data-placeholder="Email" />
-                </div>
-                <div
-                  className="wrap-input100 validate-input"
-                  data-validate="Enter password"
-                >
-                  <span className="btn-show-pass">
-                    <i className="zmdi zmdi-eye" />
+                <span className="welcome login100-form-title p-b-26"><p>Please log in</p></span>
+                  <span className="welcome login-err login100-form-title p-b-26">{this.logInError()}</span>
+                  <span className="login100-form-title p-b-48">
+                    <i className="zmdi zmdi-font" />
                   </span>
-                  <input
-                    className="input100"
-                    type="password"
-                    name="pass"
-                    value={this.state.password}
-                    onChange={event =>
-                      this.setState({ password: event.target.value })
-                    }
-                  />
-                  <span
-                    className="focus-input100"
-                    data-placeholder="Password"
-                  />
-                </div>
-                <div className="container-login100-form-btn">
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Valid email is: a@b.c"
+                  >
+                    <input
+                      className="input100"
+                      type="text"
+                      name="email"
+                      value={this.state.email}
+                      onChange={event =>
+                        this.setState({ email: event.target.value })
+                      }
+                    />
+                    <span className="focus-input100" data-placeholder="Email" />
+                  </div>
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Enter password"
+                  >
+                    <span className="btn-show-pass">
+                      <i className="zmdi zmdi-eye" />
+                    </span>
+                    <input
+                      className="input100"
+                      type="password"
+                      name="pass"
+                      value={this.state.password}
+                      onChange={event =>
+                        this.setState({ password: event.target.value })
+                      }
+                    />
+                    <span
+                      className="focus-input100"
+                      data-placeholder="Password"
+                    />
+                  </div>
+                  <div className="container-login100-form-btn">
                     <button className="login100-form-btn" onClick={() => this.onSubmit()}>
                       Login
 						    	  </button>
-                </div>
-                    <br />
-                    <button className="register100-form-btn" onClick={() => this.onRegister()}>
-                      Register
+                  </div>
+                  <br />
+                  <button className="register100-form-btn" onClick={() => this.onRegister()}>
+                    Register
                     </button>
+                </div>
+
+                <p className="guestLogin"><a href='/org'>Login As Guest</a></p>
+
               </div>
-
-              <p className="guestLogin"><a href='/org'>Login As Guest</a></p>
-
             </div>
           </div>
-        </div>
-      </LoginCss>
-    );
+        </LoginCss>
+      );
+    }
   }
 }
-}
+
+const ERR_MSG = styled('div')`
+  p {
+  color: 'green';
+  font-family: ${TYPEFACE};
+  font-size:10.3em;
+  font-weight: 500;
+  }
+`;
 
 const LoginCss = styled('div')`
   h1,
@@ -613,10 +635,11 @@ const LoginCss = styled('div')`
 `;
 
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = ({ user,error }) => {
 
   return {
-    user
+    user,
+    error
   };
 };
 

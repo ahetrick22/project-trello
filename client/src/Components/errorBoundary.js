@@ -13,17 +13,14 @@ class ErrorBoundary extends Component {
   //   console.log('this.props.error', this.props.error);
   // }
 
-  componentWillReceiveProps() {
-    // this.setState({error: true})
-    // console.log('this.state.error2:', this.state.error);
-    console.log('this.props.erro2r', this.props.error);
-  }
 
   // You can also log error messages to an error reporting service here
 
   render() {
 
     if (this.props.error === 'fetch') {
+      //this sometimes fixes but will get stuck in an infinite loop so be careful
+      // window.location.reload();
     console.log(this.props);
       return (
         <ErrorModal>
@@ -39,18 +36,6 @@ class ErrorBoundary extends Component {
           <ErrorModalFooter />
         </ErrorModal>
       )
-    }
-    else if(this.props.error === 'login'){
-      return (
-        <ErrorModal>
-          <ErrorModalHeader>
-            <p>Invalid login, the email may be in use, please try another email</p>
-          </ErrorModalHeader>
-
-          <ErrorModalFooter></ErrorModalFooter>
-        </ErrorModal>
-      )
-
     }
     else {
       return this.props.children

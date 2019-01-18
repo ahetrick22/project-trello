@@ -61,9 +61,11 @@ export const fetchRegister = (email, password) => dispatch => {
     .then(res => res.json())
     .then(response => {
       console.log(response);
+      if(response.error){
+        dispatch({type:LOGIN_ERR,data:{}})
+      } else {
       dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
-
-    })
+    }})
     .catch(() => dispatch({ type: LOGIN_ERR, data: {} }));
 };
 
