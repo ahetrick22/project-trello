@@ -57,6 +57,7 @@ router.get('/api/boards/:id', (req, res) => {
           }
         }).exec((err, fullBoard) => {
           if (err) throw err;
+          
           res.send(JSON.stringify(fullBoard));
         })
       }

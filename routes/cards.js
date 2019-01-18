@@ -26,7 +26,10 @@ router.get('/api/card/:id', (req, res) => {
               populate: {
                 path: 'cards',
                 populate: {
-                  path: 'comments'
+                  path: 'comments',
+                  populate: {
+                    path: 'user'
+                  }
                 }
               }
             })

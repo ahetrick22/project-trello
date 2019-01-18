@@ -4,83 +4,50 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { FaArchive } from 'react-icons/fa';
+import { Link } from 'react-router-dom'
 
 class CardDetail extends Component {
   constructor(props) {
-    super(props);
-
-    console.log("Props: ", this.props);
-    
+    super(props);   
     this.state = {
-      board: {
-        lists: [{
-          name: '',
-          cards: [{
-            title: '',
-            description: '',
-            label: {
-              value: 'green'
-            }
-          }]
-        }]
-      },
-      // card: {
-      //   comments: [],
-      //   title: '',
-      //   list: {
-      //     name: ''
-      //   },
-      //   description: '',
-      //   label: { 
-      //     value: 'green',
-      //   }
-      // },
       editTitle: false,
       editDesc: false,
-
+      actualSelectedCard: {}
     };
+    
+  }
+
+  componentDidMount = () => {
     const { cardID } = this.props.match.params;
-     this.props.fetchCard(cardID);
-  }
-
-  componentDidMount = async () => {
-
-  };
-
-  componentWillReceiveProps(nextProps) {
-    // Set local card state to card from redux store
-    if (this.props.card !== nextProps.card) {
-      this.setState({ card: nextProps.card });
+    this.props.fetchCard(cardID);
     }
-  }
-
-  closeModal = () => {
-    // TODO: Close card modal
-  };
 
   archiveCard = card => {
-    // TODO: Archive card
+    //needs to hit an update card action instead
   };
 
   updateCardTitle = e => {
+    //needs to hit an update card action instead
     let card = { ...this.state.card };
     card.title = e.target.value;
     this.setState({ card });
   };
 
   updateCardDesc = e => {
+    //needs to hit an update card action instead
     let card = { ...this.state.card };
     card.description = e.target.value;
     this.setState({ card });
   };
 
   updateCardLabel = e => {
+    //needs to hit an update card action instead
     let label = { ...this.state.card.label };
     label.value = e.target.value;
     this.setState({ label });
-  }
+  };
 
-  createListItems() {
+  createListItems = () => {
     let items = [];
     //get card.list.val, find matching list.name
 
@@ -93,6 +60,7 @@ class CardDetail extends Component {
 
 
   onDropDownList = e => {
+    //needs to hit an update list route instead
     console.log("the list item is: ", e.target.value);
     let list = {...this.state.card.list};
     list.name = e.target.value;
@@ -100,18 +68,17 @@ class CardDetail extends Component {
   }
 
   render() {
-    const { card, editTitle, editDesc } = this.state;
-
-    console.log(this.state.card)
-
-    if (Object.keys(card).length === 0) {
+    console.log('props in render',this.props)
+    if (Object.keys(this.props.selectedCard).length === 0) {
       return <div>Loading...</div>;
     } 
-    
     else {
+      const { editTitle, editDesc, selectedCard } = this.props;
+      console.log(selectedCard);
+      const card = selectedCard.selected;
       return (
         <CardModal className="modal">
-          <CloseButton onClick={this.closeModal}>X</CloseButton>
+          <Link to={`/boards/${this.props.selectedCard._id}`}><CloseButton>X</CloseButton></Link>
           <div className="card-header" style={{ padding: '1em' }}>
             <img src={require('../assets/card.svg')} alt="trello card icon" />
             {/* If user is editing title */}
@@ -133,9 +100,9 @@ class CardDetail extends Component {
                   onDoubleClick={() => this.setState({ editTitle: true })}
                 >
                   {/* Truncate title if longer than 50 chars */}
-                  {this.state.card.title.length > 50
-                    ? `${this.state.card.title.slice(0, 50)}...`
-                    : this.state.card.title}
+                  {card.title.length > 50
+                    ? `${card.title.slice(0, 50)}...`
+                    : card.title}
                 </h1>
               )}
             <br />
@@ -221,7 +188,7 @@ class CardDetail extends Component {
             <ul style={{ listStyleType: 'none', margin: '0', padding: '0' }}>
               {card.comments.map((comment, index) => (
                 <li key={index}>
-                  {comment.user} commented - {comment.text}
+                  {comment.user.email} commented - {comment.text}
                 </li>
               ))}
             </ul>
@@ -244,8 +211,9 @@ class CardDetail extends Component {
   }
 }
 
+
 const mapStateToProps = ({ selectedCard }) => {
-  return { card: selectedCard };
+  return { selectedCard };
 };
 
 export default connect(
