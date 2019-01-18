@@ -29,10 +29,10 @@ render(
             <Route exact path="/login" component={Login} />
             <Route exact path="/org" component={Organization} />
             <Route exact path="/boards/:boardID" component={Board} />
-
-            <Route exact path="/cards/:cardID" component={CardDetail} />
-          </Switch>
+            <Route exact path="/cards/:cardID" component={Board} />
+        </Switch>
         </ErrorBoundary>
+
       </App>
     </Router>
   </Provider>,

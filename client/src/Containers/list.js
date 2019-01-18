@@ -6,6 +6,8 @@ import { Droppable, Draggable } from 'react-beautiful-dnd';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { TiTimes } from 'react-icons/ti';
+import CardDetail from './cardDetail';
+import { withRouter } from "react-router-dom";
 
 class List extends React.Component {
   constructor(props) {
@@ -14,8 +16,30 @@ class List extends React.Component {
       listTitle: '',
       editTitle: false,
       listInputHidden: true,
-      listInput: ''
+      listInput: '',
+      modalOpen: false,
     };
+    console.log(this.props)
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+    this.displayModal = this.displayModal.bind(this)
+  }
+  showModal = () => {
+    console.log(this.state)
+    this.setState({ modalOpen: true })
+  }
+  hideModal = () => {
+    this.setState({ modalOpen: false })
+  }
+
+  displayModal = () => {
+    if(this.state.modalOpen){
+      return (
+        <WholeModalView>
+      <CardDetail show={this.state.modalOpen} handleClose={this.hideModal} props={this.props} />    
+      </WholeModalView >)
+    }
+
   }
 
   componentDidMount() {
@@ -82,11 +106,14 @@ class List extends React.Component {
   };
 
   render() {
+    
     const { editTitle, listTitle } = this.state;
     const cardLength = this.props.cards.length;
     return (
       <Fragment>
-        <Draggable draggableId={this.props.column.id} index={this.props.index}>
+        
+        {this.displayModal()}
+         <Draggable draggableId={this.props.column.id} index={this.props.index}>
           {provided => (
             <Container {...provided.draggableProps} ref={provided.innerRef}>
               <ListHeader>
@@ -124,7 +151,7 @@ class List extends React.Component {
                     isDraggingOver={snapshot.isDraggingOver}
                   >
                     {this.props.cards.map((card, index) => (
-                      <Card key={card.id} card={card} index={index} />
+                      <Card key={card.id} card={card} index={index} showModal={this.showModal} />
                     ))}
                     {provided.placeholder}
                   </CardList>
@@ -191,7 +218,7 @@ const CardList = styled.div`
    padding: 0 8px 8px 8px;
    transition: background-color 0.5s ease;
    background-color: ${props =>
-     props.isDraggingOver ? 'lightgrey' : 'inherit'}
+     props.isDraggingOver ? 'lightgrey' : 'inherit'};
    flex-grow: 1;
    overflow: auto;
    height: 100%;
@@ -201,8 +228,18 @@ const CardInputField = styled('div')`
 display:flex;
 flex-direction:row;
 align-items:center;
-width:100%
+width:100%;
 margin: 10px;
+`;
+
+const WholeModalView = styled("div")`
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  ::first-child{
+    border:10px solid black;
+  }
 `;
 
 function mapStateToProps({ boards }) {
@@ -211,9 +248,10 @@ function mapStateToProps({ boards }) {
   };
 }
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   actions
-)(List);
+)(List))
+;
 
 //const PRIMARY_COLOR = '#';

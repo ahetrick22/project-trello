@@ -21,10 +21,17 @@ class Board extends Component {
       listOrder: [],
       lists: {},
 
-      boardName: '',
+      boardName: "",
       editBoardName: false
+
+  
+
     };
+
+
   }
+
+
 
   handleNewListClickEvent = () => {
     var newListAreaElement = document.getElementById('newListArea');
@@ -253,36 +260,37 @@ class Board extends Component {
             {!this.state.listOrder ? (
               <p>'...Loading'</p>
             ) : (
-              <Droppable
-                droppableId="all-lists"
-                direction="horizontal"
-                type="column"
-              >
-                {provided => (
-                  <Container
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    {this.state.listOrder.map((listId, index) => {
-                      const list = this.state.lists[listId];
-                      const cards = list.cardIds.map(
-                        taskId => this.state.cards[taskId]
-                      );
+                <Droppable
+                  droppableId="all-lists"
+                  direction="horizontal"
+                  type="column"
+                >
+                  {provided => (
+                    <Container
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
+                    >
+                      {this.state.listOrder.map((listId, index) => {
+                        const list = this.state.lists[listId];
+                        const cards = list.cardIds.map(
+                          taskId => this.state.cards[taskId]
+                        );
 
-                      return (
-                        <List
-                          key={list.id}
-                          column={list}
-                          cards={cards}
-                          index={index}
-                        />
-                      );
-                    })}
-                    {provided.placeholder}
-                  </Container>
-                )}
-              </Droppable>
-            )}
+                        return (
+                          <List
+                            key={list.id}
+                            column={list}
+                            cards={cards}
+                            index={index}
+                            
+                          />
+                        );
+                      })}
+                      {provided.placeholder}
+                    </Container>
+                  )}
+                </Droppable>
+              )}
           </DragDropContext>
           <NewListArea id="newListArea" style={{ visibility: 'hidden' }}>
             <h3>New list name</h3>
