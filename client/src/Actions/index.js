@@ -168,11 +168,11 @@ export const addList = (boardId, listName) => dispatch => {
     body: JSON.stringify({
       name: listName
     }),
-    headers: {
+    headers: JSON.stringify({
       'Content-Type': 'application/json',
       email: email,
       Authorization: `bearer ${token}`
-    }
+    })
   })
     .then(response => response.json())
     .then(data => {
@@ -198,7 +198,22 @@ export const updateList = (listID, listName) => dispatch => {
     });
 };
 
-//edit board name
+export const updateCard = (cardId, propsToUpdate) => dispatch => {
+  console.log('props to update', propsToUpdate)
+  fetch(`/api/card/${cardId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      email: email,
+      Authorization: `bearer ${token}`
+    },
+    body: JSON.stringify(propsToUpdate)
+  })
+  .then(response => response.json())
+  .then(data => {
+    dispatch({ type: FETCH_CARD_INFO, payload: {data,id:cardId} });  })
+}
+
 export const updateBoard = (boardId, boardName) => dispatch => {
   fetch(`/api/boards/${boardId}`, {
     method: 'PUT',
