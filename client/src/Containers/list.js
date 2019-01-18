@@ -19,7 +19,9 @@ class List extends React.Component {
       listInput: '',
       modalOpen: false,
     };
-    console.log(this.props)
+    console.log('list props.cards:', this.props.cards)
+    console.log('list state:', this.state)
+   
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.displayModal = this.displayModal.bind(this)
@@ -63,25 +65,27 @@ class List extends React.Component {
       );
     } else {
       return (
-        <CardInputField>
-          <input
-            id="inputCard"
-            value={this.state.listInput}
-            autoFocus={true}
-            onKeyPress={e => this.handleKeyPress(e)}
-            onChange={e =>
-              this.setState({
-                listInput: e.target.value
-              })
-            }
-          />
-          <TiTimes
-            style={{ color: 'red', opacity: '0.7' }}
-            onClick={() => {
-              this.setState({ listInputHidden: !this.state.listInputHidden });
-            }}
-          />
-        </CardInputField>
+        <CardContainer> 
+          <CardInputField>
+            <input
+              id="inputCard"
+              value={this.state.listInput}
+              autoFocus={true}
+              onKeyPress={e => this.handleKeyPress(e)}
+              onChange={e =>
+                this.setState({
+                  listInput: e.target.value
+                })
+              }
+            />
+            <TiTimes
+              style={{ color: 'red', opacity: '0.7' }}
+              onClick={() => {
+                this.setState({ listInputHidden: !this.state.listInputHidden });
+              }}
+            />
+          </CardInputField>
+        </CardContainer>
       );
     }
   };
@@ -106,7 +110,9 @@ class List extends React.Component {
   };
 
   render() {
-    
+    // if (!this.props.selectedBoard) {
+    //   return <div>Loading...</div>
+    // } else {
     const { editTitle, listTitle } = this.state;
     const cardLength = this.props.cards.length;
     return (
@@ -141,7 +147,7 @@ class List extends React.Component {
                   <CardInfo>{cardLength} Cards</CardInfo>
                 )}
               </ListHeader>
-              <hr style={{ width: '90%', margin: '5px auto' }} />
+              <hr style={{ width: '90%', margin: '5px auto' }} /> 
               <Droppable droppableId={this.props.column.id} type="card">
                 {(provided, snapshot) => (
                   <CardList
@@ -151,11 +157,12 @@ class List extends React.Component {
                     isDraggingOver={snapshot.isDraggingOver}
                   >
                     {this.props.cards.map((card, index) => (
-                      <Card key={card.id} card={card} index={index} showModal={this.showModal} />
+                     <Card key={card.id} card={card} index={index} showModal={this.showModal}  />
                     ))}
+                    {/* label={this.props.selectedBoard.lists.cards[index].label} */}
                     {provided.placeholder}
                   </CardList>
-                )}
+                )} 
               </Droppable>
               {this.renderListInputField()}
             </Container>
@@ -163,8 +170,8 @@ class List extends React.Component {
         </Draggable>
       </Fragment>
     );
-  }
-}
+  }}
+// }
 
 const CardInfo = styled.p`
   font-family: ${TYPEFACE};
@@ -193,7 +200,14 @@ const Button = styled.button`
     border: 1px solid ${COLORS.primary};
   }
 `;
-
+const CardContainer = styled.div`
+  border: 1px solid lightgrey;
+  border-radius: 8px;
+  padding: 20px 8px;
+  margin-bottom: 8px;
+  background-color: ${COLORS.secondary};
+  box-shadow: 2px 1px 4px #999;
+`;
 const Container = styled.div`
   height: 76vh;
   margin: 8px;
@@ -229,6 +243,7 @@ display:flex;
 flex-direction:row;
 align-items:center;
 width:100%;
+height: 100%;
 margin: 10px;
 `;
 
