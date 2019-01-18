@@ -17,7 +17,7 @@ router.get('/api/organizations', (req, res) => {
 });
 
 //ADD A BOARD TO AN ORGANIZATION
-router.post('/api/organizations/:id', (req, res) => {
+router.post('/api/organizations/:id', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
 if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
   //then find the matching organization

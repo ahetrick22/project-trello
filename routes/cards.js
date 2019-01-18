@@ -8,7 +8,7 @@ const List = require('../models/list');
 const Board = require('../models/board');
 const Comment = require('../models/comment')
 
-router.get('/api/card/:id', (req, res) => {
+router.get('/api/card/:id', requireAuth, (req, res) => {
   //make sure it's a valid ID and won't trigger a cast error
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching card
@@ -47,7 +47,7 @@ router.get('/api/card/:id', (req, res) => {
 });
 
 //don't mess with this
-router.put('/api/card/:id', (req, res) => {
+router.put('/api/card/:id', requireAuth, (req, res) => {
   //check to see which params come in the body
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     let activityObj = {};
@@ -126,7 +126,7 @@ router.put('/api/card/:id', (req, res) => {
     }
   })
 
-router.post('/api/card/:id/comment', (req, res) => {
+router.post('/api/card/:id/comment', requireAuth, (req, res) => {
      if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
         let activityObj = {};
       //then find the matching card
