@@ -478,7 +478,7 @@ const LoginCss = styled('div')`
     padding: 0 20px;
     width: 100%;
     height: 50px;
-    border-radius: 10%;
+    border-radius: 20%;
   }
 
     .register100-form-btn {
@@ -499,15 +499,15 @@ const LoginCss = styled('div')`
     padding: 0 20px;
     width: 100%;
     height: 50px;
-    border-radius: 10%;
+    border-radius: 20%;
   }
 
   .guestLogin {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 15px;
     justify-content: center;
-    padding-left: 94px;
-    padding-top: 30px;
+    padding-left: 35%;
+    padding-top: 10%;
   }
 
   .wrap-login100-form-btn:hover .login100-form-bgbtn {
