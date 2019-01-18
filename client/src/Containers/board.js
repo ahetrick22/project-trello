@@ -22,10 +22,16 @@ class Board extends Component {
       lists: {},
 
       boardName: "",
-      editBoardName: false,
+      editBoardName: false
+
+  
 
     };
+
+
   }
+
+
 
   handleNewListClickEvent = () => {
     var newListAreaElement = document.getElementById('newListArea');
@@ -278,6 +284,7 @@ class Board extends Component {
                             column={list}
                             cards={cards}
                             index={index}
+                            
                           />
                         );
                       })}

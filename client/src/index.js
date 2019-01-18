@@ -28,7 +28,7 @@ render(
           <Route exact path="/org" component={Organization} />
           <Route exact path="/boards/:boardID" component={Board} />
 
-          <Route exact path="/cards/:cardID" component={CardDetail} />
+          <Route exact path="/cards/:cardID" component={Board} />
         </Switch>
       </App>
     </Router>
