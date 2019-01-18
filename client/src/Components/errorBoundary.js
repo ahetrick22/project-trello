@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
@@ -13,15 +13,12 @@ class ErrorBoundary extends Component {
   //   console.log('this.props.error', this.props.error);
   // }
 
-
   // You can also log error messages to an error reporting service here
 
   render() {
-
     if (this.props.error === 'fetch') {
       //this sometimes fixes but will get stuck in an infinite loop so be careful
       // window.location.reload();
-    console.log(this.props);
       return (
         <ErrorModal>
           <ErrorModalHeader>
@@ -35,10 +32,9 @@ class ErrorBoundary extends Component {
           </ErrorModalContent>
           <ErrorModalFooter />
         </ErrorModal>
-      )
-    }
-    else {
-      return this.props.children
+      );
+    } else {
+      return this.props.children;
     }
   }
 }
@@ -78,20 +74,20 @@ const ErrorModalFooter = styled.div`
   background-color: red;
 `;
 
-const CloseButton = styled.div`
-  color: black;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  &:hover {
-    cursor: pointer;
-  }
-  &:focus {
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-  }
-`;
+// const CloseButton = styled.div`
+//   color: black;
+//   float: right;
+//   font-size: 28px;
+//   font-weight: bold;
+//   &:hover {
+//     cursor: pointer;
+//   }
+//   &:focus {
+//     color: white;
+//     text-decoration: none;
+//     cursor: pointer;
+//   }
+// `;
 
 export default withRouter(
   connect(
