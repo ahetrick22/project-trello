@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import List from './list';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { FaPencilAlt } from 'react-icons/fa'
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { StyledButton } from '../Components/styledButton';
@@ -236,6 +237,9 @@ class Board extends Component {
     return (
       <Fragment>
         <InfoBar>
+          <EditSymbol>
+            <FaPencilAlt />
+        </EditSymbol>
           {editBoardName ? (
             //On Double click, open input field for Board Name
             <TextInput
@@ -248,7 +252,7 @@ class Board extends Component {
           ) : (
             // Else render header with Board name
             <h3 onDoubleClick={() => this.setState({ editBoardName: true })}>
-              {this.props.board.name} | Project Shift
+              {this.props.board.name} | Project Shift           
             </h3>
           )}
           <StyledButton onClick={this.handleNewListClickEvent}>
@@ -345,6 +349,10 @@ const TextInput = styled.input`
   height: 30px;
   font-size: 20px;
 `;
+
+const EditSymbol = styled.div`
+  margin-right: 5px;
+`
 
 function mapStateToProps({ selectedBoard, boards }) {
   return {
