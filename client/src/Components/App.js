@@ -11,10 +11,11 @@ class App extends React.Component {
     console.log(authenticated)
     if(authenticated){
       return (
-        <div className="app" style={{ boxSizing: 'border-box' }}>
-          {this.props.children}
-        </div>
-      );
+          <div className="app" style={{ boxSizing: "border-box" }}>
+            {this.props.children}
+          </div>
+      )
+
     } else {
       return(
         <Fragment>

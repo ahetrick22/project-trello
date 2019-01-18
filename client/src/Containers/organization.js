@@ -61,7 +61,7 @@ class Organization extends Component {
       return 'New Board';
     }
   };
-
+  //fasdfasdfasasds
   render() {
 
     const { boards, organization } = this.props;
@@ -72,7 +72,8 @@ class Organization extends Component {
     }
     else if (!organization._id) {
       return <div>No organization found</div>
-    } else {
+    } 
+    else {
 
       return (
         <div className="org-home" style={{ fontFamily: TYPEFACE }}>

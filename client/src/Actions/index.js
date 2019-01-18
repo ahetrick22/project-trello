@@ -6,8 +6,9 @@ import {
   FETCH_CARD_INFO,
   //  FETCH_LISTS,
   //  ADD_LIST
-  ADD_BOARD
-  // ADD_CARD
+  ADD_BOARD,
+  // ADD_CARD,
+  FETCH_ERR
 } from './types';
 
 const email = localStorage.getItem('email');
@@ -67,6 +68,7 @@ export const fetchRegister = (email, password) => dispatch => {
 };
 
 export const fetchOrg = orgID => async dispatch => {
+  try {
   let promise = await fetch(`/api/organizations`, {
     headers: {
       email: email,
@@ -76,11 +78,15 @@ export const fetchOrg = orgID => async dispatch => {
   let data = await promise.json()
   console.log(data)
   dispatch({ type: FETCH_ORG, payload: data });
+} catch {
+  dispatch({type:FETCH_ERR, payload:{}})
+}
 
 };
 
 
 export const fetchBoards = () => async dispatch => {
+  try{
   let promise = await fetch(`/api/boards`, {
     headers: {
       email: email,
@@ -90,6 +96,9 @@ export const fetchBoards = () => async dispatch => {
 
   let data = await promise.json()
   dispatch({ type: FETCH_BOARDS, payload: data });
+} catch{
+  dispatch({type:FETCH_ERR, payload:{}})
+}
 };
 
 export const fetchBoard = boardID => dispatch => {
