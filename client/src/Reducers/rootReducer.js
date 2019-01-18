@@ -6,7 +6,7 @@ import { orgReducer } from './orgReducer';
 import { boardsReducer } from './boardsReducer';
 //import { listReducer } from './listReducer';
 import { loginReducer } from './loginReducer';
-import { authReducer } from './authReducer';
+// import { authReducer } from './authReducer';
 
 const rootReducer = combineReducers({
   organization: orgReducer,
@@ -17,8 +17,8 @@ const rootReducer = combineReducers({
   // loggedInOrganization: orgReducer,
   selectedBoard: boardReducer,
   selectedCard: cardReducer,
-  user: loginReducer,
-  auth: authReducer
+  user: loginReducer
+  // auth: authReducer
 });
 
 export default rootReducer;

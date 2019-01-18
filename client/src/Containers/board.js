@@ -148,6 +148,7 @@ class Board extends Component {
       newCardIds.splice(source.index, 1);
       // insert the card into the card id list
       newCardIds.splice(destination.index, 0, draggableId);
+
       const sameListSocketObj = {
         listId: startList.id,
         cardId: draggableId,
