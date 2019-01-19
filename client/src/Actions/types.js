@@ -43,3 +43,5 @@ export const ADD_COMMENT = 'ADD_COMMENT';
 
 export const EMAIL_ERR = 'EMAIL_ERR';
 
+export const UPDATE_BOARD = 'UPDATE_BOARD';
+

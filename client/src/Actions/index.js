@@ -12,7 +12,8 @@ import {
   // ADD_CARD,
   FETCH_ERR,
   ADD_COMMENT,
-  EMAIL_ERR
+  EMAIL_ERR,
+  UPDATE_BOARD
 } from './types';
 
 const email = localStorage.getItem('email');
@@ -229,7 +230,7 @@ export const updateList = (listID, listName) => dispatch => {
 };
 
 export const updateCard = (cardId, propsToUpdate) => dispatch => {
-  console.log('THINGS', cardId, propsToUpdate);
+  // console.log('THINGS', cardId, propsToUpdate);
   fetch(`/api/card/${cardId}`, {
     method: 'PUT',
     headers: {
@@ -241,7 +242,9 @@ export const updateCard = (cardId, propsToUpdate) => dispatch => {
   })
     .then(response => response.json())
     .then(data => {
-      dispatch({ type: FETCH_CARD_INFO, payload: { data, id: cardId } });
+      console.log('response from server. called updateCard(). Data is: ', data)
+      dispatch({ type: UPDATE_BOARD, payload: data});
+      // dispatch({ type: FETCH_CARD_INFO, payload: { data, id: cardId } });
     });
 };
 

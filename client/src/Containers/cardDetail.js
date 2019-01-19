@@ -101,13 +101,13 @@ class CardDetail extends Component {
     this.setState({ list });
   };
 
+  // *********** UPDATE CARD COMMENTS ************ //
   updateCardComment = () => {
       var input = document.getElementById('comment');
       if (input.value) {
-        console.log(input.value)
         //send to server
         this.props.addComment(this.props.match.params.cardID, input.value);
-        //reset value of input to null, and css visibility to hidden
+        //reset value of input to null
         input.value = '';
       }
   };
