@@ -14,7 +14,6 @@ class CardDetail extends Component {
       editTitle: false,
       editDesc: false,
       actualSelectedCard: {},
-      comment: ""
     };
   }
 
@@ -26,8 +25,18 @@ class CardDetail extends Component {
     }
   };
 
-  componentWillReceiveProps = nextProps => {
-    this.setState({ card: nextProps.selectedCard.selected });
+  // componentDidUpdate = prevProps => {
+  //   console.log('PREV PROPS', prevProps.selectedCard.selected);
+  //   console.log('THIS PROPS', this.props.selectedCard.selected);
+  // }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('THIS PROPS', this.props.selectedCard.selected);
+    console.log('NEXT PROPS', nextProps.selectedCard.selected);
+    if (this.props.selectedCard.selected !== nextProps.selectedCard.selected){
+      console.log('YOU MaDE IT HERE. changes to be made.')
+      this.setState({ card: nextProps.selectedCard.selected });
+    }
   };
 
   archiveCard = card => {
@@ -92,11 +101,17 @@ class CardDetail extends Component {
     this.setState({ list });
   };
 
-  updateCardComment = e => {
-    let comment = this.state.card.comment;
-    comment = e.target.value;
-    this.setState({ comment: comment }, () => updateServerCard("comment", comment));
+  updateCardComment = () => {
+      var input = document.getElementById('comment');
+      if (input.value) {
+        console.log(input.value)
+        //send to server
+        this.props.addComment(this.props.match.params.cardID, input.value);
+        //reset value of input to null, and css visibility to hidden
+        input.value = '';
+      }
   };
+
 
   render() {
     const { editTitle, editDesc, card } = this.state;
@@ -259,8 +274,8 @@ class CardDetail extends Component {
               />
               <h3 style={{ display: 'inline' }}>Add Comment</h3>
               <br />
-              <textarea                   
-                onKeyPress = {e => e.key === 'Enter' ? this.updateCardComment(e) : null} 
+              <textarea                
+                onKeyPress = {e => e.key === 'Enter' ? this.updateCardComment() : null} 
                 name="comment" 
                 id="comment" 
                 cols="30" 

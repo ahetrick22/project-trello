@@ -37,3 +37,5 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const FETCH_ERR = 'FETCH_ERR';
 
 export const LOGIN_ERR = 'LOGIN_ERR';
+
+export const ADD_COMMENT = 'ADD_COMMENT';

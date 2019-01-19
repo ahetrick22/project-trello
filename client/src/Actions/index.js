@@ -9,7 +9,8 @@ import {
   ADD_BOARD,
   LOGIN_ERR,
   // ADD_CARD,
-  FETCH_ERR
+  FETCH_ERR,
+  ADD_COMMENT
 } from './types';
 
 const email = localStorage.getItem('email');
@@ -248,3 +249,23 @@ export const updateBoard = (boardId, boardName) => dispatch => {
       dispatch({ type: ADD_BOARD, payload: data });
     });
 };
+
+export const addComment = (cardId, cardText) => dispatch =>
+{
+  fetch(`/api/card/${cardId}/comment`, {
+    method: 'POST',
+    body: JSON.stringify({
+      text: cardText
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+      email: email,
+      Authorization: `bearer ${token}`
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('return from server, comment: ', data)
+      dispatch({ type: ADD_COMMENT, payload: data });
+    });
+}
