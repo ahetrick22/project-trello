@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 //import FlexContainer from 'react-styled-flexbox';
 import { FaHome, FaSignOutAlt } from 'react-icons/fa';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as actions from '../Actions';
 import { withRouter } from 'react-router';
 

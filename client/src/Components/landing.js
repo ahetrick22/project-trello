@@ -1,9 +1,6 @@
 import React, { Component, Fragment } from "react";
 import * as actions from "../Actions";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-
-
 
 class Landing extends Component {
   componentDidMount() {
@@ -12,9 +9,6 @@ class Landing extends Component {
 
     }
   }
-
-  
-
 
   render() {
     console.log(this.props)
