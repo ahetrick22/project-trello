@@ -62,8 +62,6 @@ class login extends Component {
     // this.props.history.push('/org')
   };
   render() {
-    console.log(this.props);
-
     if (this.props.user.authenticated && this.props.user !== "undefined") {
       
       return <Redirect to="/org" />;

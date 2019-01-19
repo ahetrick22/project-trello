@@ -1,7 +1,6 @@
 
 import {FETCH_ERR, LOGIN_ERR, LOGIN, EMAIL_ERR} from '../Actions/types'
 
-
 export const errorReducer = (state = null, action) => {
   switch (action.type) {
     case FETCH_ERR:
