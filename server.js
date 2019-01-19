@@ -20,11 +20,11 @@ app.use(
 
 app.use(cors());
 
-// app.use((req, res, next) => {
-//   res.append('Access-Control-Allow-Headers', ['Content-Type']);
-//   res.append('Content-Type','application/json');
-//   next();
-// });
+app.use((req, res, next) => {
+   res.append('Access-Control-Allow-Headers', ['email']);
+   res.append('Content-Type','application/json');
+   next();
+});
 
 const mainRoutes = require('./routes/main');
 const hardCodedData = require('./routes/hard-coded-data');
