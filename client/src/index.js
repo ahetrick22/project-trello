@@ -27,7 +27,7 @@ render(
           <Switch>
             <Redirect exact path from="/" to="/login" />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/org" component={Organization} />
+            <Route exact path="/org" render={() => <Organization />} />
             <Route exact path="/boards/:boardID" component={Board} />
             <Route exact path="/cards/:cardID" component={Board} />
           </Switch>
