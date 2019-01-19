@@ -39,7 +39,9 @@ class login extends Component {
     this.props.fetchLogin(this.state.email, this.state.password);
     // this.props.history.push('/org')
   };
-
+  componentWillUnmount = () => {
+    window.location.reload();
+  }
   logInError = () => {
     if (this.props.error === 'login') {
       console.log('ERRRR');
