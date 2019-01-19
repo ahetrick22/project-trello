@@ -13,6 +13,15 @@ mongoose.connect(keys.MONGODB_URI);
 
 app.enable('trust proxy');
 
+
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Headers', ['email', 'Authorization', 'x-forwarded-proto', 'host']);
+  //res.append('Content-Type','application/json');
+  next();
+});
+
+app.use(cors());
+
 if (process.env.NODE_ENV === 'production') {
 app.use(function(req, res, next){
   if(req.header('x-forwarded-proto') !== 'https'){
@@ -22,14 +31,6 @@ app.use(function(req, res, next){
   }
 })
 }
-
-app.use(cors());
-
-app.use((req, res, next) => {
-   res.append('Access-Control-Allow-Headers', ['email', 'Authorization']);
-   //res.append('Content-Type','application/json');
-   next();
-});
 
 app.use(bodyParser.json());
 app.use(
