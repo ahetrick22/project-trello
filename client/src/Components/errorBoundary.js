@@ -38,8 +38,8 @@ function mapStateToProps({ error }) {
   return { error };
 }
 const ErrorModal = styled.div`
-  display: inline-block;
-  position: fixed; /* Stay in place */
+  display: inline-block; 
+  position: relative; /* Stay in place */
   left: 25%;
   top: 25%;
   z-index: 1; /* Sit on top */

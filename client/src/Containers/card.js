@@ -4,6 +4,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { Link } from 'react-router-dom';
 import { COLORS } from '../css/StyleGuide';
 
+
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
