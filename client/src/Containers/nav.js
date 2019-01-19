@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 //import FlexContainer from 'react-styled-flexbox';
 import { FaHome, FaSignOutAlt } from 'react-icons/fa';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as actions from '../Actions';
 import { withRouter } from 'react-router';
 
@@ -71,7 +71,6 @@ export class NavBar extends Component {
   }
 
   render() {
-    if(this.props.user.authenticated){
     return (
       <NavDiv>
         <LeftButtons>
@@ -93,11 +92,8 @@ export class NavBar extends Component {
         </RightButtons>
       </NavDiv>
     )}
-    else {
-      return <Redirect to="/login" />;
-    }
   }
-}
+
 
 function mapStateToProps({ organization, boards, user }) {
   return { organization, boards, user };

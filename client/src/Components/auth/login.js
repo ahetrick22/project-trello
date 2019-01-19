@@ -2,29 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Redirect, withRouter } from 'react-router';
 import { COLORS } from '../../css/StyleGuide';
-//import { Link } from 'react-router-dom';
 import * as actions from '../../Actions';
 import { connect } from 'react-redux';
-// import { getMaxListeners } from "cluster";
-
-// const Title = styled.div`
-//   padding-top: 50px;
-//   padding-left: 555px;
-//   font-size: 20px;
-// `;
-
-// const Button = styled.button`
-//   border: 0;
-//   border-radius: 5px;
-//   font-size: 1.5em;
-//   font-weight: 600;
-//   margin: 10px;
-//   padding: 5px;
-// `;
-
-// const LoginButton = styled.button`
-//   background-color: #4caf50;
-// `;
 
 class login extends Component {
   constructor(props) {
@@ -39,7 +18,9 @@ class login extends Component {
     this.props.fetchLogin(this.state.email, this.state.password);
     // this.props.history.push('/org')
   };
-
+  componentWillUnmount = () => {
+    window.location.reload();
+  }
   logInError = () => {
     if (this.props.error === 'login') {
       console.log('ERRRR');
@@ -48,7 +29,7 @@ class login extends Component {
       return (
         <p id="login-err">Invalid Email/Password</p>
       )
-    } else if (this.props.error == 'email_err'){
+    } else if (this.props.error === 'email_err'){
       return (
         <p id="login-err">Email in use</p>
 
@@ -59,7 +40,6 @@ class login extends Component {
 
   onRegister = () => {
     this.props.fetchRegister(this.state.email, this.state.password);
-    // this.props.history.push('/org')
   };
   render() {
     if (this.props.user.authenticated && this.props.user !== "undefined") {
@@ -148,15 +128,6 @@ class login extends Component {
     }
   }
 }
-
-// const ERR_MSG = styled('div')`
-//   p {
-//   color: 'green';
-//   font-family: ${TYPEFACE};
-//   font-size:10.3em;
-//   font-weight: 500;
-//   }
-// `;
 
 const LoginCss = styled('div')`
   h1,

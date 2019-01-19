@@ -11,20 +11,33 @@ const Board = require('./models/board');
 
 mongoose.connect(keys.MONGODB_URI);
 
+app.enable('trust proxy');
+
+
+app.use((req, res, next) => {
+  res.append('Access-Control-Allow-Headers', ['email', 'Authorization', 'x-forwarded-proto', 'host']);
+  //res.append('Content-Type','application/json');
+  next();
+});
+
+app.use(cors());
+
+if (process.env.NODE_ENV === 'production') {
+app.use(function(req, res, next){
+  if(req.header('x-forwarded-proto') !== 'https'){
+    res.redirect('https://' + req.header('host') + req.url);
+  }else{
+    next();
+  }
+})
+}
+
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: true
   })
 );
-
-app.use(cors());
-
-// app.use((req, res, next) => {
-//   res.append('Access-Control-Allow-Headers', ['Content-Type']);
-//   res.append('Content-Type','application/json');
-//   next();
-// });
 
 const mainRoutes = require('./routes/main');
 const hardCodedData = require('./routes/hard-coded-data');
