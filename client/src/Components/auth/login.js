@@ -1,7 +1,7 @@
-
-import React, { Component } from "react";
-import styled from "styled-components";
-import { Redirect, withRouter } from "react-router";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Redirect, withRouter } from 'react-router';
+import { COLORS } from '../../css/StyleGuide';
 //import { Link } from 'react-router-dom';
 import * as actions from '../../Actions';
 import { connect } from 'react-redux';
@@ -35,100 +35,128 @@ class login extends Component {
     };
   }
 
-
   onSubmit = () => {
     this.props.fetchLogin(this.state.email, this.state.password);
-    this.props.history.push('/org')
-    
+    // this.props.history.push('/org')
   };
 
-  
+  logInError = () => {
+    if (this.props.error === 'login') {
+      console.log('ERRRR');
+
+
+      return (
+        <p id="login-err">Invalid Email/Password</p>
+      )
+    } else if (this.props.error == 'email_err'){
+      return (
+        <p id="login-err">Email in use</p>
+
+      )
+
+    }
+  };
+
   onRegister = () => {
     this.props.fetchRegister(this.state.email, this.state.password);
-    this.props.history.push('/org')
-
-  }
+    // this.props.history.push('/org')
+  };
   render() {
-    console.log(this.props);
-
-    if(this.props.user.authenticated){
-    
-     return (
-
-      <Redirect to='/org' /> 
-
-     )      
+    if (this.props.user.authenticated && this.props.user !== "undefined") {
+      
+      return <Redirect to="/org" />;
     } else {
-
-    return (
-      <LoginCss>
-        <div className="limiter">
-          <div className="container-login100">
-            <div className="wrap-login100">
-              <div className="login100-form validate-form">
-                <span className="welcome login100-form-title p-b-26">
-                  Welcome
-                </span>
-                <span className="login100-form-title p-b-48">
-                  <i className="zmdi zmdi-font" />
-                </span>
-                <div
-                  className="wrap-input100 validate-input"
-                  data-validate="Valid email is: a@b.c"
-                >
-                  <input
-                    className="input100"
-                    type="text"
-                    name="email"
-                    value={this.state.email}
-                    onChange={event =>
-                      this.setState({ email: event.target.value })
-                    }
-                  />
-                  <span className="focus-input100" data-placeholder="Email" />
-                </div>
-                <div
-                  className="wrap-input100 validate-input"
-                  data-validate="Enter password"
-                >
-                  <span className="btn-show-pass">
-                    <i className="zmdi zmdi-eye" />
+      return (
+        <LoginCss>
+          <div className="limiter">
+            <div className="container-login100">
+              <div className="wrap-login100">
+                <div className="login100-form validate-form">
+                  <span className="welcome login100-form-title p-b-26">
+                    Welcome
                   </span>
-                  <input
-                    className="input100"
-                    type="password"
-                    name="pass"
-                    value={this.state.password}
-                    onChange={event =>
-                      this.setState({ password: event.target.value })
-                    }
-                  />
-                  <span
-                    className="focus-input100"
-                    data-placeholder="Password"
-                  />
-                </div>
-                <div className="container-login100-form-btn">
-                    <button className="login100-form-btn" onClick={() => this.onSubmit()}>
+                  <span className="welcome login100-form-title p-b-26">
+                    <p>Please log in</p>
+                  </span>
+                  <span className="welcome login-err login100-form-title p-b-26">
+                    {this.logInError()}
+                  </span>
+                  <span className="login100-form-title p-b-48">
+                    <i className="zmdi zmdi-font" />
+                  </span>
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Valid email is: a@b.c"
+                  >
+                    <input
+                      className="input100"
+                      type="text"
+                      name="email"
+                      value={this.state.email}
+                      onChange={event =>
+                        this.setState({ email: event.target.value })
+                      }
+                    />
+                    <span className="focus-input100" data-placeholder="Email" />
+                  </div>
+                  <div
+                    className="wrap-input100 validate-input"
+                    data-validate="Enter password"
+                  >
+                    <span className="btn-show-pass">
+                      <i className="zmdi zmdi-eye" />
+                    </span>
+                    <input
+                      className="input100"
+                      type="password"
+                      name="pass"
+                      value={this.state.password}
+                      onChange={event =>
+                        this.setState({ password: event.target.value })
+                      }
+                    />
+                    <span
+                      className="focus-input100"
+                      data-placeholder="Password"
+                    />
+                  </div>
+                  <div className="container-login100-form-btn">
+                    <button
+                      className="login100-form-btn"
+                      onClick={() => this.onSubmit()}
+                    >
                       Login
-						    	  </button>
-                </div>
-                    <br />
-                    <button className="register100-form-btn" onClick={() => this.onRegister()}>
-                      Register
                     </button>
+                  </div>
+                  <br />
+                  <button
+                    className="register100-form-btn"
+                    onClick={() => this.onRegister()}
+                  >
+                    Register
+                  </button>
+                </div>
+
+                <p className="guestLogin">
+                  <a href="/org">Login As Guest</a>
+                </p>
               </div>
-
-              <p className="guestLogin"><a href='/org'>Login As Guest</a></p>
-
             </div>
           </div>
-        </div>
-      </LoginCss>
-    );
+        </LoginCss>
+      );
+    }
   }
 }
-}
+
+// const ERR_MSG = styled('div')`
+//   p {
+//   color: 'green';
+//   font-family: ${TYPEFACE};
+//   font-size:10.3em;
+//   font-weight: 500;
+//   }
+// `;
 
 const LoginCss = styled('div')`
   h1,
@@ -293,7 +321,7 @@ const LoginCss = styled('div')`
   /*------------------------------------------------------------------
 [ Form ]*/
 
-  .welcome.login100-form-title{
+  .welcome.login100-form-title {
     padding-bottom: 45px;
   }
 
@@ -409,7 +437,7 @@ const LoginCss = styled('div')`
   .btn-show-pass {
     font-size: 15px;
     color: #999999;
-    
+
     /* display: -webkit-box; */
     /* display: -webkit-flex; */
     display: -moz-box;
@@ -470,7 +498,7 @@ const LoginCss = styled('div')`
   .login100-form-btn {
     font-family: Cambria;
     font-size: 15px;
-    background-color: #4BBF6B;
+    background-color: ${COLORS.primary};
     color: white;
     line-height: 1.6;
     text-transform: uppercase;
@@ -487,17 +515,17 @@ const LoginCss = styled('div')`
     height: 50px;
     border-radius: 40px;
     :active {
-    transform: translateY(4px);
+      transform: translateY(4px);
     }
     :hover {
-    background-color: #3e8e41 
+      background-color: #3e8e41;
     }
   }
 
-    .register100-form-btn {
+  .register100-form-btn {
     font-family: Cambria;
     font-size: 15px;
-    background-color: #4BBF6B;
+    background-color: ${COLORS.primary};
     color: white;
     line-height: 1.6;
     text-transform: uppercase;
@@ -514,10 +542,10 @@ const LoginCss = styled('div')`
     height: 50px;
     border-radius: 40px;
     :hover {
-    background-color: #3e8e41 
+      background-color: #3e8e41;
     }
     :active {
-    transform: translateY(4px);
+      transform: translateY(4px);
     }
   }
 
@@ -612,15 +640,16 @@ const LoginCss = styled('div')`
   }
 `;
 
-
-const mapStateToProps = ({ user }) => {
-
+const mapStateToProps = ({ user, error }) => {
   return {
-    user
+    user,
+    error
   };
 };
 
-export default withRouter(connect(
-  mapStateToProps,
-  actions
-)(login));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    actions
+  )(login)
+);

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import List from './list';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { FaPencilAlt } from 'react-icons/fa'
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { StyledButton } from '../Components/styledButton';
@@ -21,11 +22,9 @@ class Board extends Component {
       listOrder: [],
       lists: {},
       boardName: '',
-      editBoardName: false,
+      editBoardName: false
     };
   }
-
-
 
   handleNewListClickEvent = () => {
     var newListAreaElement = document.getElementById('newListArea');
@@ -78,7 +77,11 @@ class Board extends Component {
         };
         list.cards.forEach(card => {
           listItem.cardIds.push(card._id);
-          newCardsArray.push({ id: card._id, content: card.title });
+          newCardsArray.push({
+            id: card._id,
+            content: card.title,
+            label: card.label
+          });
         });
         newListsArray.push(listItem);
       });
@@ -217,11 +220,11 @@ class Board extends Component {
     console.log('props: ', this.props);
     //as click "Enter"
     if (e.key === 'Enter') {
-      console.log( 'id:',this.props.board._id)
-      console.log('board.name:', this.props.board.name)
-      console.log('boardName:', this.state.boardName)
-      console.log('e', e.target.value)
-     
+      console.log('id:', this.props.board._id);
+      console.log('board.name:', this.props.board.name);
+      console.log('boardName:', this.state.boardName);
+      console.log('e', e.target.value);
+
       this.props.updateBoard(this.props.board._id, this.state.boardName);
       this.setState({ editBoardName: false });
     } else {
@@ -234,6 +237,9 @@ class Board extends Component {
     return (
       <Fragment>
         <InfoBar>
+          <EditSymbol>
+            <FaPencilAlt />
+        </EditSymbol>
           {editBoardName ? (
             //On Double click, open input field for Board Name
             <TextInput
@@ -242,13 +248,11 @@ class Board extends Component {
               value={boardName}
               onChange={e => this.setState({ boardName: e.target.value })}
               onKeyPress={e => this.updateBoardName(e)}
-
             />
           ) : (
-
             // Else render header with Board name
             <h3 onDoubleClick={() => this.setState({ editBoardName: true })}>
-              {this.props.board.name} | Project Shift
+              {this.props.board.name} | Project Shift           
             </h3>
           )}
           <StyledButton onClick={this.handleNewListClickEvent}>
@@ -261,37 +265,36 @@ class Board extends Component {
             {!this.state.listOrder ? (
               <p>'...Loading'</p>
             ) : (
-                <Droppable
-                  droppableId="all-lists"
-                  direction="horizontal"
-                  type="column"
-                >
-                  {provided => (
-                    <Container
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                    >
-                      {this.state.listOrder.map((listId, index) => {
-                        const list = this.state.lists[listId];
-                        const cards = list.cardIds.map(
-                          taskId => this.state.cards[taskId]
-                        );
+              <Droppable
+                droppableId="all-lists"
+                direction="horizontal"
+                type="column"
+              >
+                {provided => (
+                  <Container
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {this.state.listOrder.map((listId, index) => {
+                      const list = this.state.lists[listId];
+                      const cards = list.cardIds.map(
+                        taskId => this.state.cards[taskId]
+                      );
 
-                        return (
-                          <List
-                            key={list.id}
-                            column={list}
-                            cards={cards}
-                            index={index}
-                            
-                          />
-                        );
-                      })}
-                      {provided.placeholder}
-                    </Container>
-                  )}
-                </Droppable>
-              )}
+                      return (
+                        <List
+                          key={list.id}
+                          column={list}
+                          cards={cards}
+                          index={index}
+                        />
+                      );
+                    })}
+                    {provided.placeholder}
+                  </Container>
+                )}
+              </Droppable>
+            )}
           </DragDropContext>
           <NewListArea id="newListArea" style={{ visibility: 'hidden' }}>
             <h3>New list name</h3>
@@ -346,6 +349,10 @@ const TextInput = styled.input`
   height: 30px;
   font-size: 20px;
 `;
+
+const EditSymbol = styled.div`
+  margin-right: 5px;
+`
 
 function mapStateToProps({ selectedBoard, boards }) {
   return {

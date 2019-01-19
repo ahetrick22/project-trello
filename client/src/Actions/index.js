@@ -3,6 +3,7 @@ import {
   FETCH_BOARDS,
   FETCH_BOARD,
   LOGIN,
+  LOGOUT,
   FETCH_CARD_INFO,
   //  FETCH_LISTS,
   //  ADD_LIST
@@ -11,6 +12,7 @@ import {
   // ADD_CARD,
   FETCH_ERR,
   ADD_COMMENT
+  EMAIL_ERR
 } from './types';
 
 const email = localStorage.getItem('email');
@@ -38,11 +40,11 @@ export const fetchLogin = (email, password) => dispatch => {
 };
 
 export const signout = () => {
-  localStorage.removeItem('token');
   localStorage.removeItem('email');
+  localStorage.removeItem('token');
 
   return {
-    type: LOGIN,
+    type: LOGOUT,
     payload: ''
   };
 };
@@ -62,41 +64,52 @@ export const fetchRegister = (email, password) => dispatch => {
     .then(res => res.json())
     .then(response => {
       console.log(response);
+      if(response.error){
+        dispatch({type:EMAIL_ERR,data:{}})
+      } else {
       dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
-
-    })
-    .catch(() => dispatch({ type: LOGIN_ERR, data: {} }));
+    }})
+    .catch(() => dispatch({ type: EMAIL_ERR, data: {} }));
 };
 
 export const fetchOrg = orgID => async dispatch => {
-  try {
-    let promise = await fetch(`/api/organizations`, {
+
+    fetch(`/api/organizations`, {
       headers: {
         email: email,
         Authorization: `bearer ${token}`
       }
-    });
-    let data = await promise.json();
-    dispatch({ type: FETCH_ORG, payload: data });
-  } catch {
-    dispatch({ type: FETCH_ERR, payload: {} });
-  }
+    }).then(r => r.json())
+      .then(data => {
+          dispatch({ type: FETCH_ORG, payload: data });
+        }).catch(res => {
+          console.log(res)
+          dispatch({ type: FETCH_ERR, payload: {} });
+        })
+  
 };
 
 export const fetchBoards = () => async dispatch => {
-  try {
-    let promise = await fetch(`/api/boards`, {
+    fetch(`/api/boards`, {
       headers: {
         email: email,
         Authorization: `bearer ${token}`
       }
-    });
-
-    let data = await promise.json();
-    dispatch({ type: FETCH_BOARDS, payload: data });
-  } catch {
-    dispatch({ type: FETCH_ERR, payload: {} });
-  }
+    })
+      .then(r => {
+        console.log(r.status)
+        if(r.status === 401){
+          console.log(401111)
+          return dispatch({type:LOGIN_ERR, payload:{}})
+        }
+        return r.json()
+      })
+      .then(data => dispatch({ type: FETCH_BOARDS, payload: data }))
+      .catch(res => {
+        console.log(res)
+        dispatch({ type: FETCH_ERR, payload: {} });
+      });
+  
 };
 
 export const fetchBoard = boardID => dispatch => {

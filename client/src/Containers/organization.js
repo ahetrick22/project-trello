@@ -15,6 +15,7 @@ class Organization extends Component {
   }
 
   componentDidMount = async () => {
+    console.log('component mounted')
     await this.props.fetchOrg();
     //this fetchboards currently will only ever return one org boards - NO args
     await this.props.fetchBoards();
