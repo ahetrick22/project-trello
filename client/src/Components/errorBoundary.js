@@ -1,59 +1,36 @@
-import React, { Component } from 'react'
-import {Redirect, withRouter} from 'react-router-dom'
-import * as actions from "../Actions";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import * as actions from '../Actions';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 
-
 class ErrorBoundary extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = { error: false, errorInfo: null };
-  //   console.log('this.state.error:', this.state.error);
-  //   console.log('this.props.error', this.props.error);
-  // }
 
-  componentWillReceiveProps() {
-    // this.setState({error: true})
-    // console.log('this.state.error2:', this.state.error);
-    console.log('this.props.erro2r', this.props.error);
-    
-    }
-  
 
   // You can also log error messages to an error reporting service here
 
   render() {
     if (this.props.error === 'fetch') {
-    console.log(this.props);
-      return (
-        <ErrorModal>
-          <ErrorModalHeader> 
-            <p>We're sorry; it looks like something went wrong loading your data.</p>
-            {/* <CloseButton>&times;</CloseButton>  */}
-          </ErrorModalHeader>
-          <ErrorModalContent>           
-            <p>Please refresh the page or return home and try again</p>
-          </ErrorModalContent>
-          <ErrorModalFooter></ErrorModalFooter>
-        </ErrorModal>
-      )
-    }
-    else if(this.props.error === 'login'){
+      //this sometimes fixes but will get stuck in an infinite loop so be careful
+      // window.location.reload();
+
       return (
         <ErrorModal>
           <ErrorModalHeader>
-            <p>Invalid login, the email may be in use, please try another email</p>
+            <p>
+              We're sorry; it looks like something went wrong loading your data.
+            </p>
+            {/* <CloseButton>&times;</CloseButton>  */}
           </ErrorModalHeader>
-
-          <ErrorModalFooter></ErrorModalFooter>
+          <ErrorModalContent>
+            <p>Please refresh the page or return home and try again</p>
+          </ErrorModalContent>
+          <ErrorModalFooter />
         </ErrorModal>
-      )
-
-    }
-    else {
-      return this.props.children
+      );
+    } else {
+      return this.props.children;
     }
   }
 }
@@ -67,10 +44,10 @@ const ErrorModal = styled.div`
   top: 25%;
   z-index: 1; /* Sit on top */
   margin: 0 auto;
-  width: 50%; 
-  height: 25%; 
+  width: 50%;
+  height: 25%;
   border: 3px solid red;
-  background-color: ${COLORS.secondary}; 
+  background-color: ${COLORS.secondary};
 `;
 
 const ErrorModalContent = styled.div`
@@ -79,7 +56,7 @@ const ErrorModalContent = styled.div`
   padding: 1em;
   font-family: ${TYPEFACE};
   border: 1px solid red;
-  width: 80%; 
+  width: 80%;
 `;
 
 const ErrorModalHeader = styled.div`
@@ -93,41 +70,24 @@ const ErrorModalFooter = styled.div`
   background-color: red;
 `;
 
-const CloseButton = styled.div`
-  color: black;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-  &:hover {
-    cursor: pointer;
-  }
-  &:focus {
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-  }
-`;
-
-
-export default withRouter(connect(
-  mapStateToProps,
-  actions
-)(ErrorBoundary))
-
-
-
-
-
-
-// display: none; 
-//   position: relative;
-//   z-index: 1,  // sit on top
-//   padding: 1em;
-//   background: ${COLORS.secondary};
-//   font-family: ${TYPEFACE};
-//   width: 50%;
-//   margin: 2em auto ;
-//   border-radius: 5%;
+// const CloseButton = styled.div`
+//   color: black;
+//   float: right;
+//   font-size: 28px;
+//   font-weight: bold;
+//   &:hover {
+//     cursor: pointer;
+//   }
+//   &:focus {
+//     color: white;
+//     text-decoration: none;
+//     cursor: pointer;
+//   }
 // `;
 
-
+export default withRouter(
+  connect(
+    mapStateToProps,
+    actions
+  )(ErrorBoundary)
+);

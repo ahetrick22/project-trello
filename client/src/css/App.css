@@ -69,3 +69,10 @@ position: fixed;
   display: none;
 }
 
+#login-err {
+  color:#CF2A27;
+  font-size:0.6em;
+  font-family:'Helvetica Neue';
+
+}
+

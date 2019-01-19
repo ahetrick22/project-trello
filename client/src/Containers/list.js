@@ -7,7 +7,7 @@ import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { TiTimes } from 'react-icons/ti';
 import CardDetail from './cardDetail';
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 class List extends React.Component {
   constructor(props) {
@@ -17,32 +17,33 @@ class List extends React.Component {
       editTitle: false,
       listInputHidden: true,
       listInput: '',
-      modalOpen: false,
+      modalOpen: false
     };
-    console.log('list props.cards:', this.props.cards)
-    console.log('list state:', this.state)
-   
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.displayModal = this.displayModal.bind(this)
   }
   showModal = () => {
-    console.log(this.state)
-    this.setState({ modalOpen: true })
-  }
+    console.log(this.state);
+    this.setState({ modalOpen: true });
+  };
   hideModal = () => {
-    this.setState({ modalOpen: false })
-  }
+    this.setState({ modalOpen: false });
+  };
 
   displayModal = () => {
-    if(this.state.modalOpen){
+    if (this.state.modalOpen) {
       return (
         <WholeModalView>
-      <CardDetail show={this.state.modalOpen} handleClose={this.hideModal} props={this.props} />    
-      </WholeModalView >)
+          <CardDetail
+            show={this.state.modalOpen}
+            handleClose={this.hideModal}
+            props={this.props}
+          />
+        </WholeModalView>
+      );
     }
-
-  }
+  };
 
   componentDidMount() {
     // Set local card state to card from redux store
@@ -110,16 +111,12 @@ class List extends React.Component {
   };
 
   render() {
-    // if (!this.props.selectedBoard) {
-    //   return <div>Loading...</div>
-    // } else {
     const { editTitle, listTitle } = this.state;
     const cardLength = this.props.cards.length;
     return (
       <Fragment>
-        
         {this.displayModal()}
-         <Draggable draggableId={this.props.column.id} index={this.props.index}>
+        <Draggable draggableId={this.props.column.id} index={this.props.index}>
           {provided => (
             <Container {...provided.draggableProps} ref={provided.innerRef}>
               <ListHeader>
@@ -157,7 +154,12 @@ class List extends React.Component {
                     isDraggingOver={snapshot.isDraggingOver}
                   >
                     {this.props.cards.map((card, index) => (
-                     <Card key={card.id} card={card} index={index} showModal={this.showModal}  />
+                      <Card
+                        key={card.id}
+                        card={card}
+                        index={index}
+                        showModal={this.showModal}
+                      />
                     ))}
                     {/* label={this.props.selectedBoard.lists.cards[index].label} */}
                     {provided.placeholder}
@@ -229,13 +231,13 @@ const TextInput = styled.input`
 `;
 
 const CardList = styled.div`
-   padding: 0 8px 8px 8px;
-   transition: background-color 0.5s ease;
-   background-color: ${props =>
-     props.isDraggingOver ? 'lightgrey' : 'inherit'};
-   flex-grow: 1;
-   overflow: auto;
-   height: 100%;
+  padding: 0 8px 8px 8px;
+  transition: background-color 0.5s ease;
+  background-color: ${props =>
+    props.isDraggingOver ? 'lightgrey' : 'inherit'};
+  flex-grow: 1;
+  overflow: auto;
+  height: 100%;
 `;
 
 const CardInputField = styled('div')`
@@ -247,13 +249,13 @@ height: 100%;
 margin: 10px;
 `;
 
-const WholeModalView = styled("div")`
+const WholeModalView = styled('div')`
   position: fixed;
   left: 0;
   top: 0;
   z-index: 10;
-  ::first-child{
-    border:10px solid black;
+  ::first-child {
+    border: 10px solid black;
   }
 `;
 
@@ -263,10 +265,11 @@ function mapStateToProps({ boards }) {
   };
 }
 
-export default withRouter(connect(
-  mapStateToProps,
-  actions
-)(List))
-;
+export default withRouter(
+  connect(
+    mapStateToProps,
+    actions
+  )(List)
+);
 
 //const PRIMARY_COLOR = '#';
