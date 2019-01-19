@@ -12,6 +12,7 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.props.error === 'fetch') {
+      console.log(this.props)
       //this sometimes fixes but will get stuck in an infinite loop so be careful
       // window.location.reload();
 

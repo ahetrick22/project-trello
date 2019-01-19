@@ -71,7 +71,6 @@ export class NavBar extends Component {
   }
 
   render() {
-    if(this.props.user.authenticated){
     return (
       <NavDiv>
         <LeftButtons>
@@ -93,11 +92,8 @@ export class NavBar extends Component {
         </RightButtons>
       </NavDiv>
     )}
-    else {
-      return <Redirect to="/login" />;
-    }
   }
-}
+
 
 function mapStateToProps({ organization, boards, user }) {
   return { organization, boards, user };
