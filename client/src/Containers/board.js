@@ -237,9 +237,9 @@ class Board extends Component {
     return (
       <Fragment>
         <InfoBar>
-          <EditSymbol>
+          <EditSymbol onClick={() => this.setState({ editBoardName: true})}>
             <FaPencilAlt />
-        </EditSymbol>
+          </EditSymbol>
           {editBoardName ? (
             //On Double click, open input field for Board Name
             <TextInput
