@@ -6,7 +6,6 @@ const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const JwtStrategy = require('passport-jwt').Strategy
 const LocalStrategy = require('passport-local')
-const crypto = require('crypto');
 
 //Create local strategy
 
@@ -39,7 +38,6 @@ const jwtOptions = {
    //Does userID exist in our database?
    //If yes, call 'done'
    //If not, call done without user object
-   console.log(payload);
    User.findOne({_id: payload.sub}, function (err, user) {
     if (err) { return done(err, false) }
     if (user) {
