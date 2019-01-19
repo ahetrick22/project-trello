@@ -246,7 +246,6 @@ class Board extends Component {
               value={boardName}
               onChange={e => this.setState({ boardName: e.target.value })}
               onKeyPress={e => this.updateBoardName(e)}
-
             />
           ) : (
 
