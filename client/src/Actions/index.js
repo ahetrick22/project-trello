@@ -11,7 +11,7 @@ import {
   LOGIN_ERR,
   // ADD_CARD,
   FETCH_ERR,
-  ADD_COMMENT
+  ADD_COMMENT,
   EMAIL_ERR
 } from './types';
 
