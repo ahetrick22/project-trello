@@ -24,13 +24,17 @@ app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
 app.use(function(req, res, next){
+  console.log('request', req);
   if(req.header('x-forwarded-proto') !== 'https'){
-    res.redirect('https://' + req.header('host') + req.url);
+    console.log('redirecting', req);
+    res.redirect('https://whispering-anchorage-65843.herokuapp.com' + req.url);
   }else{
     next();
   }
 })
 }
+
+
 
 app.use(bodyParser.json());
 app.use(
