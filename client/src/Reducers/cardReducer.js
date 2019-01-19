@@ -19,11 +19,11 @@ export const cardReducer = (state = {}, action) => {
       data.selected = selected;
       console.log('data', data)
       //console.log('in card reducer', selected)
+      // return state;
       return { ...data };
     case ADD_COMMENT:
       console.log('at card reducer. payload is: ', payload);
-      return {...state, ...payload};
-
+      return {...state, selected: {...state.selected, ...payload}};
     default:
       return state;
   }

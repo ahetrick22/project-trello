@@ -156,7 +156,10 @@ router.post('/api/card/:id/comment', (req, res) => {
                 if (err) throw err;
                 Card.findById(req.params.id)
                   .populate({
-                    path: 'comments'
+                    path: 'comments',
+                    populate: {
+                      path: 'user',
+                    }
                   })
                   .exec((err, fullCard) => {
                     if (err) throw err;
