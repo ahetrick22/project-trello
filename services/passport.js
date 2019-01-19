@@ -29,7 +29,7 @@ if (!user.validPassword(password)) {
 
 // Setup options for JWT Strategy
 const jwtOptions = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('bearer'),
   secretOrKey: keys.TOKEN_SECRET
  }
  
@@ -39,6 +39,7 @@ const jwtOptions = {
    //Does userID exist in our database?
    //If yes, call 'done'
    //If not, call done without user object
+   console.log(payload);
    User.findOne({_id: payload.sub}, function (err, user) {
     if (err) { return done(err, false) }
     if (user) {
