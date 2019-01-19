@@ -25,7 +25,6 @@ const LabelBlob = styled.div`
 
 export default class Card extends React.Component {
   render() {
-    console.log('this props', this.props);
     return (
       <Draggable draggableId={this.props.card.id} index={this.props.index}>
         {(provided, snapshot) => (
