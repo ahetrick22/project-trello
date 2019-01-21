@@ -50,6 +50,10 @@ class List extends React.Component {
     this.setState({ listTitle: this.props.column.title });
   }
 
+  // componentDidUpdate(prevProps) {
+  //   if()
+  // }
+
   renderListInputField = () => {
     if (this.state.listInputHidden) {
       return (
