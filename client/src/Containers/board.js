@@ -11,7 +11,8 @@ import {
   updateSameList,
   updatedList,
   updateDifferentList,
-  newListOrderEvent
+  newListOrderEvent, 
+  errorUpdating
 } from '../api';
 
 class Board extends Component {
@@ -54,6 +55,7 @@ class Board extends Component {
 
   componentWillReceiveProps(nextProps) {
     updatedList(this);
+    errorUpdating();
 
     if (this.props.board !== nextProps.board) {
       var board = nextProps.board;

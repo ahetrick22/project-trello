@@ -86,7 +86,8 @@ router.post('/api/board/:id/list', requireAuth, (req, res) => {
         name: req.body.name,
         board: req.params.id,
         archived: false,
-        cards: []
+        cards: [],
+        frozen: false
       });
 
       console.log('newList to add: ', newList);

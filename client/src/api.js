@@ -25,4 +25,10 @@ const updatedList = self => {
   });
 };
 
-export { updateSameList, updateDifferentList, updatedList, newListOrderEvent };
+const errorUpdating = () => {
+  socket.on('errorUpdating', () => {
+    alert('Someone else is currently moving that same item! Please refresh and try again.');
+  })
+}
+
+export { updateSameList, updateDifferentList, updatedList, newListOrderEvent, errorUpdating };

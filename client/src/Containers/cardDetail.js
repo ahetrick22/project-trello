@@ -5,6 +5,11 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { FaArchive } from 'react-icons/fa';
 import { Link, withRouter } from 'react-router-dom';
+import {
+  updatedList,
+  updateDifferentList,
+  errorUpdating
+} from '../api';
 
 class CardDetail extends Component {
   constructor(props) {
@@ -31,8 +36,8 @@ class CardDetail extends Component {
   // }
 
   componentWillReceiveProps(nextProps) {
-    console.log('THIS PROPS', this.props.selectedCard.selected);
-    console.log('NEXT PROPS', nextProps.selectedCard.selected);
+    updatedList(this);
+    errorUpdating();
     if (this.props.selectedCard.selected !== nextProps.selectedCard.selected){
       console.log('YOU MaDE IT HERE. changes to be made.')
       this.setState({ card: nextProps.selectedCard.selected });
@@ -73,10 +78,11 @@ class CardDetail extends Component {
     this.props.updateCard(card._id, { label: e.target.value });
   };
 
-  // *********** UPDATE CARD LABEL ************ //
+  // *********** UPDATE CARD LIST ************ //
   updateCardList = e => {
     const { card } = this.state;
-    this.props.updateCard(card._id, { list: e.target.value });
+    console.log('updating card list', this.state)
+    //this.props.updateCard(card._id, { list: e.target.value });
   };
 
   // createListItems = () => {

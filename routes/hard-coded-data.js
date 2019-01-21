@@ -90,19 +90,22 @@ router.get('/api/generate-dummy-data', async (req, res) => {
   const board1 = new Board({
     name: 'Project Reddit',
     lists: [],
-    organization: org1
+    organization: org1,
+    frozen: false
   })
 
   const board2 = new Board({
     name: 'To-do List',
     lists: [],
-    organization: org1
+    organization: org1,
+    frozen: false
   })
 
   const board3 = new Board({
     name: 'Hello World',
     lists: [],
-    organization: org1
+    organization: org1,
+    frozen: false
   })
 
   //6 lists - 2 lists per board
@@ -110,42 +113,48 @@ router.get('/api/generate-dummy-data', async (req, res) => {
     name: 'Do the things',
     board: board1,
     cards: [],
-    archived: false
+    archived: false,
+    frozen: false
   })
 
   const list2 = new List({
     name: 'Eat snacks',
     board: board1,
     cards: [],
-    archived: false
+    archived: false,
+    frozen: false
   })
   
   const list3 = new List({
     name: 'Finish things',
     board: board2,
     cards: [],
-    archived: false
+    archived: false,
+    frozen: false
   })
 
   const list4 = new List({
     name: 'I am a list',
     board: board2,
     cards: [],
-    archived: false
+    archived: false,
+    frozen: false
   })
 
   const list5 = new List({
     name: 'Do ALL the things',
     board: board3,
     cards: [],
-    archived: false
+    archived: false,
+    frozen: false
   })
 
   const list6 = new List({
     name: 'Have awesome demos',
     board: board3,
     cards: [],
-    archived: false
+    archived: false,
+    frozen: false
   })
 
   //12 cards (2 per list)
