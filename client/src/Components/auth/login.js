@@ -21,6 +21,11 @@ class login extends Component {
   componentWillUnmount = () => {
     window.location.reload();
   }
+
+  loginAsGuest = () => {
+    this.props.fetchLogin('test@test.com', 'test');
+  }
+
   logInError = () => {
     if (this.props.error === 'login') {
       console.log('ERRRR');
@@ -118,7 +123,7 @@ class login extends Component {
                 </div>
 
                 <p className="guestLogin">
-                  <a href="/org">Login As Guest</a>
+                  <a href="/org" onClick={this.loginAsGuest}>Login As Guest</a>
                 </p>
               </div>
             </div>
