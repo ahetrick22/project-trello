@@ -33,7 +33,8 @@ if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
         let newBoard = new Board({
           name: req.body.name,
           lists: [],
-          organization: req.params.id
+          organization: req.params.id,
+          frozen: false
         });
 
         newBoard.save((err, savedBoard) => {

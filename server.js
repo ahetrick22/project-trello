@@ -34,8 +34,6 @@ app.use(function(req, res, next){
 })
 }
 
-
-
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -68,51 +66,74 @@ io.on('connection', client => {
   });
 
   function cardMoveSameList ({ socketObj, newState }) {
-    console.log('cardMoveSameList');
     List.findById(socketObj.listId, (err, list) => {
-      list.cards.splice(socketObj.sourceIndex, 1);
-      list.cards.splice(socketObj.destinationIndex, 0, socketObj.cardId);
-      list.save((err, newList) => {
-        if (err) throw err;
-        List.findById(socketObj.listId)
-          .populate({ path: 'cards' })
-          .exec((err, updatedList) => {
-            if (err) throw err;
-            io.emit('updatedList', newState);
-          });
-      });
+      if (!list.frozen) {
+        list.frozen = true;   
+        list.cards.splice(socketObj.sourceIndex, 1);
+        list.cards.splice(socketObj.destinationIndex, 0, socketObj.cardId);
+        list.save((err, newList) => {
+          if (err) throw err;
+              newList.frozen = false;
+              newList.save();
+              io.emit('updatedList', newState);
+            });
+
+      } else {
+        io.emit('errorUpdating');
+      }
     });
   }
 
   function cardMoveDifferentList ({ socketObj, newState }) {
-    console.log('cardMoveDifferentList');
     List.findById(socketObj.startListId, (err, oldList) => {
-      oldList.cards.splice(socketObj.sourceIndex, 1);
-      oldList.save((err, savedOldList) => {
-        if (err) throw err;
-        List.findById(socketObj.finishListId, (err, newList) => {
-          newList.cards.splice(socketObj.destinationIndex, 0, socketObj.cardId);
-          newList.save((err, savedNewList) => {
-            if (err) throw err;
-            io.emit('updatedList', newState);
+      if(!oldList.frozen) {
+        oldList.frozen = true;
+        oldList.cards.splice(socketObj.sourceIndex, 1);
+        oldList.save((err, savedOldList) => {
+          if (err) throw err;
+          List.findById(socketObj.finishListId, (err, newList) => {
+            if(!newList.frozen) {
+              newList.frozen = true;
+              newList.cards.splice(socketObj.destinationIndex, 0, socketObj.cardId);
+              newList.save((err, savedNewList) => {
+                if (err) throw err;
+                savedNewList.frozen = false;
+                savedNewList.save();
+                savedOldList.frozen = false;
+                savedOldList.save();
+                io.emit('updatedList', newState);
+              });
+            } else {
+              savedOldList.frozen = false;
+              savedOldList.save();
+              io.emit('errorUpdating');
+            }
           });
         });
-      });
+      } else {
+        io.emit('errorUpdating');
+      }
     });
   }
 
-  function listMove ({ socketObj, newState }) {
-    console.log('listMove');
+  function listMove ({ socketObj, newState }) {    
     List.findById(socketObj.listId, (err, list) => {
       if (err) throw err;
       Board.findById(list.board._id, (err, board) => {
         if(err) throw err;
-        board.lists.splice(socketObj.sourceIndex, 1);
-        board.lists.splice(socketObj.destinationIndex, 0, socketObj.listId);
-        board.save((err, savedBoard) => {
-          if (err) throw err;
-          io.emit('updatedList', newState);
-        })
+        if (!board.frozen) {
+          board.frozen = true;
+          board.lists.splice(socketObj.sourceIndex, 1);
+          board.lists.splice(socketObj.destinationIndex, 0, socketObj.listId);
+          board.save((err, savedBoard) => {
+            if (err) throw err;
+            savedBoard.frozen = false;
+            savedBoard.save();
+            io.emit('updatedList', newState);
+          })
+        } else {
+          io.emit('errorUpdating');
+        }
       })
     })
   }
