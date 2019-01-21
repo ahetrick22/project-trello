@@ -20,7 +20,7 @@ const LabelBlob = styled.div`
   border-radius: 50%;
   height: 20px;
   width: 20px;
-  background: ${props => props.label || COLORS.primary};
+  background: ${props => props.label || COLORS.secondary};
 `;
 
 export default class Card extends React.Component {
