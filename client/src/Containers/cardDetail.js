@@ -186,8 +186,15 @@ class CardDetail extends Component {
                   className="label"
                   id="label"
                   onChange={this.updateCardLabel}
-                  defaultValue={card.label}
+                  
                 >
+                  <option
+                    selected = "selected"
+                    value="Default"
+                    style={{ backgroundColor: `${COLORS.secondary}`, color: 'black' }}
+                  >
+                    Choose Color
+                  </option>
                   <option
                     value="red"
                     style={{ backgroundColor: 'red', color: 'white' }}
