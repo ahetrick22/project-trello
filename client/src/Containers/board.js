@@ -49,8 +49,21 @@ class Board extends Component {
   };
 
   componentDidMount() {
-    const { boardID } = this.props.match.params;
-    this.props.fetchBoard(boardID);
+    // if(!this.props.params.path === "/cards/:cardID")
+    const { boardID, cardID } = this.props.match.params;
+    if (boardID) {
+      this.props.fetchBoard(boardID);
+    }
+    if (cardID){
+      this.props.history.goBack();
+      // this.props.fetchBoard(this.props.match.params.boardID);
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.boardID && prevProps.match.params.cardID){
+      this.props.fetchBoard(this.props.match.params.boardID);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -356,10 +369,10 @@ const EditSymbol = styled.div`
   margin-right: 5px;
 `
 
-function mapStateToProps({ selectedBoard, boards }) {
+function mapStateToProps({ selectedBoard, selectedCard }) {
   return {
-    board: selectedBoard
-    // organization: boards[0].organization
+    board: selectedBoard,
+    card: selectedCard
   };
 }
 
