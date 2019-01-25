@@ -105,7 +105,9 @@ router.post('/api/board/:id/list', requireAuth, (req, res) => {
         findById(req.params.id)
         .populate({
           path: 'lists',
-          populate: { path: 'cards' }
+          populate: { path: 'cards' },
+          match: { archived: false }//chain here filtering so that archived things don't return
+
         })
         .exec((err, fullBoard) => {
           if (err) throw err;
@@ -141,7 +143,8 @@ router.put('/api/board/:id', requireAuth, (req, res) => {
         Board.findById(id).populate({
           path: 'lists',
           populate: {
-            path: 'cards'
+            path: 'cards',
+            match: { archived: false }//chain here filtering so that archived things don't return
           }
         }).exec((err, fullBoard) => {
           if (err) throw err;

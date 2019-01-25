@@ -25,6 +25,7 @@ router.get('/api/card/:id', requireAuth, (req, res) => {
               path: 'lists',
               populate: {
                 path: 'cards',
+                match: { archived: false }, //chain here filtering so that archived things don't return
                 populate: {
                   path: 'comments',
                   populate: {
@@ -103,6 +104,7 @@ router.put('/api/card/:id', requireAuth, (req, res) => {
                   path: 'lists',
                   populate: {
                     path: 'cards',
+                    match: { archived: false },//chain here filtering so that archived things don't return
                     populate: {
                       path: 'comments',
                       populate: {
