@@ -65,52 +65,52 @@ export const fetchRegister = (email, password) => dispatch => {
     .then(res => res.json())
     .then(response => {
       console.log(response);
-      if(response.error){
-        dispatch({type:EMAIL_ERR,data:{}})
+      if (response.error) {
+        dispatch({ type: EMAIL_ERR, data: {} });
       } else {
-      dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
-    }})
+        dispatch({ type: LOGIN, payload: response }); //depends on what the server returns
+      }
+    })
     .catch(() => dispatch({ type: EMAIL_ERR, data: {} }));
 };
 
 export const fetchOrg = orgID => async dispatch => {
-
-    fetch(`/api/organizations`, {
-      headers: {
-        email: email,
-        Authorization: `bearer ${token}`
-      }
-    }).then(r => r.json())
-      .then(data => {
-          dispatch({ type: FETCH_ORG, payload: data });
-        }).catch(res => {
-          console.log(res)
-          dispatch({ type: FETCH_ERR, payload: {} });
-        })
-  
+  fetch(`/api/organizations`, {
+    headers: {
+      email: email,
+      Authorization: `bearer ${token}`
+    }
+  })
+    .then(r => r.json())
+    .then(data => {
+      dispatch({ type: FETCH_ORG, payload: data });
+    })
+    .catch(res => {
+      console.log(res);
+      dispatch({ type: FETCH_ERR, payload: {} });
+    });
 };
 
 export const fetchBoards = () => async dispatch => {
-    fetch(`/api/boards`, {
-      headers: {
-        email: email,
-        Authorization: `bearer ${token}`
+  fetch(`/api/boards`, {
+    headers: {
+      email: email,
+      Authorization: `bearer ${token}`
+    }
+  })
+    .then(r => {
+      console.log(r.status);
+      if (r.status === 401) {
+        console.log(401111);
+        return dispatch({ type: LOGIN_ERR, payload: {} });
       }
+      return r.json();
     })
-      .then(r => {
-        console.log(r.status)
-        if(r.status === 401){
-          console.log(401111)
-          return dispatch({type:LOGIN_ERR, payload:{}})
-        }
-        return r.json()
-      })
-      .then(data => dispatch({ type: FETCH_BOARDS, payload: data }))
-      .catch(res => {
-        console.log(res)
-        dispatch({ type: FETCH_ERR, payload: {} });
-      });
-  
+    .then(data => dispatch({ type: FETCH_BOARDS, payload: data }))
+    .catch(res => {
+      console.log(res);
+      dispatch({ type: FETCH_ERR, payload: {} });
+    });
 };
 
 export const fetchBoard = boardID => dispatch => {
@@ -242,8 +242,8 @@ export const updateCard = (cardId, propsToUpdate) => dispatch => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log('response from server. called updateCard(). Data is: ', data)
-      dispatch({ type: UPDATE_BOARD, payload: data});
+      console.log('response from server. called updateCard(). Data is: ', data);
+      dispatch({ type: UPDATE_BOARD, payload: data });
       // dispatch({ type: FETCH_CARD_INFO, payload: { data, id: cardId } });
     });
 };
@@ -266,8 +266,7 @@ export const updateBoard = (boardId, boardName) => dispatch => {
     });
 };
 
-export const addComment = (cardId, cardText) => dispatch =>
-{
+export const addComment = (cardId, cardText) => dispatch => {
   fetch(`/api/card/${cardId}/comment`, {
     method: 'POST',
     body: JSON.stringify({
@@ -281,7 +280,6 @@ export const addComment = (cardId, cardText) => dispatch =>
   })
     .then(response => response.json())
     .then(data => {
-      console.log('return from server, comment: ', data)
       dispatch({ type: ADD_COMMENT, payload: data });
     });
-}
+};

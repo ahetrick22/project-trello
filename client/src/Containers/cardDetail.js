@@ -5,11 +5,8 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 import { FaArchive } from 'react-icons/fa';
 import { Link, withRouter } from 'react-router-dom';
-import {
-  updatedList,
-  updateDifferentList,
-  errorUpdating
-} from '../api';
+import { updatedList, errorUpdating } from '../api';
+import moment from 'moment';
 
 class CardDetail extends Component {
   constructor(props) {
@@ -18,7 +15,7 @@ class CardDetail extends Component {
       card: {},
       editTitle: false,
       editDesc: false,
-      actualSelectedCard: {},
+      actualSelectedCard: {}
     };
   }
 
@@ -38,14 +35,14 @@ class CardDetail extends Component {
   componentWillReceiveProps(nextProps) {
     updatedList(this);
     errorUpdating();
-    if (this.props.selectedCard.selected !== nextProps.selectedCard.selected){
-      console.log('YOU MaDE IT HERE. changes to be made.')
+    if (this.props.selectedCard.selected !== nextProps.selectedCard.selected) {
+      console.log('YOU MaDE IT HERE. changes to be made.');
       this.setState({ card: nextProps.selectedCard.selected });
     }
-  };
+  }
 
   archiveCard = () => {
-    this.props.updateCard(this.state.card._id, { archived: true });  
+    this.props.updateCard(this.state.card._id, { archived: true });
     this.props.handleClose();
   };
 
@@ -81,8 +78,8 @@ class CardDetail extends Component {
 
   // *********** UPDATE CARD LIST ************ //
   updateCardList = e => {
-    const { card } = this.state;
-    console.log('updating card list', this.state)
+    // const { card } = this.state;
+    console.log('updating card list', this.state);
     //this.props.updateCard(card._id, { list: e.target.value });
   };
 
@@ -110,15 +107,14 @@ class CardDetail extends Component {
 
   // *********** UPDATE CARD COMMENTS ************ //
   updateCardComment = () => {
-      var input = document.getElementById('comment');
-      if (input.value) {
-        //send to server
-        this.props.addComment(this.props.match.params.cardID, input.value);
-        //reset value of input to null
-        input.value = '';
-      }
+    var input = document.getElementById('comment');
+    if (input.value) {
+      //send to server
+      this.props.addComment(this.props.match.params.cardID, input.value);
+      //reset value of input to null
+      input.value = '';
+    }
   };
-
 
   render() {
     const { editTitle, editDesc, card } = this.state;
@@ -128,7 +124,7 @@ class CardDetail extends Component {
     if (Object.keys(card).length === 0) {
       return <div>Loading...</div>;
     } else {
-      const { selectedCard } = this.props; // Board
+      const { selectedCard, selectedBoard } = this.props; // Board
 
       return (
         <div className="modal">
@@ -193,12 +189,14 @@ class CardDetail extends Component {
                   className="label"
                   id="label"
                   onChange={this.updateCardLabel}
-                  
                 >
                   <option
-                    selected = "selected"
+                    selected="selected"
                     value="Default"
-                    style={{ backgroundColor: `${COLORS.secondary}`, color: 'black' }}
+                    style={{
+                      backgroundColor: `${COLORS.secondary}`,
+                      color: 'black'
+                    }}
                   >
                     Choose Color
                   </option>
@@ -288,12 +286,14 @@ class CardDetail extends Component {
               />
               <h3 style={{ display: 'inline' }}>Add Comment</h3>
               <br />
-              <textarea                
-                onKeyPress = {e => e.key === 'Enter' ? this.updateCardComment() : null} 
-                name="comment" 
-                id="comment" 
-                cols="30" 
-                rows="5" 
+              <textarea
+                onKeyPress={e =>
+                  e.key === 'Enter' ? this.updateCardComment() : null
+                }
+                name="comment"
+                id="comment"
+                cols="30"
+                rows="5"
               />
             </div>
             <div className="card-activity" style={{ padding: '1em' }}>
@@ -303,12 +303,43 @@ class CardDetail extends Component {
               />
               <h3 style={{ display: 'inline' }}>Activity</h3>
               <br />
-              <ul style={{ listStyleType: 'none', margin: '0', padding: '0' }}>
-                {card.comments.map((comment, index) => (
-                  <li key={index}>
-                    {comment.user.email} commented - {comment.text}
-                  </li>
-                ))}
+              <ul
+                style={{
+                  listStyleType: 'none',
+                  margin: '0',
+                  padding: '5px',
+                  border: '1px solid black',
+                  background: 'white',
+                  height: '150px',
+                  overflow: 'scroll',
+                  borderRadius: '10px'
+                }}
+              >
+                {/* Updating card activites responds with the updated board */}
+                {selectedBoard.lists.map(list => {
+                  if (list._id === card.list) {
+                    return list.cards.map(listCard => {
+                      if (listCard._id === card._id) {
+                        return listCard.activity.reverse().map(activity => (
+                          <Fragment>
+                            <li
+                              style={{ padding: '5px 0', overflow: 'auto' }}
+                              key={activity._id}
+                            >
+                              {moment(activity.timestamp).format('l, h:mma')} -{' '}
+                              {activity.text}
+                            </li>
+                            <hr style={{ marginBottom: '5px' }} />
+                          </Fragment>
+                        ));
+                      } else {
+                        return null;
+                      }
+                    });
+                  } else {
+                    return null;
+                  }
+                })}
               </ul>
             </div>
             <div
@@ -330,8 +361,8 @@ class CardDetail extends Component {
   }
 }
 
-const mapStateToProps = ({ selectedCard }) => {
-  return { selectedCard };
+const mapStateToProps = ({ selectedCard, selectedBoard }) => {
+  return { selectedCard, selectedBoard };
 };
 
 export default withRouter(

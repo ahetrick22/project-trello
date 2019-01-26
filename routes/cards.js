@@ -95,6 +95,7 @@ router.put('/api/card/:id', requireAuth, (req, res) => {
         Card.findByIdAndUpdate(id, updateObject, (err, card) => {
           if (err) throw err;
           card.activity.push(activityObj);
+          card.save();
           if (!card) {
             return res.send(404, 'no card with that id');
           } else {
