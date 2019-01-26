@@ -29,6 +29,7 @@ class List extends React.Component {
   };
   hideModal = () => {
     this.setState({ modalOpen: false });
+    console.log(this.props);
   };
 
   displayModal = () => {

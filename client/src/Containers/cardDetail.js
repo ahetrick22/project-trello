@@ -44,8 +44,9 @@ class CardDetail extends Component {
     }
   };
 
-  archiveCard = card => {
-    //needs to hit an update card action instead
+  archiveCard = () => {
+    this.props.updateCard(this.state.card._id, { archived: true });  
+    this.props.handleClose();
   };
 
   // *********** UPDATE CARD TITLE ************ //
@@ -317,7 +318,7 @@ class CardDetail extends Component {
                 justifyContent: 'center'
               }}
             >
-              <ArchiveButton onClick={this.archiveCard(card)}>
+              <ArchiveButton onClick={this.archiveCard}>
                 <FaArchive />
                 Archive
               </ArchiveButton>
