@@ -78,9 +78,29 @@ class CardDetail extends Component {
 
   // *********** UPDATE CARD LIST ************ //
   updateCardList = e => {
-    // const { card } = this.state;
-    console.log('updating card list', this.state);
-    //this.props.updateCard(card._id, { list: e.target.value });
+    console.log(this.props);
+    console.log('state', this.state)
+
+    // const differentListSocketObj = {
+    //   startListId: this.state.card.list,
+    //   finishListId: 
+    //   cardId: this.state.card._id,
+    //   sourceIndex: 
+    //   destinationIndex: 
+    // };
+
+    // const newState = {
+    //   ...this.state,
+    //   lists: {
+    //     ...this.state.lists,
+    //     [newStart.id]: newStart,
+    //     [newFinish.id]: newFinish
+    //   }
+    // };
+
+   // updateDifferentList(differentListSocketObj, newState);
+    //need setState
+   // this.setState(newState);
   };
 
   // createListItems = () => {
@@ -164,25 +184,7 @@ class CardDetail extends Component {
                 </h1>
               )}
               <br />
-              <div className="cardList">
-                <span>List:</span>
-                <select
-                  className="list"
-                  id="list"
-                  onChange={this.updateCardList}
-                  defaultValue={selectedCard.lists.find(
-                    list => list._id === card.list
-                  )}
-                >
-                  {selectedCard.lists.map((list, index) => (
-                    <option value={list._id} key={index}>
-                      {list.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <br />
-
+             
               <div className="card-label">
                 <span>Label:</span>
                 <select
