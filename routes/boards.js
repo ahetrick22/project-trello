@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Board = require('../models/board');
 const List = require('../models/list');
-const User = require('../models/user')
+const User = require('../models/user');
 const passportService = require('../services/passport');
 const passport = require('passport');
 const requireAuth = passport.authenticate('jwt', { session: false });
@@ -24,7 +24,7 @@ router.get('/api/boards', requireAuth, (req, res) => {
 //       } else {
 //         User.findById(req.params.userId).populate({
 //           path: 'organizations',
-//           populate: { 
+//           populate: {
 //             path: 'boards',
 //           }
 //         }).exec((err, UserBoards) => {
@@ -35,7 +35,6 @@ router.get('/api/boards', requireAuth, (req, res) => {
 //     })
 //   }
 // })
-
 
 //get a specific board
 router.get('/api/boards/:id', requireAuth, (req, res) => {
@@ -50,29 +49,31 @@ router.get('/api/boards/:id', requireAuth, (req, res) => {
         res.send(404, 'No board with that id');
         //otherwise, populate the board with its lists and cards and send it
       } else {
-        Board.findById(req.params.id).populate({
-          path: 'lists',
-          populate: {
-            path: 'cards',
-              match: { archived: false }//chain here filtering so that archived things don't return
-          }
-        }).exec((err, fullBoard) => {
-          if (err) throw err;
-          
-          res.send(JSON.stringify(fullBoard));
-        })
+        Board.findById(req.params.id)
+          .populate({
+            path: 'lists',
+            populate: {
+              path: 'cards',
+              match: { archived: false } //chain here filtering so that archived things don't return
+            }
+          })
+          .exec((err, fullBoard) => {
+            if (err) throw err;
+
+            res.send(JSON.stringify(fullBoard));
+          });
       }
-    })
+    });
     //if the object ID wasn't in the correct format
   } else {
     res.send(400, 'Send a valid object ID as a parameter');
   }
-})
+});
 
 //ADD A NEW LIST to a specific board
 router.post('/api/board/:id/list', requireAuth, (req, res) => {
   //make sure it's a valid mongo ID and won't trigger a cast error
-  console.log('adding list to the server');
+
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     //then find the matching board
     Board.findById(req.params.id, (err, board) => {
@@ -83,56 +84,51 @@ router.post('/api/board/:id/list', requireAuth, (req, res) => {
       }
       if (req.body.name && req.params.id) {
         let newList = new List({
-        name: req.body.name,
-        board: req.params.id,
-        archived: false,
-        cards: [],
-        frozen: false
-      });
+          name: req.body.name,
+          board: req.params.id,
+          archived: false,
+          cards: [],
+          frozen: false
+        });
 
-      console.log('newList to add: ', newList);
-
-      newList.save((err, id) => {
-        if (err) throw err;
-        let refnId = id;
-        
-        List.findById(refnId, (err, newList) => {
+        newList.save((err, id) => {
           if (err) throw err;
-          board.lists.push(newList);
-          board.save();
-        })
-        Board.
-        findById(req.params.id)
-        .populate({
-          path: 'lists',
-          populate: { path: 'cards' },
-          match: { archived: false }//chain here filtering so that archived things don't return
+          let refnId = id;
 
-        })
-        .exec((err, fullBoard) => {
-          if (err) throw err;
-          fullBoard.lists.push(newList);
-          res.send(JSON.stringify(fullBoard));
-        })
-      })
-    } else {
-      //if the format Id wasn't in the correct object 
-  res.send(400, 'Send a valid object ID as a parameter');
-}
-})
+          List.findById(refnId, (err, newList) => {
+            if (err) throw err;
+            board.lists.push(newList);
+            board.save();
+          });
+          Board.findById(req.params.id)
+            .populate({
+              path: 'lists',
+              populate: { path: 'cards' },
+              match: { archived: false } //chain here filtering so that archived things don't return
+            })
+            .exec((err, fullBoard) => {
+              if (err) throw err;
+              fullBoard.lists.push(newList);
+              res.send(JSON.stringify(fullBoard));
+            });
+        });
+      } else {
+        //if the format Id wasn't in the correct object
+        res.send(400, 'Send a valid object ID as a parameter');
+      }
+    });
   }
-
-})
+});
 
 //Updating a board's properties
 router.put('/api/board/:id', requireAuth, (req, res) => {
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     let updateObj = {};
     if (req.body.name) {
-      updateObj.name = req.body.name
+      updateObj.name = req.body.name;
     }
     if (Object.keys(updateObj).length === 0) {
-      res.send(400, 'Body must have proper parameters')
+      res.send(400, 'Body must have proper parameters');
     }
     let { id } = req.params;
     Board.findByIdAndUpdate(id, updateObj, (err, board) => {
@@ -140,22 +136,23 @@ router.put('/api/board/:id', requireAuth, (req, res) => {
       if (!board) {
         res.send(404, 'no board matching this id');
       } else {
-        Board.findById(id).populate({
-          path: 'lists',
-          populate: {
-            path: 'cards',
-            match: { archived: false }//chain here filtering so that archived things don't return
-          }
-        }).exec((err, fullBoard) => {
-          if (err) throw err;
-          res.end(JSON.stringify(fullBoard));
-        })
+        Board.findById(id)
+          .populate({
+            path: 'lists',
+            populate: {
+              path: 'cards',
+              match: { archived: false } //chain here filtering so that archived things don't return
+            }
+          })
+          .exec((err, fullBoard) => {
+            if (err) throw err;
+            res.end(JSON.stringify(fullBoard));
+          });
       }
-    })
+    });
   } else {
-    res.send(400, 'Invalid parameters for request')
+    res.send(400, 'Invalid parameters for request');
   }
-})
-
+});
 
 module.exports = router;

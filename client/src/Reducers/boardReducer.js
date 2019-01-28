@@ -10,19 +10,18 @@ export const boardReducer = (state = {}, action) => {
   //   let filteredData = payload.lists.map(list => {
   //     return list.cards.filter(card => card.archived === false);
   //   });
-  //   console.log('filtered in board reducer', filteredData)
+  //
   //  payload.filteredLists = filteredData;
-  //  console.log(payload);
+  //
   // }
-   
 
-    switch (type) {
+  switch (type) {
     case FETCH_BOARD:
-      return {...state, ...payload};
+      return { ...state, ...payload };
     case ADD_BOARD:
-      return {...state, ...payload};
+      return { ...state, ...payload };
     case UPDATE_BOARD:
-      return {...state, ...payload};
+      return { ...state, ...payload };
     default:
       return state;
   }

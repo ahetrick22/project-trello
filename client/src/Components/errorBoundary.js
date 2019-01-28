@@ -6,13 +6,10 @@ import styled from 'styled-components';
 import { COLORS, TYPEFACE } from '../css/StyleGuide';
 
 class ErrorBoundary extends Component {
-
-
   // You can also log error messages to an error reporting service here
 
   render() {
     if (this.props.error === 'fetch') {
-      console.log(this.props)
       //this sometimes fixes but will get stuck in an infinite loop so be careful
       // window.location.reload();
 
@@ -39,7 +36,7 @@ function mapStateToProps({ error }) {
   return { error };
 }
 const ErrorModal = styled.div`
-  display: inline-block; 
+  display: inline-block;
   position: relative; /* Stay in place */
   left: 25%;
   top: 25%;

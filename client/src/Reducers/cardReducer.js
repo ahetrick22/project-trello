@@ -17,12 +17,11 @@ export const cardReducer = (state = {}, action) => {
       // });
       // data.lists = filteredData;
       data.selected = selected;
-      console.log('data', data);
-      //console.log('in card reducer', selected)
+
+      //
       // return state;
       return { ...data };
     case ADD_COMMENT:
-      console.log('at card reducer. payload is: ', payload);
       return { ...state, ...payload };
     default:
       return state;

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import List from './list';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { FaPencilAlt } from 'react-icons/fa'
+import { FaPencilAlt } from 'react-icons/fa';
 import * as actions from '../Actions';
 import { connect } from 'react-redux';
 import { StyledButton } from '../Components/styledButton';
@@ -11,7 +11,7 @@ import {
   updateSameList,
   updatedList,
   updateDifferentList,
-  newListOrderEvent, 
+  newListOrderEvent,
   errorUpdating
 } from '../api';
 
@@ -54,14 +54,14 @@ class Board extends Component {
     if (boardID) {
       this.props.fetchBoard(boardID);
     }
-    if (cardID){
+    if (cardID) {
       this.props.history.goBack();
       // this.props.fetchBoard(this.props.match.params.boardID);
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.boardID && prevProps.match.params.cardID){
+    if (this.props.match.params.boardID && prevProps.match.params.cardID) {
       this.props.fetchBoard(this.props.match.params.boardID);
     }
   }
@@ -232,14 +232,8 @@ class Board extends Component {
   };
 
   updateBoardName = e => {
-    console.log('props: ', this.props);
     //as click "Enter"
     if (e.key === 'Enter') {
-      console.log('id:', this.props.board._id);
-      console.log('board.name:', this.props.board.name);
-      console.log('boardName:', this.state.boardName);
-      console.log('e', e.target.value);
-
       this.props.updateBoard(this.props.board._id, this.state.boardName);
       this.setState({ editBoardName: false });
     } else {
@@ -252,7 +246,7 @@ class Board extends Component {
     return (
       <Fragment>
         <InfoBar>
-          <EditSymbol onClick={() => this.setState({ editBoardName: true})}>
+          <EditSymbol onClick={() => this.setState({ editBoardName: true })}>
             <FaPencilAlt />
           </EditSymbol>
           {editBoardName ? (
@@ -267,7 +261,7 @@ class Board extends Component {
           ) : (
             // Else render header with Board name
             <h3 onDoubleClick={() => this.setState({ editBoardName: true })}>
-              {this.props.board.name} | Project Shift           
+              {this.props.board.name} | Project Shift
             </h3>
           )}
           <StyledButton onClick={this.handleNewListClickEvent}>
@@ -367,7 +361,7 @@ const TextInput = styled.input`
 
 const EditSymbol = styled.div`
   margin-right: 5px;
-`
+`;
 
 function mapStateToProps({ selectedBoard, selectedCard }) {
   return {

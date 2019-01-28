@@ -21,15 +21,13 @@ class List extends React.Component {
     };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
-    this.displayModal = this.displayModal.bind(this)
+    this.displayModal = this.displayModal.bind(this);
   }
   showModal = () => {
-    console.log(this.state);
     this.setState({ modalOpen: true });
   };
   hideModal = () => {
     this.setState({ modalOpen: false });
-    console.log(this.props);
   };
 
   displayModal = () => {
@@ -67,7 +65,7 @@ class List extends React.Component {
       );
     } else {
       return (
-        <CardContainer> 
+        <CardContainer>
           <CardInputField>
             <input
               id="inputCard"
@@ -145,7 +143,7 @@ class List extends React.Component {
                   <CardInfo>{cardLength} Cards</CardInfo>
                 )}
               </ListHeader>
-              <hr style={{ width: '90%', margin: '5px auto' }} /> 
+              <hr style={{ width: '90%', margin: '5px auto' }} />
               <Droppable droppableId={this.props.column.id} type="card">
                 {(provided, snapshot) => (
                   <CardList
@@ -165,7 +163,7 @@ class List extends React.Component {
                     {/* label={this.props.selectedBoard.lists.cards[index].label} */}
                     {provided.placeholder}
                   </CardList>
-                )} 
+                )}
               </Droppable>
               {this.renderListInputField()}
             </Container>
@@ -173,7 +171,8 @@ class List extends React.Component {
         </Draggable>
       </Fragment>
     );
-  }}
+  }
+}
 // }
 
 const CardInfo = styled.p`
@@ -242,12 +241,12 @@ const CardList = styled.div`
 `;
 
 const CardInputField = styled('div')`
-display:flex;
-flex-direction:row;
-align-items:center;
-width:100%;
-height: 100%;
-margin: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 10px;
 `;
 
 const WholeModalView = styled('div')`

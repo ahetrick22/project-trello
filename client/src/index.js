@@ -16,7 +16,7 @@ import Board from './Containers/board';
 // import CardDetail from './Containers/cardDetail';
 import ErrorBoundary from './Components/errorBoundary';
 
-const store = createStore(rootReducer, {}, applyMiddleware(thunk, logger));
+const store = createStore(rootReducer, {}, applyMiddleware(thunk));
 
 render(
   <Provider store={store}>
