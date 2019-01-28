@@ -1,4 +1,4 @@
-# Project Trello
-Project Shift Cohort 4 Team Project
+# Prello
+[Project Shift](www.projectshift.io) Cohort 4 Team Project: Trello clone.
 
-To start project: npm install in both project folder & client folder, then npm run dev in project folder.
+Prello was built by 9 full stack developers in one week.  The project is [currently deployed here](https://whispering-anchorage-65843.herokuapp.com/).
