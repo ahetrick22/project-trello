@@ -15,11 +15,10 @@ class Organization extends Component {
   }
 
   componentDidMount = async () => {
-    console.log('component mounted')
     await this.props.fetchOrg();
     //this fetchboards currently will only ever return one org boards - NO args
     await this.props.fetchBoards();
-  }
+  };
 
   handleInput = input => {
     if (input.key === 'Enter') {
@@ -59,13 +58,9 @@ class Organization extends Component {
 
     if (organization === null) {
       return <div>Loading...</div>;
-
-    }
-    else if (!organization._id) {
-      return <div>No organization found</div>
-    } 
-    else {
-
+    } else if (!organization._id) {
+      return <div>No organization found</div>;
+    } else {
       return (
         <div className="org-home" style={{ fontFamily: TYPEFACE }}>
           <OrgInfo>

@@ -28,15 +28,14 @@ class CardDetail extends Component {
   };
 
   // componentDidUpdate = prevProps => {
-  //   console.log('PREV PROPS', prevProps.selectedCard.selected);
-  //   console.log('THIS PROPS', this.props.selectedCard.selected);
+  //
+  //
   // }
 
   componentWillReceiveProps(nextProps) {
     updatedList(this);
     errorUpdating();
     if (this.props.selectedCard.selected !== nextProps.selectedCard.selected) {
-      console.log('YOU MaDE IT HERE. changes to be made.');
       this.setState({ card: nextProps.selectedCard.selected });
     }
   }
@@ -78,17 +77,13 @@ class CardDetail extends Component {
 
   // *********** UPDATE CARD LIST ************ //
   updateCardList = e => {
-    console.log(this.props);
-    console.log('state', this.state)
-
     // const differentListSocketObj = {
     //   startListId: this.state.card.list,
-    //   finishListId: 
+    //   finishListId:
     //   cardId: this.state.card._id,
-    //   sourceIndex: 
-    //   destinationIndex: 
+    //   sourceIndex:
+    //   destinationIndex:
     // };
-
     // const newState = {
     //   ...this.state,
     //   lists: {
@@ -97,10 +92,9 @@ class CardDetail extends Component {
     //     [newFinish.id]: newFinish
     //   }
     // };
-
-   // updateDifferentList(differentListSocketObj, newState);
+    // updateDifferentList(differentListSocketObj, newState);
     //need setState
-   // this.setState(newState);
+    // this.setState(newState);
   };
 
   // createListItems = () => {
@@ -144,7 +138,7 @@ class CardDetail extends Component {
     if (Object.keys(card).length === 0) {
       return <div>Loading...</div>;
     } else {
-      const { selectedCard, selectedBoard } = this.props; // Board
+      const { selectedCard } = this.props; // Board
 
       return (
         <div className="modal">
@@ -184,7 +178,7 @@ class CardDetail extends Component {
                 </h1>
               )}
               <br />
-             
+
               <div className="card-label">
                 <span>Label:</span>
                 <select
@@ -318,7 +312,7 @@ class CardDetail extends Component {
                 }}
               >
                 {/* Updating card activites responds with the updated board */}
-                {selectedBoard.lists.map(list => {
+                {selectedCard.lists.map(list => {
                   if (list._id === card.list) {
                     return list.cards.map(listCard => {
                       if (listCard._id === card._id) {

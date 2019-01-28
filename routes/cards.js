@@ -105,7 +105,7 @@ router.put('/api/card/:id', requireAuth, (req, res) => {
                   path: 'lists',
                   populate: {
                     path: 'cards',
-                    match: { archived: false },//chain here filtering so that archived things don't return
+                    match: { archived: false }, //chain here filtering so that archived things don't return
                     populate: {
                       path: 'comments',
                       populate: {
@@ -155,20 +155,31 @@ router.post('/api/card/:id/comment', (req, res) => {
               if (err) throw err;
               card.comments.push(newComment);
               card.activity.push(activityObj);
-              card.save(function(err, card) {
-                if (err) throw err;
-                Card.findById(req.params.id)
-                  .populate({
-                    path: 'comments',
-                    populate: {
-                      path: 'user',
-                    }
-                  })
-                  .exec((err, fullCard) => {
-                    if (err) throw err;
-                    res.send(JSON.stringify(fullCard));
-                  });
-              });
+              card.save();
+              if (!card) {
+                return res.send(404, 'no card with that id');
+              } else {
+                List.findById(card.list._id, (err, fullList) => {
+                  Board.findById(fullList.board._id)
+                    .populate({
+                      path: 'lists',
+                      populate: {
+                        path: 'cards',
+                        match: { archived: false }, //chain here filtering so that archived things don't return
+                        populate: {
+                          path: 'comments',
+                          populate: {
+                            path: 'user'
+                          }
+                        }
+                      }
+                    })
+                    .exec((err, fullBoard) => {
+                      if (err) throw err;
+                      res.send(fullBoard);
+                    });
+                });
+              }
             });
           });
         });

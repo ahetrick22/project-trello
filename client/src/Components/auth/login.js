@@ -20,26 +20,17 @@ class login extends Component {
   };
   componentWillUnmount = () => {
     window.location.reload();
-  }
+  };
 
   loginAsGuest = () => {
     this.props.fetchLogin('test@test.com', 'test');
-  }
+  };
 
   logInError = () => {
     if (this.props.error === 'login') {
-      console.log('ERRRR');
-
-
-      return (
-        <p id="login-err">Invalid Email/Password</p>
-      )
-    } else if (this.props.error === 'email_err'){
-      return (
-        <p id="login-err">Email in use</p>
-
-      )
-
+      return <p id="login-err">Invalid Email/Password</p>;
+    } else if (this.props.error === 'email_err') {
+      return <p id="login-err">Email in use</p>;
     }
   };
 
@@ -47,8 +38,7 @@ class login extends Component {
     this.props.fetchRegister(this.state.email, this.state.password);
   };
   render() {
-    if (this.props.user.authenticated && this.props.user !== "undefined") {
-      
+    if (this.props.user.authenticated && this.props.user !== 'undefined') {
       return <Redirect to="/org" />;
     } else {
       return (
@@ -123,7 +113,9 @@ class login extends Component {
                 </div>
 
                 <p className="guestLogin">
-                  <a href="/org" onClick={this.loginAsGuest}>Login As Guest</a>
+                  <a href="/org" onClick={this.loginAsGuest}>
+                    Login As Guest
+                  </a>
                 </p>
               </div>
             </div>

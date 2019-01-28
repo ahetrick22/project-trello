@@ -64,7 +64,6 @@ export const fetchRegister = (email, password) => dispatch => {
   })
     .then(res => res.json())
     .then(response => {
-      console.log(response);
       if (response.error) {
         dispatch({ type: EMAIL_ERR, data: {} });
       } else {
@@ -86,7 +85,6 @@ export const fetchOrg = orgID => async dispatch => {
       dispatch({ type: FETCH_ORG, payload: data });
     })
     .catch(res => {
-      console.log(res);
       dispatch({ type: FETCH_ERR, payload: {} });
     });
 };
@@ -99,16 +97,13 @@ export const fetchBoards = () => async dispatch => {
     }
   })
     .then(r => {
-      console.log(r.status);
       if (r.status === 401) {
-        console.log(401111);
         return dispatch({ type: LOGIN_ERR, payload: {} });
       }
       return r.json();
     })
     .then(data => dispatch({ type: FETCH_BOARDS, payload: data }))
     .catch(res => {
-      console.log(res);
       dispatch({ type: FETCH_ERR, payload: {} });
     });
 };
@@ -122,7 +117,6 @@ export const fetchBoard = boardID => dispatch => {
   })
     .then(res => {
       const resStatus = res.status;
-      console.log(resStatus);
 
       return res.json();
     })
@@ -143,14 +137,12 @@ export const fetchCard = cardID => dispatch => {
   })
     .then(res => res.json())
     .then(data => {
-      console.log('fetch card data', data);
       dispatch({ type: FETCH_CARD_INFO, payload: { data, id: cardID } });
     })
     .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
 };
 
 export const addBoard = (organizationId, boardName) => dispatch => {
-  console.log(organizationId, boardName);
   fetch(`/api/organizations/${organizationId}`, {
     method: 'POST',
     body: JSON.stringify({
@@ -164,7 +156,6 @@ export const addBoard = (organizationId, boardName) => dispatch => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log(data);
       dispatch({ type: ADD_BOARD, payload: data.boards });
     })
     .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
@@ -184,7 +175,6 @@ export const addCard = (listId, cardName) => dispatch => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log('response from addCard: Data= ', data);
       dispatch({ type: ADD_BOARD, payload: data });
     })
     .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
@@ -204,7 +194,6 @@ export const addList = (boardId, listName) => dispatch => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log('returning data from server add list post: ', data);
       dispatch({ type: ADD_BOARD, payload: data });
     })
     .catch(() => dispatch({ type: FETCH_ERR, data: {} }));
@@ -230,7 +219,7 @@ export const updateList = (listID, listName) => dispatch => {
 };
 
 export const updateCard = (cardId, propsToUpdate) => dispatch => {
-  // console.log('THINGS', cardId, propsToUpdate);
+  //
   fetch(`/api/card/${cardId}`, {
     method: 'PUT',
     headers: {
@@ -242,7 +231,6 @@ export const updateCard = (cardId, propsToUpdate) => dispatch => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log('response from server. called updateCard(). Data is: ', data);
       dispatch({ type: UPDATE_BOARD, payload: data });
       // dispatch({ type: FETCH_CARD_INFO, payload: { data, id: cardId } });
     });

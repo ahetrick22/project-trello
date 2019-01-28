@@ -1,4 +1,3 @@
-
 // router.post('/organizations/:id', (req, res) => {
 //     //make sure it's a valid mongo ID and won't trigger a cast error
 
@@ -13,15 +12,14 @@
 
 //         //create a new board
 //       }
-//         console.log(req.body)
 //         if (req.body.name) {
 //           let newBoard = new Board({
 //             name: req.body.name,
 //             lists: [],
 //             organization: req.params.id
 //           })
-//           
-//             
+//
+//
 //                 )
 //               })
 //             })
@@ -32,9 +30,8 @@
 //         res.send(400, 'Send a valid object ID as a parameter');
 //       }
 // })//     } else {
-//       console.log(req.body)
-//       
-      
+//
+
 //       newBoard.save();
 //       organization.boards.push(newBoard);
 //       organization.save((err, savedOrg) => {
@@ -56,5 +53,3 @@
 // })
 
 //otherwise, create the new list on that board and send it
-
-
