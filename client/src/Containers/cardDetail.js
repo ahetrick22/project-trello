@@ -79,14 +79,14 @@ class CardDetail extends Component {
   // *********** UPDATE CARD LIST ************ //
   updateCardList = e => {
     console.log(this.props);
-    console.log('state', this.state)
+    console.log('state', this.state);
 
     // const differentListSocketObj = {
     //   startListId: this.state.card.list,
-    //   finishListId: 
+    //   finishListId:
     //   cardId: this.state.card._id,
-    //   sourceIndex: 
-    //   destinationIndex: 
+    //   sourceIndex:
+    //   destinationIndex:
     // };
 
     // const newState = {
@@ -98,9 +98,9 @@ class CardDetail extends Component {
     //   }
     // };
 
-   // updateDifferentList(differentListSocketObj, newState);
+    // updateDifferentList(differentListSocketObj, newState);
     //need setState
-   // this.setState(newState);
+    // this.setState(newState);
   };
 
   // createListItems = () => {
@@ -184,7 +184,7 @@ class CardDetail extends Component {
                 </h1>
               )}
               <br />
-             
+
               <div className="card-label">
                 <span>Label:</span>
                 <select
@@ -318,7 +318,7 @@ class CardDetail extends Component {
                 }}
               >
                 {/* Updating card activites responds with the updated board */}
-                {selectedBoard.lists.map(list => {
+                {selectedCard.lists.map(list => {
                   if (list._id === card.list) {
                     return list.cards.map(listCard => {
                       if (listCard._id === card._id) {
